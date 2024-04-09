@@ -31,10 +31,10 @@ public class Runtime {
         e.printStackTrace();
       } catch (InvocationTargetException e) {
         Class<? extends Throwable> clazz = e.getCause().getClass();
-        if (clazz.equals(content.raises())) {
+        if (content.result().expectThrows(clazz)) {
           message = "success";
         } else {
-          message = e.toString();
+          message = e.getCause().toString();
         }
       }
 
@@ -42,7 +42,7 @@ public class Runtime {
         message = "did not produce error";
       }
 
-      System.out.println(cls.getName() + "." + m.getName() + ": " + message);
+      System.out.println(cls.getName() + "." + m.getName() + content + ": " + message);
 
     }
   }
