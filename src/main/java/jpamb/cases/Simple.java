@@ -39,12 +39,11 @@ public class Simple {
     return a / b;
   }
 
+  @Case("(false) -> assertion error")
   @Case("(true) -> divide by zero")
-  public static int divideByZeroIf(boolean b) {
-    if (b) {
-      return 1 / 0;
-    }
-    return 0;
+  public static int multiError(boolean b) {
+    assert b;
+    return 1 / 0;
   }
 
 }

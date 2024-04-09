@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,10 +52,13 @@ public record CaseContent(
 
   public static enum ResultType {
     DIVIDE_BY_ZERO,
-    ASSERTION_ERROR;
+    ASSERTION_ERROR,
+    NON_TERMINATION;
 
     public static ResultType parse(String string) {
-      if (string.equals("assertion error")) {
+      if (string.equals("*")) {
+        return NON_TERMINATION;
+      } else if (string.equals("assertion error")) {
         return ASSERTION_ERROR;
       } else if (string.equals("divide by zero")) {
         return DIVIDE_BY_ZERO;
@@ -69,6 +73,8 @@ public record CaseContent(
           return "divide by zero";
         case ASSERTION_ERROR:
           return "assertion error";
+        case NON_TERMINATION:
+          return "*";
         default:
           throw new RuntimeException("Unexpected");
       }
@@ -80,6 +86,8 @@ public record CaseContent(
           return clazz.equals(ArithmeticException.class);
         case ASSERTION_ERROR:
           return clazz.equals(AssertionError.class);
+        case NON_TERMINATION:
+          return clazz.equals(TimeoutException.class);
         default:
           throw new RuntimeException("Unexpected");
       }

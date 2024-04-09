@@ -6,11 +6,12 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Tag {
-    TagType[] value();
+  TagType[] value();
 
-    public static enum TagType {
-      CONDITIONAL,
-      LOOP,
-      CALL
-    }
+  public static enum TagType {
+    CONDITIONAL,
+    LOOP,
+    INTEGER_OVERFLOW,
+    CALL
+  }
 }
