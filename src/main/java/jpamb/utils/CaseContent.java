@@ -73,6 +73,8 @@ public record CaseContent(
         return ASSERTION_ERROR;
       } else if (string.equals("divide by zero")) {
         return DIVIDE_BY_ZERO;
+      } else if (string.equals("ok")) {
+        return SUCCESS;
       } else {
         throw new RuntimeException("Invalid result type: " + string);
       }

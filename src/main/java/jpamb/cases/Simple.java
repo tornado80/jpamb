@@ -10,16 +10,19 @@ public class Simple {
   }
 
   @Case("(false) -> assertion error")
+  @Case("(true) -> ok")
   public static void assertBoolean(boolean shouldFail) {
     assert shouldFail;
   }
 
   @Case("(0) -> assertion error")
+  @Case("(1) -> ok")
   public static void assertInteger(int n) {
     assert n != 0;
   }
 
   @Case("(-1) -> assertion error")
+  @Case("(1) -> ok")
   public static void assertPositive(int num) {
     assert num > 0;
   }
@@ -30,11 +33,13 @@ public class Simple {
   }
 
   @Case("(0) -> divide by zero")
+  @Case("(1) -> ok")
   public static int divideByN(int n) {
     return 1 / n;
   }
 
   @Case("(0, 0) -> divide by zero")
+  @Case("(0, 1) -> ok")
   public static int divideZeroByZero(int a, int b) {
     return a / b;
   }

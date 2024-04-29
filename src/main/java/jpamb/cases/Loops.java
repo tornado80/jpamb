@@ -31,7 +31,7 @@ public class Loops {
   }
 
   @Case("() -> assertion error")
-  @Tag({ INTEGER_OVERFLOW })
+  @Tag({ LOOP, INTEGER_OVERFLOW })
   public static void terminates() {
     short i = 0;
     while (i++ != 0) {
