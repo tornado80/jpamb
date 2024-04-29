@@ -21,7 +21,7 @@
             jdt-language-server
             jdk
             maven
-            (python3.withPackages (p: with p; []))
+            (python3.withPackages (p: with p; [click pandas]))
           ];
         };
       };

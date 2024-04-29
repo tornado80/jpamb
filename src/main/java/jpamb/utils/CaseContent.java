@@ -19,16 +19,13 @@ public record CaseContent(
     return "(" + String.join(", ", sparams) + ") -> " + result.toString();
   }
 
-  public static CaseContent parse(String string) {
-    Pattern pattern = Pattern.compile("\\(([^)]*)\\)\\s*->\\s*(.+)");
-    Matcher matcher = pattern.matcher(string);
+  static Pattern paramPattern = Pattern.compile("\\(([^)]*)\\)");
 
-    // Parse the expression
+  public static Object[] parseParams(String string) {
+    Matcher matcher = paramPattern.matcher(string);
     if (matcher.find()) {
-      String args = matcher.group(1);
-      String result = matcher.group(2);
       ArrayList<Object> list = new ArrayList<>();
-      try (Scanner sc = new Scanner(args)) {
+      try (Scanner sc = new Scanner(matcher.group(1))) {
         sc.useLocale(Locale.US);
         sc.useDelimiter(" *, *");
         while (sc.hasNext()) {
@@ -39,12 +36,25 @@ public record CaseContent(
           } else {
             String var = sc.next();
             if (!var.equals(",")) {
-              throw new RuntimeException("Invalid case: " + string + " // unexpected " + var);
+              throw new RuntimeException("Invalid parameter: " + string + " // unexpected " + var);
             }
           }
         }
       }
-      return new CaseContent(list.toArray(), ResultType.parse(result));
+      return list.toArray();
+    } else {
+      throw new RuntimeException(string + " is not a paramater list");
+    }
+  }
+
+  public static CaseContent parse(String string) {
+    Pattern pattern = Pattern.compile("(\\([^)]*\\))\\s*->\\s*(.+)");
+    Matcher matcher = pattern.matcher(string);
+    // Parse the expression
+    if (matcher.find()) {
+      String args = matcher.group(1);
+      String result = matcher.group(2);
+      return new CaseContent(parseParams(args), ResultType.parse(result));
     } else {
       throw new RuntimeException("Invalid case: " + string);
     }
@@ -53,6 +63,7 @@ public record CaseContent(
   public static enum ResultType {
     DIVIDE_BY_ZERO,
     ASSERTION_ERROR,
+    SUCCESS,
     NON_TERMINATION;
 
     public static ResultType parse(String string) {
@@ -75,6 +86,8 @@ public record CaseContent(
           return "assertion error";
         case NON_TERMINATION:
           return "*";
+        case SUCCESS:
+          return "ok";
         default:
           throw new RuntimeException("Unexpected");
       }
@@ -90,6 +103,18 @@ public record CaseContent(
           return clazz.equals(TimeoutException.class);
         default:
           throw new RuntimeException("Unexpected");
+      }
+    }
+
+    public static ResultType fromThrowable(Throwable cause) {
+      if (cause instanceof ArithmeticException) {
+        return DIVIDE_BY_ZERO;
+      } else if (cause instanceof AssertionError) {
+        return ASSERTION_ERROR;
+      } else if (cause instanceof TimeoutException) {
+        return NON_TERMINATION;
+      } else {
+        throw new RuntimeException("Unexpected");
       }
     }
   }

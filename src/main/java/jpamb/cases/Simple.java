@@ -35,7 +35,7 @@ public class Simple {
   }
 
   @Case("(0, 0) -> divide by zero")
-  public static double divideZeroByZero(int a, int b) {
+  public static int divideZeroByZero(int a, int b) {
     return a / b;
   }
 
