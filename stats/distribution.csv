@@ -1,0 +1,15 @@
+methodid,*,assertion error,divide by zero,ok
+jpamb.cases.Loops.forever:()V,1,0,0,0
+jpamb.cases.Loops.neverAsserts:()V,1,0,0,0
+jpamb.cases.Loops.neverDivides:()I,1,0,0,0
+jpamb.cases.Loops.terminates:()V,0,1,0,0
+jpamb.cases.Simple.assertBoolean:(Z)V,0,1,0,1
+jpamb.cases.Simple.assertFalse:()V,0,1,0,0
+jpamb.cases.Simple.assertInteger:(I)V,0,1,0,1
+jpamb.cases.Simple.assertPositive:(I)V,0,1,0,1
+jpamb.cases.Simple.divideByN:(I)I,0,0,1,1
+jpamb.cases.Simple.divideByZero:()I,0,0,1,0
+jpamb.cases.Simple.divideZeroByZero:(II)I,0,0,1,1
+jpamb.cases.Simple.multiError:(Z)I,0,1,1,0
+jpamb.cases.Tricky.collatz:(I)V,0,0,0,1
+-,5.8%,11.5%,7.7%,11.5%
