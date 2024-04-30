@@ -126,7 +126,7 @@ class Prediction:
         if p == 1:
             x = float("inf")
         else:
-            x = (1 - 2 * p) / (p - 1) / 2
+            x = -((1 - p) / p - 1) / 2
         return Prediction(-x if negate else x)
 
     def score(self, happens: bool):
@@ -209,17 +209,17 @@ TARGETS = [
 ]
 
 
-def add_targets(m):
-    def validate(ctx_, param_, targets):
-        resulting_targets = []
-        for target in targets:
-            resulting_targets.extend(target.split(","))
-        targets = resulting_targets
-        return targets
+def add_queries(m):
+    def validate(ctx_, param_, queries):
+        resulting_queries = []
+        for queries in queries:
+            resulting_queries.extend(queries.split(","))
+        queries = resulting_queries
+        return queries
 
     return click.option(
-        "--target",
-        "targets",
+        "--queries",
+        "queries",
         multiple=True,
         show_default=True,
         default=TARGETS,
@@ -258,9 +258,9 @@ def cases(workfolder):
 
 @cli.command
 @click.option("--check/--no-check", default=True)
-@add_targets
+@add_queries
 @add_workfolder
-def rebuild(check, targets, workfolder):
+def rebuild(check, queries, workfolder):
     """Rebuild the benchmark-suite."""
     subprocess.call(["mvn", "compile"])
 
@@ -279,7 +279,7 @@ def rebuild(check, targets, workfolder):
     for case in cases.splitlines():
         case = Case.from_spec(case)
 
-        cmd = ["java", "-cp", "target/classes", "-ea", "jpamb.Runtime"]
+        cmd = ["java", "-cp", "queries/classes", "-ea", "jpamb.Runtime"]
         print(f"Test {case!s:<74}: ", end="")
         sys.stdout.flush()
         success = case.check(cmd, timeout=0.5, verbose=False)
@@ -298,24 +298,24 @@ def rebuild(check, targets, workfolder):
 
     with open(stats / "distribution.csv", "w") as f:
         w = csv.writer(f)
-        w.writerow(["methodid"] + targets)
+        w.writerow(["method"] + queries)
 
         sums = Counter()
         total = 0
 
         for mid, cases in sorted(cases_by_id.items()):
             occ = []
-            total += 1
-            for t in targets:
+            for t in queries:
                 if any(c.result == t for c in cases):
                     occ.append(1)
                     sums[t] += 1
                 else:
                     occ.append(0)
+                total += 1
 
             w.writerow([mid] + occ)
 
-        w.writerow(["-"] + [f"{sums[t] / total:0.2%}" for t in targets])
+        w.writerow(["-"] + [f"{sums[t] / total:0.2%}" for t in queries])
 
     for clazz in (workfolder / "target" / "classes").glob("**/*.class"):
         jsonclazz = (
@@ -370,15 +370,16 @@ def test(cmd, timeout, workfolder):
 
 
 @cli.command
-@click.option("--timeout", default=5)
+@click.option("--timeout", default=0.5)
+@click.option("--fail-fast", is_flag=True)
 @click.option("-v", "verbosity", is_flag=True)
-@add_targets
+@add_queries
 @add_workfolder
 @click.argument(
     "CMD",
     nargs=-1,
 )
-def evaluate(cmd, timeout, targets, verbosity, workfolder):
+def evaluate(cmd, timeout, queries, verbosity, workfolder, fail_fast):
     """Given an command check if it can predict the results."""
 
     if not cmd:
@@ -387,7 +388,7 @@ def evaluate(cmd, timeout, targets, verbosity, workfolder):
 
     results = []
     for m, cases in read_cases_by_methodid(workfolder).items():
-        for t in targets:
+        for t in queries:
             try:
                 prediction, time = run_cmd(
                     cmd + [m, t], timeout=timeout, verbose=verbosity
@@ -398,6 +399,8 @@ def evaluate(cmd, timeout, targets, verbosity, workfolder):
 
                 result = [m, t, prediction.wager, score, time]
             except subprocess.CalledProcessError:
+                if fail_fast:
+                    sys.exit(-1)
                 result = [m, t, 0, 0, 0]
             except subprocess.TimeoutExpired:
                 result = [m, t, 0, 0, timeout]
@@ -406,7 +409,7 @@ def evaluate(cmd, timeout, targets, verbosity, workfolder):
     import csv
 
     w = csv.writer(sys.stdout)
-    w.writerow(["methodid", "target", "wager", "score", "time"])
+    w.writerow(["method", "query", "wager", "score", "time"])
     w.writerows(
         [r[:2] + [f"{r[2]:0.2f}", f"{r[3]:0.2f}", f"{r[4]:0.3f}"] for r in results]
     )

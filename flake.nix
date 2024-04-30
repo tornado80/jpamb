@@ -19,12 +19,13 @@
       devShells = {
         default = pkgs.mkShell {
           name = "jpamb";
+          TREE_SITTER_JAVA = "${pkgs.tree-sitter-grammars.tree-sitter-java}/parser";
           packages = with pkgs; [
             jdt-language-server
             jdk
             maven
             jvm2json.packages.${system}.default
-            (python3.withPackages (p: with p; [click pandas]))
+            (python3.withPackages (p: with p; [click pandas tree-sitter]))
           ];
         };
       };
