@@ -2,18 +2,18 @@
 """ The jpamb evaluator
 """
 
-from io import StringIO
-from typing import TextIO, TypeVar
-from pathlib import Path
 from collections import Counter, defaultdict
+from dataclasses import dataclass
+from io import StringIO
+from pathlib import Path
+from typing import TextIO, TypeVar
 import click
 import csv
-import subprocess
-import re
-import sys
-from dataclasses import dataclass
-
+import json
 import os
+import re
+import subprocess
+import sys
 
 
 prim = bool | int
@@ -126,7 +126,7 @@ class Prediction:
         if p == 1:
             x = float("inf")
         else:
-            x = -((1 - p) / p - 1) / 2
+            x = (1 - 2 * p) / (p - 1) / 2
         return Prediction(-x if negate else x)
 
     def score(self, happens: bool):
@@ -305,17 +305,33 @@ def rebuild(check, targets, workfolder):
 
         for mid, cases in sorted(cases_by_id.items()):
             occ = []
+            total += 1
             for t in targets:
                 if any(c.result == t for c in cases):
                     occ.append(1)
                     sums[t] += 1
                 else:
                     occ.append(0)
-                total += 1
 
             w.writerow([mid] + occ)
 
         w.writerow(["-"] + [f"{sums[t] / total:0.2%}" for t in targets])
+
+    for clazz in (workfolder / "target" / "classes").glob("**/*.class"):
+        jsonclazz = (
+            workfolder
+            / "decompiled"
+            / clazz.relative_to(workfolder / "target" / "classes").with_suffix(".json")
+        )
+        print(
+            f"Converting {clazz.relative_to(workfolder)} to {jsonclazz.relative_to(workfolder)}"
+        )
+        jsonclazz.parent.mkdir(parents=True, exist_ok=True)
+        encoding = json.loads(
+            run_cmd(["jvm2json", f"-s{clazz}"], timeout=None, verbose=False)[0]
+        )
+        with open(jsonclazz, "w") as f:
+            json.dump(encoding, f, indent=2)
 
 
 @cli.command
@@ -354,7 +370,7 @@ def test(cmd, timeout, workfolder):
 
 
 @cli.command
-@click.option("--timeout", default=0.5)
+@click.option("--timeout", default=5)
 @click.option("-v", "verbosity", is_flag=True)
 @add_targets
 @add_workfolder

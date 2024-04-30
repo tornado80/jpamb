@@ -1,0 +1,108 @@
+{
+  "name": "jpamb/utils/Case",
+  "access": [
+    "public",
+    "interface",
+    "abstract",
+    "annotation"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [
+    {
+      "name": "java/lang/annotation/Annotation",
+      "inner": null,
+      "args": [],
+      "annotations": []
+    }
+  ],
+  "fields": [],
+  "methods": [
+    {
+      "name": "value",
+      "access": [
+        "public",
+        "abstract"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": {
+          "kind": "class",
+          "name": "java/lang/String",
+          "inner": null,
+          "args": []
+        },
+        "annotations": []
+      },
+      "code": null,
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [],
+  "annotations": [
+    {
+      "type": "java/lang/annotation/Repeatable",
+      "is_runtime_visible": true,
+      "values": {
+        "value": {
+          "type": "class",
+          "value": {
+            "kind": "class",
+            "name": "jpamb/utils/Cases"
+          }
+        }
+      }
+    },
+    {
+      "type": "java/lang/annotation/Retention",
+      "is_runtime_visible": true,
+      "values": {
+        "value": {
+          "type": "enum",
+          "value": {
+            "type": {
+              "kind": "class",
+              "name": "java/lang/annotation/RetentionPolicy"
+            },
+            "name": "RUNTIME"
+          }
+        }
+      }
+    },
+    {
+      "type": "java/lang/annotation/Target",
+      "is_runtime_visible": true,
+      "values": {
+        "value": {
+          "type": "array",
+          "value": [
+            {
+              "type": "enum",
+              "value": {
+                "type": {
+                  "kind": "class",
+                  "name": "java/lang/annotation/ElementType"
+                },
+                "name": "METHOD"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "version": [
+    63,
+    0
+  ]
+}

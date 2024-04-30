@@ -1,0 +1,292 @@
+{
+  "name": "jpamb/cases/Tricky",
+  "access": [
+    "public",
+    "super"
+  ],
+  "typeparams": [],
+  "super": {
+    "name": "java/lang/Object",
+    "inner": null,
+    "args": [],
+    "annotations": []
+  },
+  "interfaces": [],
+  "fields": [],
+  "methods": [
+    {
+      "name": "<init>",
+      "access": [
+        "public"
+      ],
+      "typeparams": [],
+      "params": [],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 1,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": null,
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "ref",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "invoke",
+            "access": "special",
+            "method": {
+              "is_interface": false,
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "name": "<init>",
+              "args": [],
+              "returns": null
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [],
+      "exceptions": [],
+      "default": null
+    },
+    {
+      "name": "collatz",
+      "access": [
+        "public",
+        "static"
+      ],
+      "typeparams": [],
+      "params": [
+        {
+          "visible": true,
+          "type": {
+            "base": "int",
+            "annotations": []
+          },
+          "annotations": []
+        }
+      ],
+      "returns": {
+        "type": null,
+        "annotations": []
+      },
+      "code": {
+        "max_stack": 2,
+        "max_locals": 1,
+        "exceptions": [],
+        "stack_map": [
+          {
+            "index": 0,
+            "type": "same"
+          },
+          {
+            "index": 12,
+            "type": "same"
+          },
+          {
+            "index": 19,
+            "type": "same"
+          }
+        ],
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 1,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 2,
+            "opr": "if",
+            "condition": "eq",
+            "target": 19
+          },
+          {
+            "offset": 5,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 6,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 7,
+            "opr": "binary",
+            "type": "int",
+            "operant": "rem"
+          },
+          {
+            "offset": 8,
+            "opr": "ifz",
+            "condition": "ne",
+            "target": 12
+          },
+          {
+            "offset": 11,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 12,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 13,
+            "opr": "binary",
+            "type": "int",
+            "operant": "div"
+          },
+          {
+            "offset": 14,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 15,
+            "opr": "goto",
+            "target": 0
+          },
+          {
+            "offset": 18,
+            "opr": "load",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 19,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 3
+            }
+          },
+          {
+            "offset": 20,
+            "opr": "binary",
+            "type": "int",
+            "operant": "mul"
+          },
+          {
+            "offset": 21,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 22,
+            "opr": "binary",
+            "type": "int",
+            "operant": "add"
+          },
+          {
+            "offset": 23,
+            "opr": "store",
+            "type": "int",
+            "index": 0
+          },
+          {
+            "offset": 24,
+            "opr": "goto",
+            "target": 0
+          },
+          {
+            "offset": 27,
+            "opr": "return",
+            "type": null
+          }
+        ]
+      },
+      "annotations": [
+        {
+          "type": "jpamb/utils/Case",
+          "is_runtime_visible": true,
+          "values": {
+            "value": {
+              "type": "string",
+              "value": "(24) -> ok"
+            }
+          }
+        },
+        {
+          "type": "jpamb/utils/Tag",
+          "is_runtime_visible": true,
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    },
+                    "name": "LOOP"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "exceptions": [],
+      "default": null
+    }
+  ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "innerclasses": [
+    {
+      "class": "jpamb/utils/Tag$TagType",
+      "outer": "jpamb/utils/Tag",
+      "name": "TagType",
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ]
+    }
+  ],
+  "annotations": [],
+  "version": [
+    63,
+    0
+  ]
+}
