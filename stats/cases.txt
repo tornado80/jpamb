@@ -1,0 +1,19 @@
+jpamb.cases.Simple.assertFalse:()V                           () -> assertion error
+jpamb.cases.Simple.assertBoolean:(Z)V                        (false) -> assertion error
+jpamb.cases.Simple.assertBoolean:(Z)V                        (true) -> ok
+jpamb.cases.Simple.assertInteger:(I)V                        (0) -> assertion error
+jpamb.cases.Simple.assertInteger:(I)V                        (1) -> ok
+jpamb.cases.Simple.assertPositive:(I)V                       (-1) -> assertion error
+jpamb.cases.Simple.assertPositive:(I)V                       (1) -> ok
+jpamb.cases.Simple.divideByZero:()I                          () -> divide by zero
+jpamb.cases.Simple.divideZeroByZero:(II)I                    (0, 0) -> divide by zero
+jpamb.cases.Simple.divideZeroByZero:(II)I                    (0, 1) -> ok
+jpamb.cases.Simple.divideByN:(I)I                            (0) -> divide by zero
+jpamb.cases.Simple.divideByN:(I)I                            (1) -> ok
+jpamb.cases.Simple.multiError:(Z)I                           (false) -> assertion error
+jpamb.cases.Simple.multiError:(Z)I                           (true) -> divide by zero
+jpamb.cases.Loops.neverAsserts:()V                           () -> *
+jpamb.cases.Loops.neverDivides:()I                           () -> *
+jpamb.cases.Loops.forever:()V                                () -> *
+jpamb.cases.Loops.terminates:()V                             () -> assertion error
+jpamb.cases.Tricky.collatz:(I)V                              (24) -> ok

@@ -4,21 +4,22 @@
 
 from io import StringIO
 from typing import TextIO, TypeVar
-from collections import defaultdict
+from pathlib import Path
+from collections import Counter, defaultdict
 import click
+import csv
 import subprocess
 import re
 import sys
 from dataclasses import dataclass
 
+import os
+
+
 prim = bool | int
 
 
 W = TypeVar("W", bound=TextIO)
-
-
-def gettargets():
-    return tuple(sorted(("divide by zero", "*", "assertion error", "ok")))
 
 
 def print_prim(i: prim, file: W = sys.stdout) -> W:
@@ -74,6 +75,35 @@ class Case:
     input: Input
     result: str
 
+    def check(self, cmd, timeout, verbose=False):
+        pretty_inputs = str(self.input)
+        try:
+            result, time = run_cmd(
+                cmd + [self.methodid, pretty_inputs], timeout=timeout, verbose=verbose
+            )
+            success = result == self.result
+            if verbose:
+                print(f"Got {result!r} in {time} which is {success}")
+        except subprocess.CalledProcessError:
+            success = False
+            if verbose:
+                print(f"Process failed.")
+        except subprocess.TimeoutExpired:
+            success = "*" == self.result
+            if verbose:
+                print(f"Timed out after {timeout}s which is {success}")
+        return success
+
+    @staticmethod
+    def from_spec(line):
+        if not (m := re.match(r"([^ ]*) +(\([^)]*\)) -> (.*)", line)):
+            raise ValueError(f"Unexpected line: {line!r}")
+        return Case(m.group(1), Input.parse(m.group(2)), m.group(3))
+
+    def __str__(self) -> str:
+        name = self.methodid.split(":")[0]
+        return f"{name}:{self.input} -> {self.result}"
+
 
 @dataclass(frozen=True)
 class Prediction:
@@ -96,7 +126,7 @@ class Prediction:
         if p == 1:
             x = float("inf")
         else:
-            x = ((1 - p) / p) * 0.5
+            x = -((1 - p) / p - 1) / 2
         return Prediction(-x if negate else x)
 
     def score(self, happens: bool):
@@ -156,22 +186,58 @@ def run_cmd(cmd, /, timeout, verbose=True, **kwargs):
         raise
 
 
-def getcases():
-    import csv
-
-    cases = csv.reader(runtime([]).splitlines(), delimiter=" ", skipinitialspace=True)
-    for r in sorted(cases):
-        args, res = r[1].split(" -> ")
-        yield Case(r[0], Input.parse(args), res)
+def read_cases(workfolder):
+    with open(workfolder / "stats" / "cases.txt", "r") as f:
+        for r in f.readlines():
+            yield Case.from_spec(r[:-1])
 
 
-def cases_by_methodid() -> dict[str, list[Case]]:
+def read_cases_by_methodid(workfolder) -> dict[str, list[Case]]:
     cases_by_id = defaultdict(list)
 
-    for c in getcases():
+    for c in read_cases(workfolder):
         cases_by_id[c.methodid].append(c)
 
     return cases_by_id
+
+
+TARGETS = [
+    "*",
+    "assertion error",
+    "divide by zero",
+    "ok",
+]
+
+
+def add_targets(m):
+    def validate(ctx_, param_, targets):
+        resulting_targets = []
+        for target in targets:
+            resulting_targets.extend(target.split(","))
+        targets = resulting_targets
+        return targets
+
+    return click.option(
+        "--target",
+        "targets",
+        multiple=True,
+        show_default=True,
+        default=TARGETS,
+        callback=validate,
+    )(m)
+
+
+WORKFOLDER = Path(os.path.abspath(__file__)).parent
+
+
+def add_workfolder(m):
+    return click.option(
+        "--workfolder",
+        type=click.types.Path(),
+        show_default=True,
+        default=WORKFOLDER,
+        callback=lambda _ctx, _parm, value: Path(value),
+    )(m)
 
 
 @click.group
@@ -180,98 +246,137 @@ def cli():
 
 
 @cli.command
-def rebuild():
-    """Rebuild the test-suite."""
-    subprocess.call(["mvn", "compile"])
-
-
-@cli.command
-def cases():
+@add_workfolder
+def cases(workfolder):
     """Get a list of cases to test"""
     import json
 
-    for c in getcases():
+    for c in read_cases(workfolder):
         json.dump(c.__dict__, sys.stdout)
         print()
 
 
 @cli.command
+@click.option("--check/--no-check", default=True)
+@add_targets
+@add_workfolder
+def rebuild(check, targets, workfolder):
+    """Rebuild the benchmark-suite."""
+    subprocess.call(["mvn", "compile"])
+
+    if not check:
+        return
+
+    stats = workfolder / "stats"
+    stats.mkdir(parents=True, exist_ok=True)
+
+    cases = runtime([])
+    with open(stats / "cases.txt", "w") as f:
+        f.write(cases)
+
+    failed = []
+    cases_by_id = defaultdict(list)
+    for case in cases.splitlines():
+        case = Case.from_spec(case)
+
+        cmd = ["java", "-cp", "target/classes", "-ea", "jpamb.Runtime"]
+        print(f"Test {case!s:<74}: ", end="")
+        sys.stdout.flush()
+        success = case.check(cmd, timeout=0.5, verbose=False)
+        print(success)
+        if not success:
+            failed.append(case)
+        cases_by_id[case.methodid].append(case)
+
+    if failed:
+        print("Failed checks:")
+        for f in failed:
+            print(f)
+        sys.exit(-1)
+
+    print("Successfully verified all cases.")
+
+    with open(stats / "distribution.csv", "w") as f:
+        w = csv.writer(f)
+        w.writerow(["methodid"] + targets)
+
+        sums = Counter()
+        total = 0
+
+        for mid, cases in sorted(cases_by_id.items()):
+            occ = []
+            for t in targets:
+                if any(c.result == t for c in cases):
+                    occ.append(1)
+                    sums[t] += 1
+                else:
+                    occ.append(0)
+                total += 1
+
+            w.writerow([mid] + occ)
+
+        w.writerow(["-"] + [f"{sums[t] / total:0.2%}" for t in targets])
+
+
+@cli.command
 @click.option("--timeout", default=0.5)
+@add_workfolder
 @click.argument(
     "CMD",
     nargs=-1,
 )
-def test(cmd, timeout):
+def test(cmd, timeout, workfolder):
     """Check that all cases are valid"""
     if not cmd:
         cmd = ["java", "-cp", "target/classes", "-ea", "jpamb.Runtime"]
 
-    cases = list(getcases())
+    counter = 0
     failed = []
-    for c in cases:
+    for c in read_cases(workfolder):
+        counter += 1
         print(f"=" * 80)
         pretty_inputs = str(c.input)
         print(f"{c.methodid} with {pretty_inputs}")
         print()
 
-        try:
-            result, time = run_cmd(cmd + [c.methodid, pretty_inputs], timeout=timeout)
-            success = result == c.result
-            print(f"Got {result!r} in {time} which is {success}")
-        except subprocess.CalledProcessError:
-            success = False
-            print(f"Process failed.")
-        except subprocess.TimeoutExpired:
-            success = "*" == c.result
-            print(f"Timed out after {timeout}s which is {success}")
+        success = c.check(cmd, timeout=timeout, verbose=True)
+
         if not success:
             failed += [c]
+
         print(f"=" * 80)
         print()
 
     if failed:
-        print(f"Failed on {len(failed)}/{len(cases)}")
+        print(f"Failed on {len(failed)}/{counter}")
     else:
-        print(f"Sucessfully handled {len(cases)} cases")
+        print(f"Sucessfully handled {counter} cases")
 
 
 @cli.command
 @click.option("--timeout", default=0.5)
 @click.option("-v", "verbosity", is_flag=True)
-@click.option("--target", "targets", multiple=True)
+@add_targets
+@add_workfolder
 @click.argument(
     "CMD",
     nargs=-1,
 )
-def evaluate(cmd, timeout, targets, verbosity):
+def evaluate(cmd, timeout, targets, verbosity, workfolder):
     """Given an command check if it can predict the results."""
 
     if not cmd:
-        click.UsageError("Expected a command to evaluate")
+        raise click.UsageError("Expected a command to evaluate")
     cmd = list(cmd)
 
-    if not targets:
-        targets = gettargets()
-    resulting_targets = []
-    for target in targets:
-        resulting_targets.extend(target.split(","))
-    targets = resulting_targets
-
-    cases_by_method = defaultdict(list)
-    for c in getcases():
-        cases_by_method[c.methodid].append(c)
-
     results = []
-
-    for m, cases in cases_by_method.items():
+    for m, cases in read_cases_by_methodid(workfolder).items():
         for t in targets:
             try:
                 prediction, time = run_cmd(
                     cmd + [m, t], timeout=timeout, verbose=verbosity
                 )
-                print(prediction)
                 prediction = Prediction.parse(prediction)
-
                 sometimes = any(c.result == t for c in cases)
                 score = prediction.score(sometimes)
 
@@ -296,31 +401,6 @@ def evaluate(cmd, timeout, targets, verbosity):
             f"{sum(abs(r[2]) for r in results):0.2f}",
             f"{sum(r[3] for r in results):0.2f}",
             f"{sum(r[4] for r in results):0.2f}",
-        ]
-    )
-
-
-@cli.command
-def stats():
-    methods = []
-
-    targets = list(gettargets())
-
-    for mid, cases in sorted(cases_by_methodid().items()):
-        methods.append(
-            [mid] + list(1 if any(c.result == t for c in cases) else 0 for t in targets)
-        )
-
-    import csv
-
-    w = csv.writer(sys.stdout)
-    w.writerow(["methodid"] + targets)
-    w.writerows(methods)
-    w.writerow(
-        ["-"]
-        + [
-            f"{sum(m[i + 1] for m in methods) / (len(methods) * len(targets)):0.1%}"
-            for i, _ in enumerate(targets)
         ]
     )
 

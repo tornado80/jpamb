@@ -90,7 +90,7 @@ public class Runtime {
           if (!Modifier.isStatic(m.getModifiers())) {
             throw new RuntimeException("Expected " + id + " to be static");
           }
-          System.out.printf("%-60s \"%s\"%n", id, content);
+          System.out.printf("%-60s %s%n", id, content);
         }
       }
       return;
