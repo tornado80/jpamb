@@ -1,117 +1,100 @@
 {
-  "name": "jpamb/cases/Loops",
   "access": [
     "public",
     "super"
   ],
-  "typeparams": [],
-  "super": {
-    "name": "java/lang/Object",
-    "inner": null,
-    "args": [],
-    "annotations": []
-  },
-  "interfaces": [],
+  "annotations": [],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
   "fields": [
     {
-      "name": "$assertionsDisabled",
       "access": [
         "static",
         "final",
         "synthetic"
       ],
+      "annotations": [],
+      "name": "$assertionsDisabled",
       "type": {
-        "base": "boolean",
-        "annotations": []
+        "annotations": [],
+        "base": "boolean"
       },
-      "value": null,
-      "annotations": []
+      "value": null
     }
   ],
+  "innerclasses": [
+    {
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "class": "jpamb/utils/Tag$TagType",
+      "name": "TagType",
+      "outer": "jpamb/utils/Tag"
+    }
+  ],
+  "interfaces": [],
   "methods": [
     {
-      "name": "<init>",
       "access": [
         "public"
       ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": null,
-        "annotations": []
-      },
+      "annotations": [],
       "code": {
-        "max_stack": 1,
-        "max_locals": 1,
-        "exceptions": [],
-        "stack_map": null,
         "bytecode": [
           {
+            "index": 0,
             "offset": 0,
             "opr": "load",
-            "type": "ref",
-            "index": 0
+            "type": "ref"
           },
           {
-            "offset": 1,
-            "opr": "invoke",
             "access": "special",
             "method": {
+              "args": [],
               "is_interface": false,
+              "name": "<init>",
               "ref": {
                 "kind": "class",
                 "name": "java/lang/Object"
               },
-              "name": "<init>",
-              "args": [],
               "returns": null
-            }
+            },
+            "offset": 1,
+            "opr": "invoke"
           },
           {
             "offset": 4,
             "opr": "return",
             "type": null
           }
-        ]
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 1,
+        "stack_map": null
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "<init>",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
     },
     {
-      "name": "forever",
       "access": [
         "public",
         "static"
       ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": null,
-        "annotations": []
-      },
-      "code": {
-        "max_stack": 0,
-        "max_locals": 0,
-        "exceptions": [],
-        "stack_map": [
-          {
-            "index": 0,
-            "type": "same"
-          }
-        ],
-        "bytecode": [
-          {
-            "offset": 0,
-            "opr": "goto",
-            "target": 0
-          }
-        ]
-      },
       "annotations": [
         {
-          "type": "jpamb/utils/Case",
           "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
           "values": {
             "value": {
               "type": "string",
@@ -120,8 +103,8 @@
           }
         },
         {
-          "type": "jpamb/utils/Tag",
           "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
           "values": {
             "value": {
               "type": "array",
@@ -129,11 +112,11 @@
                 {
                   "type": "enum",
                   "value": {
+                    "name": "LOOP",
                     "type": {
                       "kind": "class",
                       "name": "jpamb/utils/Tag$TagType"
-                    },
-                    "name": "LOOP"
+                    }
                   }
                 }
               ]
@@ -141,44 +124,73 @@
           }
         }
       ],
+      "code": {
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "goto",
+            "target": 0
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 0,
+        "stack_map": [
+          {
+            "index": 0,
+            "type": "same"
+          }
+        ]
+      },
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "forever",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
     },
     {
-      "name": "neverAsserts",
       "access": [
         "public",
         "static"
       ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": null,
-        "annotations": []
-      },
-      "code": {
-        "max_stack": 2,
-        "max_locals": 1,
-        "exceptions": [],
-        "stack_map": [
-          {
-            "index": 2,
-            "type": "append_frame",
-            "info": [
-              {
-                "type": "integer"
-              }
-            ]
-          },
-          {
-            "index": 5,
-            "type": "same"
-          },
-          {
-            "index": 11,
-            "type": "same"
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
+          "values": {
+            "value": {
+              "type": "string",
+              "value": "() -> *"
+            }
           }
-        ],
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "LOOP",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
         "bytecode": [
           {
             "offset": 0,
@@ -189,21 +201,21 @@
             }
           },
           {
+            "index": 0,
             "offset": 1,
             "opr": "store",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
+            "index": 0,
             "offset": 2,
             "opr": "load",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
+            "condition": "le",
             "offset": 3,
             "opr": "ifz",
-            "condition": "le",
             "target": 5
           },
           {
@@ -212,25 +224,25 @@
             "target": 2
           },
           {
-            "offset": 9,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/cases/Loops",
               "name": "$assertionsDisabled",
               "type": "boolean"
-            }
+            },
+            "offset": 9,
+            "opr": "get",
+            "static": true
           },
           {
+            "condition": "ne",
             "offset": 12,
             "opr": "ifz",
-            "condition": "ne",
             "target": 11
           },
           {
+            "class": "java/lang/AssertionError",
             "offset": 15,
-            "opr": "new",
-            "class": "java/lang/AssertionError"
+            "opr": "new"
           },
           {
             "offset": 18,
@@ -238,19 +250,19 @@
             "words": 1
           },
           {
-            "offset": 19,
-            "opr": "invoke",
             "access": "special",
             "method": {
+              "args": [],
               "is_interface": false,
+              "name": "<init>",
               "ref": {
                 "kind": "class",
                 "name": "java/lang/AssertionError"
               },
-              "name": "<init>",
-              "args": [],
               "returns": null
-            }
+            },
+            "offset": 19,
+            "opr": "invoke"
           },
           {
             "offset": 22,
@@ -261,12 +273,49 @@
             "opr": "return",
             "type": null
           }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 2,
+        "stack_map": [
+          {
+            "index": 2,
+            "info": [
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "append_frame"
+          },
+          {
+            "index": 5,
+            "type": "same"
+          },
+          {
+            "index": 11,
+            "type": "same"
+          }
         ]
       },
+      "default": null,
+      "exceptions": [],
+      "name": "neverAsserts",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
       "annotations": [
         {
-          "type": "jpamb/utils/Case",
           "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
           "values": {
             "value": {
               "type": "string",
@@ -275,8 +324,8 @@
           }
         },
         {
-          "type": "jpamb/utils/Tag",
           "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
           "values": {
             "value": {
               "type": "array",
@@ -284,11 +333,11 @@
                 {
                   "type": "enum",
                   "value": {
+                    "name": "LOOP",
                     "type": {
                       "kind": "class",
                       "name": "jpamb/utils/Tag$TagType"
-                    },
-                    "name": "LOOP"
+                    }
                   }
                 }
               ]
@@ -296,42 +345,7 @@
           }
         }
       ],
-      "exceptions": [],
-      "default": null
-    },
-    {
-      "name": "neverDivides",
-      "access": [
-        "public",
-        "static"
-      ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": {
-          "base": "int"
-        },
-        "annotations": []
-      },
       "code": {
-        "max_stack": 2,
-        "max_locals": 1,
-        "exceptions": [],
-        "stack_map": [
-          {
-            "index": 2,
-            "type": "append_frame",
-            "info": [
-              {
-                "type": "integer"
-              }
-            ]
-          },
-          {
-            "index": 5,
-            "type": "same"
-          }
-        ],
         "bytecode": [
           {
             "offset": 0,
@@ -342,21 +356,21 @@
             }
           },
           {
+            "index": 0,
             "offset": 1,
             "opr": "store",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
+            "index": 0,
             "offset": 2,
             "opr": "load",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
+            "condition": "le",
             "offset": 3,
             "opr": "ifz",
-            "condition": "le",
             "target": 5
           },
           {
@@ -382,31 +396,66 @@
           },
           {
             "offset": 11,
+            "operant": "div",
             "opr": "binary",
-            "type": "int",
-            "operant": "div"
+            "type": "int"
           },
           {
             "offset": 12,
             "opr": "return",
             "type": "int"
           }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 2,
+        "stack_map": [
+          {
+            "index": 2,
+            "info": [
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "append_frame"
+          },
+          {
+            "index": 5,
+            "type": "same"
+          }
         ]
       },
+      "default": null,
+      "exceptions": [],
+      "name": "neverDivides",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": {
+          "base": "int"
+        }
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
       "annotations": [
         {
-          "type": "jpamb/utils/Case",
           "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
           "values": {
             "value": {
               "type": "string",
-              "value": "() -> *"
+              "value": "() -> assertion error"
             }
           }
         },
         {
-          "type": "jpamb/utils/Tag",
           "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
           "values": {
             "value": {
               "type": "array",
@@ -414,11 +463,21 @@
                 {
                   "type": "enum",
                   "value": {
+                    "name": "LOOP",
                     "type": {
                       "kind": "class",
                       "name": "jpamb/utils/Tag$TagType"
-                    },
-                    "name": "LOOP"
+                    }
+                  }
+                },
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "INTEGER_OVERFLOW",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
                   }
                 }
               ]
@@ -426,44 +485,7 @@
           }
         }
       ],
-      "exceptions": [],
-      "default": null
-    },
-    {
-      "name": "terminates",
-      "access": [
-        "public",
-        "static"
-      ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": null,
-        "annotations": []
-      },
       "code": {
-        "max_stack": 3,
-        "max_locals": 1,
-        "exceptions": [],
-        "stack_map": [
-          {
-            "index": 2,
-            "type": "append_frame",
-            "info": [
-              {
-                "type": "integer"
-              }
-            ]
-          },
-          {
-            "index": 10,
-            "type": "same"
-          },
-          {
-            "index": 16,
-            "type": "same"
-          }
-        ],
         "bytecode": [
           {
             "offset": 0,
@@ -474,22 +496,22 @@
             }
           },
           {
+            "index": 0,
             "offset": 1,
             "opr": "store",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
+            "index": 0,
             "offset": 2,
             "opr": "load",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
+            "index": 0,
             "offset": 3,
             "opr": "load",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
             "offset": 4,
@@ -501,26 +523,26 @@
           },
           {
             "offset": 5,
+            "operant": "add",
             "opr": "binary",
-            "type": "int",
-            "operant": "add"
+            "type": "int"
           },
           {
+            "from": "int",
             "offset": 6,
             "opr": "cast",
-            "from": "int",
             "to": "short"
           },
           {
+            "index": 0,
             "offset": 7,
             "opr": "store",
-            "type": "int",
-            "index": 0
+            "type": "int"
           },
           {
+            "condition": "eq",
             "offset": 8,
             "opr": "ifz",
-            "condition": "eq",
             "target": 10
           },
           {
@@ -529,25 +551,25 @@
             "target": 2
           },
           {
-            "offset": 14,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/cases/Loops",
               "name": "$assertionsDisabled",
               "type": "boolean"
-            }
+            },
+            "offset": 14,
+            "opr": "get",
+            "static": true
           },
           {
+            "condition": "ne",
             "offset": 17,
             "opr": "ifz",
-            "condition": "ne",
             "target": 16
           },
           {
+            "class": "java/lang/AssertionError",
             "offset": 20,
-            "opr": "new",
-            "class": "java/lang/AssertionError"
+            "opr": "new"
           },
           {
             "offset": 23,
@@ -555,19 +577,19 @@
             "words": 1
           },
           {
-            "offset": 24,
-            "opr": "invoke",
             "access": "special",
             "method": {
+              "args": [],
               "is_interface": false,
+              "name": "<init>",
               "ref": {
                 "kind": "class",
                 "name": "java/lang/AssertionError"
               },
-              "name": "<init>",
-              "args": [],
               "returns": null
-            }
+            },
+            "offset": 24,
+            "opr": "invoke"
           },
           {
             "offset": 27,
@@ -578,82 +600,46 @@
             "opr": "return",
             "type": null
           }
-        ]
-      },
-      "annotations": [
-        {
-          "type": "jpamb/utils/Case",
-          "is_runtime_visible": true,
-          "values": {
-            "value": {
-              "type": "string",
-              "value": "() -> assertion error"
-            }
-          }
-        },
-        {
-          "type": "jpamb/utils/Tag",
-          "is_runtime_visible": true,
-          "values": {
-            "value": {
-              "type": "array",
-              "value": [
-                {
-                  "type": "enum",
-                  "value": {
-                    "type": {
-                      "kind": "class",
-                      "name": "jpamb/utils/Tag$TagType"
-                    },
-                    "name": "LOOP"
-                  }
-                },
-                {
-                  "type": "enum",
-                  "value": {
-                    "type": {
-                      "kind": "class",
-                      "name": "jpamb/utils/Tag$TagType"
-                    },
-                    "name": "INTEGER_OVERFLOW"
-                  }
-                }
-              ]
-            }
-          }
-        }
-      ],
-      "exceptions": [],
-      "default": null
-    },
-    {
-      "name": "<clinit>",
-      "access": [
-        "static"
-      ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": null,
-        "annotations": []
-      },
-      "code": {
-        "max_stack": 1,
-        "max_locals": 0,
+        ],
         "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 3,
         "stack_map": [
           {
-            "index": 5,
+            "index": 2,
+            "info": [
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "append_frame"
+          },
+          {
+            "index": 10,
             "type": "same"
           },
           {
-            "index": 6,
-            "type": "same_locals_1_stack_item_frame",
-            "info": {
-              "type": "integer"
-            }
+            "index": 16,
+            "type": "same"
           }
-        ],
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "terminates",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "static"
+      ],
+      "annotations": [],
+      "code": {
         "bytecode": [
           {
             "offset": 0,
@@ -667,23 +653,23 @@
             }
           },
           {
-            "offset": 2,
-            "opr": "invoke",
             "access": "virtual",
             "method": {
+              "args": [],
+              "name": "desiredAssertionStatus",
               "ref": {
                 "kind": "class",
                 "name": "java/lang/Class"
               },
-              "name": "desiredAssertionStatus",
-              "args": [],
               "returns": "boolean"
-            }
+            },
+            "offset": 2,
+            "opr": "invoke"
           },
           {
+            "condition": "ne",
             "offset": 5,
             "opr": "ifz",
-            "condition": "ne",
             "target": 5
           },
           {
@@ -708,43 +694,57 @@
             }
           },
           {
-            "offset": 13,
-            "opr": "put",
-            "static": true,
             "field": {
               "class": "jpamb/cases/Loops",
               "name": "$assertionsDisabled",
               "type": "boolean"
-            }
+            },
+            "offset": 13,
+            "opr": "put",
+            "static": true
           },
           {
             "offset": 16,
             "opr": "return",
             "type": null
           }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 1,
+        "stack_map": [
+          {
+            "index": 5,
+            "type": "same"
+          },
+          {
+            "index": 6,
+            "info": {
+              "type": "integer"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          }
         ]
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "<clinit>",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
     }
   ],
-  "bootstrapmethods": [],
-  "enclosingmethod": null,
-  "innerclasses": [
-    {
-      "class": "jpamb/utils/Tag$TagType",
-      "outer": "jpamb/utils/Tag",
-      "name": "TagType",
-      "access": [
-        "public",
-        "static",
-        "final",
-        "enum"
-      ]
-    }
-  ],
-  "annotations": [],
+  "name": "jpamb/cases/Loops",
+  "super": {
+    "annotations": [],
+    "args": [],
+    "inner": null,
+    "name": "java/lang/Object"
+  },
+  "typeparams": [],
   "version": [
     63,
     0

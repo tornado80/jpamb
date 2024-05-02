@@ -1,4 +1,4 @@
-methodid,*,assertion error,divide by zero,ok
+method,*,assertion error,divide by zero,ok
 jpamb.cases.Loops.forever:()V,1,0,0,0
 jpamb.cases.Loops.neverAsserts:()V,1,0,0,0
 jpamb.cases.Loops.neverDivides:()I,1,0,0,0
@@ -12,4 +12,4 @@ jpamb.cases.Simple.divideByZero:()I,0,0,1,0
 jpamb.cases.Simple.divideZeroByZero:(II)I,0,0,1,1
 jpamb.cases.Simple.multiError:(Z)I,0,1,1,0
 jpamb.cases.Tricky.collatz:(I)V,0,0,0,1
--,23.08%,46.15%,30.77%,46.15%
+-,23.0769%,46.1538%,30.7692%,46.1538%

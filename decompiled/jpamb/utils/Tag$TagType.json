@@ -1,193 +1,158 @@
 {
-  "name": "jpamb/utils/Tag$TagType",
   "access": [
     "public",
     "final",
     "super",
     "enum"
   ],
-  "typeparams": [],
-  "super": {
-    "name": "java/lang/Enum",
-    "inner": null,
-    "args": [
-      {
-        "kind": "simple",
-        "type": {
-          "kind": "class",
-          "name": "jpamb/utils/Tag",
-          "inner": {
-            "name": "TagType",
-            "inner": null,
-            "args": [],
-            "annotations": []
-          },
-          "args": []
-        },
-        "annotations": []
-      }
-    ],
-    "annotations": []
-  },
-  "interfaces": [],
+  "annotations": [],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
   "fields": [
     {
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "annotations": [],
       "name": "CONDITIONAL",
+      "type": {
+        "annotations": [],
+        "args": [],
+        "inner": {
+          "annotations": [],
+          "args": [],
+          "inner": null,
+          "name": "TagType"
+        },
+        "kind": "class",
+        "name": "jpamb/utils/Tag"
+      },
+      "value": null
+    },
+    {
       "access": [
         "public",
         "static",
         "final",
         "enum"
       ],
-      "type": {
-        "kind": "class",
-        "name": "jpamb/utils/Tag",
-        "inner": {
-          "name": "TagType",
-          "inner": null,
-          "args": [],
-          "annotations": []
-        },
-        "args": [],
-        "annotations": []
-      },
-      "value": null,
-      "annotations": []
-    },
-    {
+      "annotations": [],
       "name": "LOOP",
+      "type": {
+        "annotations": [],
+        "args": [],
+        "inner": {
+          "annotations": [],
+          "args": [],
+          "inner": null,
+          "name": "TagType"
+        },
+        "kind": "class",
+        "name": "jpamb/utils/Tag"
+      },
+      "value": null
+    },
+    {
       "access": [
         "public",
         "static",
         "final",
         "enum"
       ],
-      "type": {
-        "kind": "class",
-        "name": "jpamb/utils/Tag",
-        "inner": {
-          "name": "TagType",
-          "inner": null,
-          "args": [],
-          "annotations": []
-        },
-        "args": [],
-        "annotations": []
-      },
-      "value": null,
-      "annotations": []
-    },
-    {
+      "annotations": [],
       "name": "INTEGER_OVERFLOW",
+      "type": {
+        "annotations": [],
+        "args": [],
+        "inner": {
+          "annotations": [],
+          "args": [],
+          "inner": null,
+          "name": "TagType"
+        },
+        "kind": "class",
+        "name": "jpamb/utils/Tag"
+      },
+      "value": null
+    },
+    {
       "access": [
         "public",
         "static",
         "final",
         "enum"
       ],
-      "type": {
-        "kind": "class",
-        "name": "jpamb/utils/Tag",
-        "inner": {
-          "name": "TagType",
-          "inner": null,
-          "args": [],
-          "annotations": []
-        },
-        "args": [],
-        "annotations": []
-      },
-      "value": null,
-      "annotations": []
-    },
-    {
+      "annotations": [],
       "name": "CALL",
-      "access": [
-        "public",
-        "static",
-        "final",
-        "enum"
-      ],
       "type": {
-        "kind": "class",
-        "name": "jpamb/utils/Tag",
-        "inner": {
-          "name": "TagType",
-          "inner": null,
-          "args": [],
-          "annotations": []
-        },
+        "annotations": [],
         "args": [],
-        "annotations": []
+        "inner": {
+          "annotations": [],
+          "args": [],
+          "inner": null,
+          "name": "TagType"
+        },
+        "kind": "class",
+        "name": "jpamb/utils/Tag"
       },
-      "value": null,
-      "annotations": []
+      "value": null
     },
     {
-      "name": "$VALUES",
       "access": [
         "private",
         "static",
         "final",
         "synthetic"
       ],
+      "annotations": [],
+      "name": "$VALUES",
       "type": {
+        "annotations": [],
         "kind": "array",
         "type": {
-          "kind": "class",
-          "name": "jpamb/utils/Tag",
-          "inner": {
-            "name": "TagType",
-            "inner": null,
-            "args": [],
-            "annotations": []
-          },
+          "annotations": [],
           "args": [],
-          "annotations": []
-        },
-        "annotations": []
+          "inner": {
+            "annotations": [],
+            "args": [],
+            "inner": null,
+            "name": "TagType"
+          },
+          "kind": "class",
+          "name": "jpamb/utils/Tag"
+        }
       },
-      "value": null,
-      "annotations": []
+      "value": null
     }
   ],
+  "innerclasses": [
+    {
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "class": "jpamb/utils/Tag$TagType",
+      "name": "TagType",
+      "outer": "jpamb/utils/Tag"
+    }
+  ],
+  "interfaces": [],
   "methods": [
     {
-      "name": "values",
       "access": [
         "public",
         "static"
       ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": {
-          "kind": "array",
-          "type": {
-            "kind": "class",
-            "name": "jpamb/utils/Tag",
-            "inner": {
-              "name": "TagType",
-              "inner": null,
-              "args": [],
-              "annotations": []
-            },
-            "args": [],
-            "annotations": []
-          }
-        },
-        "annotations": []
-      },
+      "annotations": [],
       "code": {
-        "max_stack": 1,
-        "max_locals": 0,
-        "exceptions": [],
-        "stack_map": null,
         "bytecode": [
           {
-            "offset": 0,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "$VALUES",
@@ -198,13 +163,16 @@
                   "name": "jpamb/utils/Tag$TagType"
                 }
               }
-            }
+            },
+            "offset": 0,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 3,
-            "opr": "invoke",
             "access": "virtual",
             "method": {
+              "args": [],
+              "name": "clone",
               "ref": {
                 "kind": "array",
                 "type": {
@@ -212,13 +180,13 @@
                   "name": "jpamb/utils/Tag$TagType"
                 }
               },
-              "name": "clone",
-              "args": [],
               "returns": {
                 "kind": "class",
                 "name": "java/lang/Object"
               }
-            }
+            },
+            "offset": 3,
+            "opr": "invoke"
           },
           {
             "offset": 6,
@@ -236,51 +204,43 @@
             "opr": "return",
             "type": "ref"
           }
-        ]
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 1,
+        "stack_map": null
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "values",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": {
+          "kind": "array",
+          "type": {
+            "annotations": [],
+            "args": [],
+            "inner": {
+              "annotations": [],
+              "args": [],
+              "inner": null,
+              "name": "TagType"
+            },
+            "kind": "class",
+            "name": "jpamb/utils/Tag"
+          }
+        }
+      },
+      "typeparams": []
     },
     {
-      "name": "valueOf",
       "access": [
         "public",
         "static"
       ],
-      "typeparams": [],
-      "params": [
-        {
-          "visible": true,
-          "type": {
-            "kind": "class",
-            "name": "java/lang/String",
-            "inner": null,
-            "args": [],
-            "annotations": []
-          },
-          "annotations": []
-        }
-      ],
-      "returns": {
-        "type": {
-          "kind": "class",
-          "name": "jpamb/utils/Tag",
-          "inner": {
-            "name": "TagType",
-            "inner": null,
-            "args": [],
-            "annotations": []
-          },
-          "args": []
-        },
-        "annotations": []
-      },
+      "annotations": [],
       "code": {
-        "max_stack": 2,
-        "max_locals": 1,
-        "exceptions": [],
-        "stack_map": null,
         "bytecode": [
           {
             "offset": 0,
@@ -294,22 +254,14 @@
             }
           },
           {
+            "index": 0,
             "offset": 2,
             "opr": "load",
-            "type": "ref",
-            "index": 0
+            "type": "ref"
           },
           {
-            "offset": 3,
-            "opr": "invoke",
             "access": "static",
             "method": {
-              "is_interface": false,
-              "ref": {
-                "kind": "class",
-                "name": "java/lang/Enum"
-              },
-              "name": "valueOf",
               "args": [
                 {
                   "kind": "class",
@@ -320,11 +272,19 @@
                   "name": "java/lang/String"
                 }
               ],
+              "is_interface": false,
+              "name": "valueOf",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Enum"
+              },
               "returns": {
                 "kind": "class",
                 "name": "java/lang/Enum"
               }
-            }
+            },
+            "offset": 3,
+            "opr": "invoke"
           },
           {
             "offset": 6,
@@ -339,78 +299,72 @@
             "opr": "return",
             "type": "ref"
           }
-        ]
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 2,
+        "stack_map": null
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
-    },
-    {
-      "name": "<init>",
-      "access": [
-        "private"
-      ],
-      "typeparams": [],
+      "name": "valueOf",
       "params": [
         {
-          "visible": false,
+          "annotations": [],
           "type": {
-            "kind": "class",
-            "name": "java/lang/String",
-            "inner": null,
+            "annotations": [],
             "args": [],
-            "annotations": []
+            "inner": null,
+            "kind": "class",
+            "name": "java/lang/String"
           },
-          "annotations": []
-        },
-        {
-          "visible": false,
-          "type": {
-            "base": "int",
-            "annotations": []
-          },
-          "annotations": []
+          "visible": true
         }
       ],
       "returns": {
-        "type": null,
-        "annotations": []
+        "annotations": [],
+        "type": {
+          "args": [],
+          "inner": {
+            "annotations": [],
+            "args": [],
+            "inner": null,
+            "name": "TagType"
+          },
+          "kind": "class",
+          "name": "jpamb/utils/Tag"
+        }
       },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "private"
+      ],
+      "annotations": [],
       "code": {
-        "max_stack": 3,
-        "max_locals": 3,
-        "exceptions": [],
-        "stack_map": null,
         "bytecode": [
           {
+            "index": 0,
             "offset": 0,
             "opr": "load",
-            "type": "ref",
-            "index": 0
+            "type": "ref"
           },
           {
+            "index": 1,
             "offset": 1,
             "opr": "load",
-            "type": "ref",
-            "index": 1
+            "type": "ref"
           },
           {
+            "index": 2,
             "offset": 2,
             "opr": "load",
-            "type": "int",
-            "index": 2
+            "type": "int"
           },
           {
-            "offset": 3,
-            "opr": "invoke",
             "access": "special",
             "method": {
-              "is_interface": false,
-              "ref": {
-                "kind": "class",
-                "name": "java/lang/Enum"
-              },
-              "name": "<init>",
               "args": [
                 {
                   "kind": "class",
@@ -418,52 +372,66 @@
                 },
                 "int"
               ],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Enum"
+              },
               "returns": null
-            }
+            },
+            "offset": 3,
+            "opr": "invoke"
           },
           {
             "offset": 6,
             "opr": "return",
             "type": null
           }
-        ]
+        ],
+        "exceptions": [],
+        "max_locals": 3,
+        "max_stack": 3,
+        "stack_map": null
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "<init>",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "args": [],
+            "inner": null,
+            "kind": "class",
+            "name": "java/lang/String"
+          },
+          "visible": false
+        },
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "int"
+          },
+          "visible": false
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
     },
     {
-      "name": "$values",
       "access": [
         "private",
         "static",
         "synthetic"
       ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": {
-          "kind": "array",
-          "type": {
-            "kind": "class",
-            "name": "jpamb/utils/Tag",
-            "inner": {
-              "name": "TagType",
-              "inner": null,
-              "args": [],
-              "annotations": []
-            },
-            "args": [],
-            "annotations": []
-          }
-        },
-        "annotations": []
-      },
+      "annotations": [],
       "code": {
-        "max_stack": 4,
-        "max_locals": 0,
-        "exceptions": [],
-        "stack_map": null,
         "bytecode": [
           {
             "offset": 0,
@@ -474,9 +442,9 @@
             }
           },
           {
+            "dim": 1,
             "offset": 1,
             "opr": "newarray",
-            "dim": 1,
             "type": {
               "kind": "class",
               "name": "jpamb/utils/Tag$TagType"
@@ -496,9 +464,6 @@
             }
           },
           {
-            "offset": 6,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "CONDITIONAL",
@@ -506,7 +471,10 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 6,
+            "opr": "get",
+            "static": true
           },
           {
             "offset": 9,
@@ -527,9 +495,6 @@
             }
           },
           {
-            "offset": 12,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "LOOP",
@@ -537,7 +502,10 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 12,
+            "opr": "get",
+            "static": true
           },
           {
             "offset": 15,
@@ -558,9 +526,6 @@
             }
           },
           {
-            "offset": 18,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "INTEGER_OVERFLOW",
@@ -568,7 +533,10 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 18,
+            "opr": "get",
+            "static": true
           },
           {
             "offset": 21,
@@ -589,9 +557,6 @@
             }
           },
           {
-            "offset": 24,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "CALL",
@@ -599,7 +564,10 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 24,
+            "opr": "get",
+            "static": true
           },
           {
             "offset": 27,
@@ -611,33 +579,47 @@
             "opr": "return",
             "type": "ref"
           }
-        ]
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 4,
+        "stack_map": null
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "$values",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": {
+          "kind": "array",
+          "type": {
+            "annotations": [],
+            "args": [],
+            "inner": {
+              "annotations": [],
+              "args": [],
+              "inner": null,
+              "name": "TagType"
+            },
+            "kind": "class",
+            "name": "jpamb/utils/Tag"
+          }
+        }
+      },
+      "typeparams": []
     },
     {
-      "name": "<clinit>",
       "access": [
         "static"
       ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": null,
-        "annotations": []
-      },
+      "annotations": [],
       "code": {
-        "max_stack": 4,
-        "max_locals": 0,
-        "exceptions": [],
-        "stack_map": null,
         "bytecode": [
           {
+            "class": "jpamb/utils/Tag$TagType",
             "offset": 0,
-            "opr": "new",
-            "class": "jpamb/utils/Tag$TagType"
+            "opr": "new"
           },
           {
             "offset": 3,
@@ -661,16 +643,8 @@
             }
           },
           {
-            "offset": 7,
-            "opr": "invoke",
             "access": "special",
             "method": {
-              "is_interface": false,
-              "ref": {
-                "kind": "class",
-                "name": "jpamb/utils/Tag$TagType"
-              },
-              "name": "<init>",
               "args": [
                 {
                   "kind": "class",
@@ -678,13 +652,18 @@
                 },
                 "int"
               ],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/utils/Tag$TagType"
+              },
               "returns": null
-            }
+            },
+            "offset": 7,
+            "opr": "invoke"
           },
           {
-            "offset": 10,
-            "opr": "put",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "CONDITIONAL",
@@ -692,12 +671,15 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 10,
+            "opr": "put",
+            "static": true
           },
           {
+            "class": "jpamb/utils/Tag$TagType",
             "offset": 13,
-            "opr": "new",
-            "class": "jpamb/utils/Tag$TagType"
+            "opr": "new"
           },
           {
             "offset": 16,
@@ -721,16 +703,8 @@
             }
           },
           {
-            "offset": 20,
-            "opr": "invoke",
             "access": "special",
             "method": {
-              "is_interface": false,
-              "ref": {
-                "kind": "class",
-                "name": "jpamb/utils/Tag$TagType"
-              },
-              "name": "<init>",
               "args": [
                 {
                   "kind": "class",
@@ -738,13 +712,18 @@
                 },
                 "int"
               ],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/utils/Tag$TagType"
+              },
               "returns": null
-            }
+            },
+            "offset": 20,
+            "opr": "invoke"
           },
           {
-            "offset": 23,
-            "opr": "put",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "LOOP",
@@ -752,12 +731,15 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 23,
+            "opr": "put",
+            "static": true
           },
           {
+            "class": "jpamb/utils/Tag$TagType",
             "offset": 26,
-            "opr": "new",
-            "class": "jpamb/utils/Tag$TagType"
+            "opr": "new"
           },
           {
             "offset": 29,
@@ -781,16 +763,8 @@
             }
           },
           {
-            "offset": 33,
-            "opr": "invoke",
             "access": "special",
             "method": {
-              "is_interface": false,
-              "ref": {
-                "kind": "class",
-                "name": "jpamb/utils/Tag$TagType"
-              },
-              "name": "<init>",
               "args": [
                 {
                   "kind": "class",
@@ -798,13 +772,18 @@
                 },
                 "int"
               ],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/utils/Tag$TagType"
+              },
               "returns": null
-            }
+            },
+            "offset": 33,
+            "opr": "invoke"
           },
           {
-            "offset": 36,
-            "opr": "put",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "INTEGER_OVERFLOW",
@@ -812,12 +791,15 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 36,
+            "opr": "put",
+            "static": true
           },
           {
+            "class": "jpamb/utils/Tag$TagType",
             "offset": 39,
-            "opr": "new",
-            "class": "jpamb/utils/Tag$TagType"
+            "opr": "new"
           },
           {
             "offset": 42,
@@ -841,16 +823,8 @@
             }
           },
           {
-            "offset": 46,
-            "opr": "invoke",
             "access": "special",
             "method": {
-              "is_interface": false,
-              "ref": {
-                "kind": "class",
-                "name": "jpamb/utils/Tag$TagType"
-              },
-              "name": "<init>",
               "args": [
                 {
                   "kind": "class",
@@ -858,13 +832,18 @@
                 },
                 "int"
               ],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/utils/Tag$TagType"
+              },
               "returns": null
-            }
+            },
+            "offset": 46,
+            "opr": "invoke"
           },
           {
-            "offset": 49,
-            "opr": "put",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "CALL",
@@ -872,20 +851,21 @@
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               }
-            }
+            },
+            "offset": 49,
+            "opr": "put",
+            "static": true
           },
           {
-            "offset": 52,
-            "opr": "invoke",
             "access": "static",
             "method": {
+              "args": [],
               "is_interface": false,
+              "name": "$values",
               "ref": {
                 "kind": "class",
                 "name": "jpamb/utils/Tag$TagType"
               },
-              "name": "$values",
-              "args": [],
               "returns": {
                 "kind": "array",
                 "type": {
@@ -893,12 +873,11 @@
                   "name": "jpamb/utils/Tag$TagType"
                 }
               }
-            }
+            },
+            "offset": 52,
+            "opr": "invoke"
           },
           {
-            "offset": 55,
-            "opr": "put",
-            "static": true,
             "field": {
               "class": "jpamb/utils/Tag$TagType",
               "name": "$VALUES",
@@ -909,36 +888,57 @@
                   "name": "jpamb/utils/Tag$TagType"
                 }
               }
-            }
+            },
+            "offset": 55,
+            "opr": "put",
+            "static": true
           },
           {
             "offset": 58,
             "opr": "return",
             "type": null
           }
-        ]
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 4,
+        "stack_map": null
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "<clinit>",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
     }
   ],
-  "bootstrapmethods": [],
-  "enclosingmethod": null,
-  "innerclasses": [
-    {
-      "class": "jpamb/utils/Tag$TagType",
-      "outer": "jpamb/utils/Tag",
-      "name": "TagType",
-      "access": [
-        "public",
-        "static",
-        "final",
-        "enum"
-      ]
-    }
-  ],
-  "annotations": [],
+  "name": "jpamb/utils/Tag$TagType",
+  "super": {
+    "annotations": [],
+    "args": [
+      {
+        "annotations": [],
+        "kind": "simple",
+        "type": {
+          "args": [],
+          "inner": {
+            "annotations": [],
+            "args": [],
+            "inner": null,
+            "name": "TagType"
+          },
+          "kind": "class",
+          "name": "jpamb/utils/Tag"
+        }
+      }
+    ],
+    "inner": null,
+    "name": "java/lang/Enum"
+  },
+  "typeparams": [],
   "version": [
     63,
     0

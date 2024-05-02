@@ -1,153 +1,75 @@
 {
-  "name": "jpamb/utils/CaseContent$1",
   "access": [
     "super",
     "synthetic"
   ],
-  "typeparams": [],
-  "super": {
-    "name": "java/lang/Object",
-    "inner": null,
-    "args": [],
-    "annotations": []
+  "annotations": [],
+  "bootstrapmethods": [],
+  "enclosingmethod": {
+    "class": "jpamb/utils/CaseContent",
+    "method": null
   },
-  "interfaces": [],
   "fields": [
     {
-      "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
       "access": [
         "static",
         "final",
         "synthetic"
       ],
+      "annotations": [],
+      "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
       "type": {
+        "annotations": [],
         "kind": "array",
         "type": {
-          "base": "int",
-          "annotations": []
-        },
-        "annotations": []
+          "annotations": [],
+          "base": "int"
+        }
       },
-      "value": null,
-      "annotations": []
+      "value": null
     }
   ],
+  "innerclasses": [
+    {
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "class": "jpamb/utils/CaseContent$ResultType",
+      "name": "ResultType",
+      "outer": "jpamb/utils/CaseContent"
+    },
+    {
+      "access": [
+        "static",
+        "synthetic"
+      ],
+      "class": "jpamb/utils/CaseContent$1",
+      "name": null,
+      "outer": null
+    }
+  ],
+  "interfaces": [],
   "methods": [
     {
-      "name": "<clinit>",
       "access": [
         "static"
       ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": null,
-        "annotations": []
-      },
+      "annotations": [],
       "code": {
-        "max_stack": 3,
-        "max_locals": 1,
-        "exceptions": [
-          {
-            "start": 4,
-            "end": 9,
-            "handler": 10,
-            "catchType": "java/lang/NoSuchFieldError"
-          },
-          {
-            "start": 11,
-            "end": 16,
-            "handler": 17,
-            "catchType": "java/lang/NoSuchFieldError"
-          },
-          {
-            "start": 18,
-            "end": 23,
-            "handler": 24,
-            "catchType": "java/lang/NoSuchFieldError"
-          },
-          {
-            "start": 25,
-            "end": 30,
-            "handler": 31,
-            "catchType": "java/lang/NoSuchFieldError"
-          }
-        ],
-        "stack_map": [
-          {
-            "index": 10,
-            "type": "same_locals_1_stack_item_frame",
-            "info": {
-              "type": "object",
-              "ref": {
-                "kind": "class",
-                "name": "java/lang/NoSuchFieldError"
-              }
-            }
-          },
-          {
-            "index": 11,
-            "type": "same"
-          },
-          {
-            "index": 17,
-            "type": "same_locals_1_stack_item_frame",
-            "info": {
-              "type": "object",
-              "ref": {
-                "kind": "class",
-                "name": "java/lang/NoSuchFieldError"
-              }
-            }
-          },
-          {
-            "index": 18,
-            "type": "same"
-          },
-          {
-            "index": 24,
-            "type": "same_locals_1_stack_item_frame",
-            "info": {
-              "type": "object",
-              "ref": {
-                "kind": "class",
-                "name": "java/lang/NoSuchFieldError"
-              }
-            }
-          },
-          {
-            "index": 25,
-            "type": "same"
-          },
-          {
-            "index": 31,
-            "type": "same_locals_1_stack_item_frame",
-            "info": {
-              "type": "object",
-              "ref": {
-                "kind": "class",
-                "name": "java/lang/NoSuchFieldError"
-              }
-            }
-          },
-          {
-            "index": 32,
-            "type": "same"
-          }
-        ],
         "bytecode": [
           {
-            "offset": 0,
-            "opr": "invoke",
             "access": "static",
             "method": {
+              "args": [],
               "is_interface": false,
+              "name": "values",
               "ref": {
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               },
-              "name": "values",
-              "args": [],
               "returns": {
                 "kind": "array",
                 "type": {
@@ -155,22 +77,34 @@
                   "name": "jpamb/utils/CaseContent$ResultType"
                 }
               }
-            }
+            },
+            "offset": 0,
+            "opr": "invoke"
           },
           {
             "offset": 3,
             "opr": "arraylength"
           },
           {
+            "dim": 1,
             "offset": 4,
             "opr": "newarray",
-            "dim": 1,
             "type": "int"
           },
           {
+            "field": {
+              "class": "jpamb/utils/CaseContent$1",
+              "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
+              "type": {
+                "kind": "array",
+                "type": "int"
+              }
+            },
             "offset": 6,
             "opr": "put",
-            "static": true,
+            "static": true
+          },
+          {
             "field": {
               "class": "jpamb/utils/CaseContent$1",
               "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
@@ -178,25 +112,12 @@
                 "kind": "array",
                 "type": "int"
               }
-            }
-          },
-          {
+            },
             "offset": 9,
             "opr": "get",
-            "static": true,
-            "field": {
-              "class": "jpamb/utils/CaseContent$1",
-              "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
-              "type": {
-                "kind": "array",
-                "type": "int"
-              }
-            }
+            "static": true
           },
           {
-            "offset": 12,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/CaseContent$ResultType",
               "name": "DIVIDE_BY_ZERO",
@@ -204,21 +125,24 @@
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               }
-            }
+            },
+            "offset": 12,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 15,
-            "opr": "invoke",
             "access": "virtual",
             "method": {
+              "args": [],
+              "name": "ordinal",
               "ref": {
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               },
-              "name": "ordinal",
-              "args": [],
               "returns": "int"
-            }
+            },
+            "offset": 15,
+            "opr": "invoke"
           },
           {
             "offset": 18,
@@ -239,15 +163,12 @@
             "target": 11
           },
           {
+            "index": 0,
             "offset": 23,
             "opr": "store",
-            "type": "ref",
-            "index": 0
+            "type": "ref"
           },
           {
-            "offset": 24,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/CaseContent$1",
               "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
@@ -255,12 +176,12 @@
                 "kind": "array",
                 "type": "int"
               }
-            }
+            },
+            "offset": 24,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 27,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/CaseContent$ResultType",
               "name": "ASSERTION_ERROR",
@@ -268,21 +189,24 @@
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               }
-            }
+            },
+            "offset": 27,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 30,
-            "opr": "invoke",
             "access": "virtual",
             "method": {
+              "args": [],
+              "name": "ordinal",
               "ref": {
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               },
-              "name": "ordinal",
-              "args": [],
               "returns": "int"
-            }
+            },
+            "offset": 30,
+            "opr": "invoke"
           },
           {
             "offset": 33,
@@ -303,15 +227,12 @@
             "target": 18
           },
           {
+            "index": 0,
             "offset": 38,
             "opr": "store",
-            "type": "ref",
-            "index": 0
+            "type": "ref"
           },
           {
-            "offset": 39,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/CaseContent$1",
               "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
@@ -319,12 +240,12 @@
                 "kind": "array",
                 "type": "int"
               }
-            }
+            },
+            "offset": 39,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 42,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/CaseContent$ResultType",
               "name": "NON_TERMINATION",
@@ -332,21 +253,24 @@
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               }
-            }
+            },
+            "offset": 42,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 45,
-            "opr": "invoke",
             "access": "virtual",
             "method": {
+              "args": [],
+              "name": "ordinal",
               "ref": {
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               },
-              "name": "ordinal",
-              "args": [],
               "returns": "int"
-            }
+            },
+            "offset": 45,
+            "opr": "invoke"
           },
           {
             "offset": 48,
@@ -367,15 +291,12 @@
             "target": 25
           },
           {
+            "index": 0,
             "offset": 53,
             "opr": "store",
-            "type": "ref",
-            "index": 0
+            "type": "ref"
           },
           {
-            "offset": 54,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/CaseContent$1",
               "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
@@ -383,12 +304,12 @@
                 "kind": "array",
                 "type": "int"
               }
-            }
+            },
+            "offset": 54,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 57,
-            "opr": "get",
-            "static": true,
             "field": {
               "class": "jpamb/utils/CaseContent$ResultType",
               "name": "SUCCESS",
@@ -396,21 +317,24 @@
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               }
-            }
+            },
+            "offset": 57,
+            "opr": "get",
+            "static": true
           },
           {
-            "offset": 60,
-            "opr": "invoke",
             "access": "virtual",
             "method": {
+              "args": [],
+              "name": "ordinal",
               "ref": {
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
               },
-              "name": "ordinal",
-              "args": [],
               "returns": "int"
-            }
+            },
+            "offset": 60,
+            "opr": "invoke"
           },
           {
             "offset": 63,
@@ -431,51 +355,127 @@
             "target": 32
           },
           {
+            "index": 0,
             "offset": 68,
             "opr": "store",
-            "type": "ref",
-            "index": 0
+            "type": "ref"
           },
           {
             "offset": 69,
             "opr": "return",
             "type": null
           }
+        ],
+        "exceptions": [
+          {
+            "catchType": "java/lang/NoSuchFieldError",
+            "end": 9,
+            "handler": 10,
+            "start": 4
+          },
+          {
+            "catchType": "java/lang/NoSuchFieldError",
+            "end": 16,
+            "handler": 17,
+            "start": 11
+          },
+          {
+            "catchType": "java/lang/NoSuchFieldError",
+            "end": 23,
+            "handler": 24,
+            "start": 18
+          },
+          {
+            "catchType": "java/lang/NoSuchFieldError",
+            "end": 30,
+            "handler": 31,
+            "start": 25
+          }
+        ],
+        "max_locals": 1,
+        "max_stack": 3,
+        "stack_map": [
+          {
+            "index": 10,
+            "info": {
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/NoSuchFieldError"
+              },
+              "type": "object"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          },
+          {
+            "index": 11,
+            "type": "same"
+          },
+          {
+            "index": 17,
+            "info": {
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/NoSuchFieldError"
+              },
+              "type": "object"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          },
+          {
+            "index": 18,
+            "type": "same"
+          },
+          {
+            "index": 24,
+            "info": {
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/NoSuchFieldError"
+              },
+              "type": "object"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          },
+          {
+            "index": 25,
+            "type": "same"
+          },
+          {
+            "index": 31,
+            "info": {
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/NoSuchFieldError"
+              },
+              "type": "object"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          },
+          {
+            "index": 32,
+            "type": "same"
+          }
         ]
       },
-      "annotations": [],
+      "default": null,
       "exceptions": [],
-      "default": null
+      "name": "<clinit>",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
     }
   ],
-  "bootstrapmethods": [],
-  "enclosingmethod": {
-    "class": "jpamb/utils/CaseContent",
-    "method": null
+  "name": "jpamb/utils/CaseContent$1",
+  "super": {
+    "annotations": [],
+    "args": [],
+    "inner": null,
+    "name": "java/lang/Object"
   },
-  "innerclasses": [
-    {
-      "class": "jpamb/utils/CaseContent$ResultType",
-      "outer": "jpamb/utils/CaseContent",
-      "name": "ResultType",
-      "access": [
-        "public",
-        "static",
-        "final",
-        "enum"
-      ]
-    },
-    {
-      "class": "jpamb/utils/CaseContent$1",
-      "outer": null,
-      "name": null,
-      "access": [
-        "static",
-        "synthetic"
-      ]
-    }
-  ],
-  "annotations": [],
+  "typeparams": [],
   "version": [
     63,
     0

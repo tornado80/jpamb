@@ -25,7 +25,7 @@
             jdk
             maven
             jvm2json.packages.${system}.default
-            (python3.withPackages (p: with p; [click pandas tree-sitter]))
+            (python3.withPackages (p: with p; [click pandas numpy matplotlib tree-sitter]))
           ];
         };
       };

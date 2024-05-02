@@ -1,95 +1,30 @@
 {
-  "name": "jpamb/utils/Tag",
   "access": [
     "public",
     "interface",
     "abstract",
     "annotation"
   ],
-  "typeparams": [],
-  "super": {
-    "name": "java/lang/Object",
-    "inner": null,
-    "args": [],
-    "annotations": []
-  },
-  "interfaces": [
-    {
-      "name": "java/lang/annotation/Annotation",
-      "inner": null,
-      "args": [],
-      "annotations": []
-    }
-  ],
-  "fields": [],
-  "methods": [
-    {
-      "name": "value",
-      "access": [
-        "public",
-        "abstract"
-      ],
-      "typeparams": [],
-      "params": [],
-      "returns": {
-        "type": {
-          "kind": "array",
-          "type": {
-            "kind": "class",
-            "name": "jpamb/utils/Tag",
-            "inner": {
-              "name": "TagType",
-              "inner": null,
-              "args": [],
-              "annotations": []
-            },
-            "args": [],
-            "annotations": []
-          }
-        },
-        "annotations": []
-      },
-      "code": null,
-      "annotations": [],
-      "exceptions": [],
-      "default": null
-    }
-  ],
-  "bootstrapmethods": [],
-  "enclosingmethod": null,
-  "innerclasses": [
-    {
-      "class": "jpamb/utils/Tag$TagType",
-      "outer": "jpamb/utils/Tag",
-      "name": "TagType",
-      "access": [
-        "public",
-        "static",
-        "final",
-        "enum"
-      ]
-    }
-  ],
   "annotations": [
     {
-      "type": "java/lang/annotation/Retention",
       "is_runtime_visible": true,
+      "type": "java/lang/annotation/Retention",
       "values": {
         "value": {
           "type": "enum",
           "value": {
+            "name": "RUNTIME",
             "type": {
               "kind": "class",
               "name": "java/lang/annotation/RetentionPolicy"
-            },
-            "name": "RUNTIME"
+            }
           }
         }
       }
     },
     {
-      "type": "java/lang/annotation/Target",
       "is_runtime_visible": true,
+      "type": "java/lang/annotation/Target",
       "values": {
         "value": {
           "type": "array",
@@ -97,11 +32,11 @@
             {
               "type": "enum",
               "value": {
+                "name": "METHOD",
                 "type": {
                   "kind": "class",
                   "name": "java/lang/annotation/ElementType"
-                },
-                "name": "METHOD"
+                }
               }
             }
           ]
@@ -109,6 +44,71 @@
       }
     }
   ],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "fields": [],
+  "innerclasses": [
+    {
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "class": "jpamb/utils/Tag$TagType",
+      "name": "TagType",
+      "outer": "jpamb/utils/Tag"
+    }
+  ],
+  "interfaces": [
+    {
+      "annotations": [],
+      "args": [],
+      "inner": null,
+      "name": "java/lang/annotation/Annotation"
+    }
+  ],
+  "methods": [
+    {
+      "access": [
+        "public",
+        "abstract"
+      ],
+      "annotations": [],
+      "code": null,
+      "default": null,
+      "exceptions": [],
+      "name": "value",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": {
+          "kind": "array",
+          "type": {
+            "annotations": [],
+            "args": [],
+            "inner": {
+              "annotations": [],
+              "args": [],
+              "inner": null,
+              "name": "TagType"
+            },
+            "kind": "class",
+            "name": "jpamb/utils/Tag"
+          }
+        }
+      },
+      "typeparams": []
+    }
+  ],
+  "name": "jpamb/utils/Tag",
+  "super": {
+    "annotations": [],
+    "args": [],
+    "inner": null,
+    "name": "java/lang/Object"
+  },
+  "typeparams": [],
   "version": [
     63,
     0
