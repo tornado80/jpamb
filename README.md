@@ -75,24 +75,13 @@ $$\mathtt{wager} = \frac{1 - 2 p }{2 (p - 1)}$$
 |    90% |      8 |
 |   100% |    inf | 
 
-## Getting Started
+## Evaluating
 
-To get started evaluating your tool you can run the `evaluate.py` script, it only requires 
+To get started evaluating your tool you can run the `bin/evaluate.py` script, it only requires 
 the `click` library and python 3.
 
 ```
-Usage: evaluate.py [OPTIONS] COMMAND [ARGS]...
-
-  The jpamb evaluator
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  cases     Get a list of cases to test
-  evaluate  Given an command check if it can predict the results.
-  rebuild   Rebuild the benchmark-suite.
-  test      Check that all cases are valid
+./bin/evaluate.py --help
 ```
 
 To evaluate your analysis you should be able to simply run:
@@ -103,18 +92,18 @@ $> ./evaluate.py evaluate <your-analysis>
 There are more interesting options:
 
 ```shell
-Usage: evaluate.py evaluate [OPTIONS] [CMD]...
+$> ./bin/evaluate.py --help
+Usage: evaluate.py [OPTIONS] [TOOLS]...
 
   Given an command check if it can predict the results.
 
 Options:
-  --timeout FLOAT
-  --fail-fast
-  -v
-  --queries TEXT     [default: *, assertion error, divide by zero, ok]
-  --workfolder PATH  [default: /Users/chrg/Develop/repos/jpamb]
-  --help             Show this message and exit.
+  --timeout FLOAT           timeout in seconds.  [default: 2.0]
+  -N, --iterations INTEGER  number of iterations.  [default: 1]
+  --help                    Show this message and exit.
 ```
+
+You can also add more tools to test them at the same time if you like.
 
 If you have problems getting started, please file an [issue](https://github.com/kalhauge/jpamb/issues).
 
@@ -134,7 +123,17 @@ The codec for the output is described [here](https://github.com/kalhauge/jvm2jso
 
 Some sample code for how to get started can be seen in `solutions/bytecoder.py`.
 
+
 ## Developing
 
-The easiest way to get started is to install java, maven, and python3 with `click` installed.
+Before making a pull-request, please run `./bin/build.py` first.
+The easiest way to do that is to run use the [nix tool](https://nixos.org/download/#download-nix) to download all dependencies. 
+
+```shell
+nix develop -c ./bin/build.py
+```
+
+## Citation
+
+To cite this work, please use the cite bottom on the right.
 

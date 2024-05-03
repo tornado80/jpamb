@@ -54,7 +54,6 @@ def tool_parser(ctx_, parms_, tools):
 
 
 @click.command
-@click.option("--fail-fast", is_flag=True)
 @click.option(
     "--timeout",
     show_default=True,
@@ -69,7 +68,7 @@ def tool_parser(ctx_, parms_, tools):
     help="number of iterations.",
 )
 @click.argument("TOOLS", nargs=-1, callback=tool_parser)
-def evaluate(tools, timeout, iterations, fail_fast):
+def evaluate(tools, timeout, iterations):
     """Given an command check if it can predict the results."""
     import random, itertools, csv
 
