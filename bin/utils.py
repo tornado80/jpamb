@@ -249,7 +249,7 @@ class Suite:
         log.info("Writing the cases to file")
         with open(stats / "cases.txt", "w") as f:
             lines = runtime(cwd=self.workfolder).splitlines(keepends=True)
-            f.write("".join(lines))
+            f.write("".join(sorted(lines)))
 
         log.info("Updating the distribution")
 

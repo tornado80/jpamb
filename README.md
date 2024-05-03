@@ -60,8 +60,8 @@ You can also respond with a probabilities [`0%`, `100%`], which is automatically
 the optimal wager. An example of this is in`solutions/apriori.py`, which uses the distribution 
 of errors from `stats/distribution.csv` to gain an advantage.
 
-If you are curious, the optimal wager is found by solving the following quadratic function:
-$$(1 - p) \mathtt{wager} = p \mathtt{points} = p (1 - \frac{1}{\mathtt{wager} + 1})$$
+If you are curious, the optimal wager is found by solving the following quadratic function, where $p$ is the probability:
+$$(1 - p) \cdot \mathtt{wager} = p \cdot \mathtt{points} = p \cdot (1 - \frac{1}{\mathtt{wager} + 1})$$
 And dividing by 2 to get the optimal wager:
 $$\mathtt{wager} = \frac{1 - 2 p }{2 (p - 1)}$$
 
