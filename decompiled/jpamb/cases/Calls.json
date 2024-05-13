@@ -1,0 +1,1898 @@
+{
+  "access": [
+    "public",
+    "super"
+  ],
+  "annotations": [],
+  "bootstrapmethods": [],
+  "enclosingmethod": null,
+  "fields": [
+    {
+      "access": [
+        "static",
+        "final",
+        "synthetic"
+      ],
+      "annotations": [],
+      "name": "$assertionsDisabled",
+      "type": {
+        "annotations": [],
+        "base": "boolean"
+      },
+      "value": null
+    }
+  ],
+  "innerclasses": [
+    {
+      "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "class": "jpamb/utils/Tag$TagType",
+      "name": "TagType",
+      "outer": "jpamb/utils/Tag"
+    }
+  ],
+  "interfaces": [],
+  "methods": [
+    {
+      "access": [
+        "public"
+      ],
+      "annotations": [],
+      "code": {
+        "bytecode": [
+          {
+            "index": 0,
+            "offset": 0,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "access": "special",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Object"
+              },
+              "returns": null
+            },
+            "offset": 1,
+            "opr": "invoke"
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 1,
+        "stack_map": null
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "<init>",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [],
+      "code": {
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 0,
+        "stack_map": null
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "assertTrue",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [],
+      "code": {
+        "bytecode": [
+          {
+            "field": {
+              "class": "jpamb/cases/Calls",
+              "name": "$assertionsDisabled",
+              "type": "boolean"
+            },
+            "offset": 0,
+            "opr": "get",
+            "static": true
+          },
+          {
+            "condition": "ne",
+            "offset": 3,
+            "opr": "ifz",
+            "target": 6
+          },
+          {
+            "class": "java/lang/AssertionError",
+            "offset": 6,
+            "opr": "new"
+          },
+          {
+            "offset": 9,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "access": "special",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/AssertionError"
+              },
+              "returns": null
+            },
+            "offset": 10,
+            "opr": "invoke"
+          },
+          {
+            "offset": 13,
+            "opr": "throw"
+          },
+          {
+            "offset": 14,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 2,
+        "stack_map": [
+          {
+            "index": 6,
+            "type": "same"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "assertFalse",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [],
+      "code": {
+        "bytecode": [
+          {
+            "index": 0,
+            "offset": 0,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "eq",
+            "offset": 1,
+            "opr": "ifz",
+            "target": 4
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "assertTrue",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": null
+            },
+            "offset": 4,
+            "opr": "invoke"
+          },
+          {
+            "offset": 7,
+            "opr": "goto",
+            "target": 5
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "assertFalse",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": null
+            },
+            "offset": 10,
+            "opr": "invoke"
+          },
+          {
+            "offset": 13,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 1,
+        "stack_map": [
+          {
+            "index": 4,
+            "type": "same"
+          },
+          {
+            "index": 5,
+            "type": "same"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "assertIf",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "boolean"
+          },
+          "visible": true
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
+          "values": {
+            "value": {
+              "type": "string",
+              "value": "() -> ok"
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "access": "static",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "assertTrue",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": null
+            },
+            "offset": 0,
+            "opr": "invoke"
+          },
+          {
+            "offset": 3,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 0,
+        "stack_map": null
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "callsAssertTrue",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
+          "values": {
+            "value": {
+              "type": "string",
+              "value": "() -> assertion error"
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "CALL",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "access": "static",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "assertFalse",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": null
+            },
+            "offset": 0,
+            "opr": "invoke"
+          },
+          {
+            "offset": 3,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 0,
+        "stack_map": null
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "callsAssertFalse",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Cases",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "annotation",
+                  "value": {
+                    "type": "jpamb/utils/Case",
+                    "values": {
+                      "value": {
+                        "type": "string",
+                        "value": "(true) -> ok"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "annotation",
+                  "value": {
+                    "type": "jpamb/utils/Case",
+                    "values": {
+                      "value": {
+                        "type": "string",
+                        "value": "(false) -> assertion error"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "CALL",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "index": 0,
+            "offset": 0,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [
+                "boolean"
+              ],
+              "is_interface": false,
+              "name": "assertIf",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": null
+            },
+            "offset": 1,
+            "opr": "invoke"
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 1,
+        "stack_map": null
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "callsAssertIf",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "boolean"
+          },
+          "visible": true
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [],
+      "code": {
+        "bytecode": [
+          {
+            "index": 0,
+            "offset": 0,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "eq",
+            "offset": 1,
+            "opr": "ifz",
+            "target": 5
+          },
+          {
+            "index": 0,
+            "offset": 4,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 5,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "condition": "ne",
+            "offset": 6,
+            "opr": "if",
+            "target": 7
+          },
+          {
+            "index": 0,
+            "offset": 9,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 10,
+            "opr": "return",
+            "type": "int"
+          },
+          {
+            "index": 0,
+            "offset": 11,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 12,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 13,
+            "operant": "sub",
+            "opr": "binary",
+            "type": "int"
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [
+                "int"
+              ],
+              "is_interface": false,
+              "name": "fib",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": "int"
+            },
+            "offset": 14,
+            "opr": "invoke"
+          },
+          {
+            "index": 0,
+            "offset": 17,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 18,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 19,
+            "operant": "sub",
+            "opr": "binary",
+            "type": "int"
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [
+                "int"
+              ],
+              "is_interface": false,
+              "name": "fib",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": "int"
+            },
+            "offset": 20,
+            "opr": "invoke"
+          },
+          {
+            "offset": 23,
+            "operant": "add",
+            "opr": "binary",
+            "type": "int"
+          },
+          {
+            "offset": 24,
+            "opr": "return",
+            "type": "int"
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 3,
+        "stack_map": [
+          {
+            "index": 5,
+            "type": "same"
+          },
+          {
+            "index": 7,
+            "type": "same"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "fib",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "int"
+          },
+          "visible": true
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": {
+          "base": "int"
+        }
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
+          "values": {
+            "value": {
+              "type": "string",
+              "value": "() -> ok"
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "CALL",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [
+                "boolean"
+              ],
+              "is_interface": false,
+              "name": "assertIf",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": null
+            },
+            "offset": 1,
+            "opr": "invoke"
+          },
+          {
+            "offset": 4,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 1,
+        "stack_map": null
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "callsAssertIfWithTrue",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Cases",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "annotation",
+                  "value": {
+                    "type": "jpamb/utils/Case",
+                    "values": {
+                      "value": {
+                        "type": "string",
+                        "value": "(8) -> ok"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "annotation",
+                  "value": {
+                    "type": "jpamb/utils/Case",
+                    "values": {
+                      "value": {
+                        "type": "string",
+                        "value": "(0) -> assertion error"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "CALL",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                },
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "RECURSION",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "field": {
+              "class": "jpamb/cases/Calls",
+              "name": "$assertionsDisabled",
+              "type": "boolean"
+            },
+            "offset": 0,
+            "opr": "get",
+            "static": true
+          },
+          {
+            "condition": "ne",
+            "offset": 3,
+            "opr": "ifz",
+            "target": 10
+          },
+          {
+            "index": 0,
+            "offset": 6,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [
+                "int"
+              ],
+              "is_interface": false,
+              "name": "fib",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": "int"
+            },
+            "offset": 7,
+            "opr": "invoke"
+          },
+          {
+            "offset": 10,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 21
+            }
+          },
+          {
+            "condition": "eq",
+            "offset": 12,
+            "opr": "if",
+            "target": 10
+          },
+          {
+            "class": "java/lang/AssertionError",
+            "offset": 15,
+            "opr": "new"
+          },
+          {
+            "offset": 18,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "access": "special",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/AssertionError"
+              },
+              "returns": null
+            },
+            "offset": 19,
+            "opr": "invoke"
+          },
+          {
+            "offset": 22,
+            "opr": "throw"
+          },
+          {
+            "offset": 23,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 2,
+        "stack_map": [
+          {
+            "index": 10,
+            "type": "same"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "callsAssertFib",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "int"
+          },
+          "visible": true
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [],
+      "code": {
+        "bytecode": [
+          {
+            "index": 0,
+            "offset": 0,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "dim": 1,
+            "offset": 1,
+            "opr": "newarray",
+            "type": "int"
+          },
+          {
+            "index": 1,
+            "offset": 3,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "index": 1,
+            "offset": 4,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "offset": 5,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 2
+            }
+          },
+          {
+            "offset": 7,
+            "opr": "array_store",
+            "type": "int"
+          },
+          {
+            "offset": 8,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "index": 2,
+            "offset": 9,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "offset": 10,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 3
+            }
+          },
+          {
+            "index": 3,
+            "offset": 11,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "index": 2,
+            "offset": 12,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "index": 0,
+            "offset": 13,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "ge",
+            "offset": 14,
+            "opr": "if",
+            "target": 57
+          },
+          {
+            "offset": 17,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "index": 4,
+            "offset": 18,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "index": 1,
+            "offset": 20,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "index": 5,
+            "offset": 21,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "index": 5,
+            "offset": 23,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "offset": 25,
+            "opr": "arraylength"
+          },
+          {
+            "index": 6,
+            "offset": 26,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "offset": 28,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "index": 7,
+            "offset": 29,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "index": 7,
+            "offset": 31,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "index": 6,
+            "offset": 33,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "ge",
+            "offset": 35,
+            "opr": "if",
+            "target": 48
+          },
+          {
+            "index": 5,
+            "offset": 38,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "index": 7,
+            "offset": 40,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 42,
+            "opr": "array_load",
+            "type": "int"
+          },
+          {
+            "index": 8,
+            "offset": 43,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "index": 3,
+            "offset": 45,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "index": 8,
+            "offset": 46,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 48,
+            "operant": "rem",
+            "opr": "binary",
+            "type": "int"
+          },
+          {
+            "condition": "eq",
+            "offset": 49,
+            "opr": "ifz",
+            "target": 36
+          },
+          {
+            "offset": 52,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 53,
+            "opr": "goto",
+            "target": 37
+          },
+          {
+            "offset": 56,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "index": 4,
+            "offset": 57,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "index": 4,
+            "offset": 59,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "eq",
+            "offset": 61,
+            "opr": "ifz",
+            "target": 48
+          },
+          {
+            "index": 8,
+            "offset": 64,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "index": 8,
+            "offset": 66,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 68,
+            "operant": "mul",
+            "opr": "binary",
+            "type": "int"
+          },
+          {
+            "index": 3,
+            "offset": 69,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "le",
+            "offset": 70,
+            "opr": "if",
+            "target": 46
+          },
+          {
+            "offset": 73,
+            "opr": "goto",
+            "target": 48
+          },
+          {
+            "amount": 1,
+            "index": 7,
+            "offset": 76,
+            "opr": "incr"
+          },
+          {
+            "offset": 79,
+            "opr": "goto",
+            "target": 23
+          },
+          {
+            "index": 4,
+            "offset": 82,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "eq",
+            "offset": 84,
+            "opr": "ifz",
+            "target": 55
+          },
+          {
+            "index": 1,
+            "offset": 87,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "index": 2,
+            "offset": 88,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "index": 3,
+            "offset": 89,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 90,
+            "opr": "array_store",
+            "type": "int"
+          },
+          {
+            "amount": 1,
+            "index": 2,
+            "offset": 91,
+            "opr": "incr"
+          },
+          {
+            "amount": 1,
+            "index": 3,
+            "offset": 94,
+            "opr": "incr"
+          },
+          {
+            "offset": 97,
+            "opr": "goto",
+            "target": 11
+          },
+          {
+            "index": 1,
+            "offset": 100,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "offset": 101,
+            "opr": "return",
+            "type": "ref"
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 9,
+        "max_stack": 3,
+        "stack_map": [
+          {
+            "index": 11,
+            "info": [
+              {
+                "ref": {
+                  "kind": "array",
+                  "type": "int"
+                },
+                "type": "object"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "append_frame"
+          },
+          {
+            "index": 23,
+            "locals": [
+              {
+                "type": "integer"
+              },
+              {
+                "ref": {
+                  "kind": "array",
+                  "type": "int"
+                },
+                "type": "object"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "ref": {
+                  "kind": "array",
+                  "type": "int"
+                },
+                "type": "object"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "stack": [],
+            "type": "full_frame"
+          },
+          {
+            "index": 36,
+            "info": [
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "append_frame"
+          },
+          {
+            "index": 37,
+            "info": {
+              "type": "integer"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          },
+          {
+            "index": 46,
+            "info": 1,
+            "type": "chop_frame"
+          },
+          {
+            "index": 48,
+            "info": 3,
+            "type": "chop_frame"
+          },
+          {
+            "index": 55,
+            "type": "same"
+          },
+          {
+            "index": 57,
+            "info": 1,
+            "type": "chop_frame"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "generatePrimeArray",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "int"
+          },
+          "visible": true
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": {
+          "kind": "array",
+          "type": {
+            "annotations": [],
+            "base": "int"
+          }
+        }
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
+          "values": {
+            "value": {
+              "type": "string",
+              "value": "(100) -> ok"
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "CALL",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                },
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "ARRAY",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                },
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "LOOP",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                },
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "INTEGER_OVERFLOW",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "index": 0,
+            "offset": 0,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "access": "static",
+            "method": {
+              "args": [
+                "int"
+              ],
+              "is_interface": false,
+              "name": "generatePrimeArray",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              },
+              "returns": {
+                "kind": "array",
+                "type": "int"
+              }
+            },
+            "offset": 1,
+            "opr": "invoke"
+          },
+          {
+            "index": 1,
+            "offset": 4,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "index": 1,
+            "offset": 5,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "offset": 6,
+            "opr": "arraylength"
+          },
+          {
+            "index": 2,
+            "offset": 7,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "offset": 8,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "index": 3,
+            "offset": 9,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "index": 3,
+            "offset": 10,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "index": 2,
+            "offset": 11,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "ge",
+            "offset": 12,
+            "opr": "if",
+            "target": 25
+          },
+          {
+            "index": 1,
+            "offset": 15,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "index": 3,
+            "offset": 16,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 17,
+            "opr": "array_load",
+            "type": "int"
+          },
+          {
+            "index": 4,
+            "offset": 18,
+            "opr": "store",
+            "type": "int"
+          },
+          {
+            "field": {
+              "class": "jpamb/cases/Calls",
+              "name": "$assertionsDisabled",
+              "type": "boolean"
+            },
+            "offset": 20,
+            "opr": "get",
+            "static": true
+          },
+          {
+            "condition": "ne",
+            "offset": 23,
+            "opr": "ifz",
+            "target": 23
+          },
+          {
+            "index": 4,
+            "offset": 26,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "condition": "gt",
+            "offset": 28,
+            "opr": "ifz",
+            "target": 23
+          },
+          {
+            "class": "java/lang/AssertionError",
+            "offset": 31,
+            "opr": "new"
+          },
+          {
+            "offset": 34,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "access": "special",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/AssertionError"
+              },
+              "returns": null
+            },
+            "offset": 35,
+            "opr": "invoke"
+          },
+          {
+            "offset": 38,
+            "opr": "throw"
+          },
+          {
+            "amount": 1,
+            "index": 3,
+            "offset": 39,
+            "opr": "incr"
+          },
+          {
+            "offset": 42,
+            "opr": "goto",
+            "target": 8
+          },
+          {
+            "offset": 45,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 5,
+        "max_stack": 2,
+        "stack_map": [
+          {
+            "index": 8,
+            "info": [
+              {
+                "ref": {
+                  "kind": "array",
+                  "type": "int"
+                },
+                "type": "object"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "append_frame"
+          },
+          {
+            "index": 23,
+            "type": "same"
+          },
+          {
+            "index": 25,
+            "info": 3,
+            "type": "chop_frame"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "allPrimesArePositive",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "int"
+          },
+          "visible": true
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "static"
+      ],
+      "annotations": [],
+      "code": {
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": {
+              "type": "class",
+              "value": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              }
+            }
+          },
+          {
+            "access": "virtual",
+            "method": {
+              "args": [],
+              "name": "desiredAssertionStatus",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/Class"
+              },
+              "returns": "boolean"
+            },
+            "offset": 2,
+            "opr": "invoke"
+          },
+          {
+            "condition": "ne",
+            "offset": 5,
+            "opr": "ifz",
+            "target": 5
+          },
+          {
+            "offset": 8,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 9,
+            "opr": "goto",
+            "target": 6
+          },
+          {
+            "offset": 12,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "field": {
+              "class": "jpamb/cases/Calls",
+              "name": "$assertionsDisabled",
+              "type": "boolean"
+            },
+            "offset": 13,
+            "opr": "put",
+            "static": true
+          },
+          {
+            "offset": 16,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 0,
+        "max_stack": 1,
+        "stack_map": [
+          {
+            "index": 5,
+            "type": "same"
+          },
+          {
+            "index": 6,
+            "info": {
+              "type": "integer"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "<clinit>",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    }
+  ],
+  "name": "jpamb/cases/Calls",
+  "super": {
+    "annotations": [],
+    "args": [],
+    "inner": null,
+    "name": "java/lang/Object"
+  },
+  "typeparams": [],
+  "version": [
+    63,
+    0
+  ]
+}

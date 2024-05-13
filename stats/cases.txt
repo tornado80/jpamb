@@ -8,6 +8,14 @@ jpamb.cases.Arrays.arraySometimesNull:(I)V                   (0) -> out of bound
 jpamb.cases.Arrays.arraySometimesNull:(I)V                   (11) -> null_pointer
 jpamb.cases.Arrays.binarySearch:(I)V                         (3) -> ok
 jpamb.cases.Arrays.binarySearch:(I)V                         (6) -> assertion error
+jpamb.cases.Calls.allPrimesArePositive:(I)V                  (100) -> ok
+jpamb.cases.Calls.callsAssertFalse:()V                       () -> assertion error
+jpamb.cases.Calls.callsAssertFib:(I)V                        (0) -> assertion error
+jpamb.cases.Calls.callsAssertFib:(I)V                        (8) -> ok
+jpamb.cases.Calls.callsAssertIf:(Z)V                         (false) -> assertion error
+jpamb.cases.Calls.callsAssertIf:(Z)V                         (true) -> ok
+jpamb.cases.Calls.callsAssertIfWithTrue:()V                  () -> ok
+jpamb.cases.Calls.callsAssertTrue:()V                        () -> ok
 jpamb.cases.Loops.forever:()V                                () -> *
 jpamb.cases.Loops.neverAsserts:()V                           () -> *
 jpamb.cases.Loops.neverDivides:()I                           () -> *

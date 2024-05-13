@@ -4385,9 +4385,24 @@
             }
           },
           {
+            "offset": 12,
+            "opr": "push",
+            "value": {
+              "type": "class",
+              "value": {
+                "kind": "class",
+                "name": "jpamb/cases/Calls"
+              }
+            }
+          },
+          {
             "access": "static",
             "method": {
               "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/Object"
+                },
                 {
                   "kind": "class",
                   "name": "java/lang/Object"
@@ -4416,7 +4431,7 @@
                 "name": "java/util/List"
               }
             },
-            "offset": 12,
+            "offset": 15,
             "opr": "invoke"
           },
           {
@@ -4428,19 +4443,19 @@
                 "name": "java/util/List"
               }
             },
-            "offset": 15,
+            "offset": 18,
             "opr": "put",
             "static": true
           },
           {
-            "offset": 18,
+            "offset": 21,
             "opr": "return",
             "type": null
           }
         ],
         "exceptions": [],
         "max_locals": 0,
-        "max_stack": 4,
+        "max_stack": 5,
         "stack_map": null
       },
       "default": null,

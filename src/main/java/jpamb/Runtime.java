@@ -19,7 +19,8 @@ public class Runtime {
       Simple.class,
       Loops.class,
       Tricky.class,
-      jpamb.cases.Arrays.class);
+      jpamb.cases.Arrays.class,
+      Calls.class);
 
   public static Case[] cases(Method m) {
     var cases = m.getAnnotation(Cases.class);

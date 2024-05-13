@@ -13,6 +13,8 @@ public @interface Tag {
     LOOP,
     INTEGER_OVERFLOW,
     CALL,
-    ARRAY
+    ARRAY,
+    RECURSION,
+    STDLIB,
   }
 }
