@@ -20,6 +20,7 @@ QUERIES = [
     "assertion error",
     "divide by zero",
     "ok",
+    "out of bounds",
 ]
 
 

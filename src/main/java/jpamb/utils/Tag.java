@@ -12,6 +12,7 @@ public @interface Tag {
     CONDITIONAL,
     LOOP,
     INTEGER_OVERFLOW,
-    CALL
+    CALL,
+    ARRAY
   }
 }

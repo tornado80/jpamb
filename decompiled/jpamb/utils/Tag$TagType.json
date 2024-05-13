@@ -103,6 +103,29 @@
     },
     {
       "access": [
+        "public",
+        "static",
+        "final",
+        "enum"
+      ],
+      "annotations": [],
+      "name": "ARRAY",
+      "type": {
+        "annotations": [],
+        "args": [],
+        "inner": {
+          "annotations": [],
+          "args": [],
+          "inner": null,
+          "name": "TagType"
+        },
+        "kind": "class",
+        "name": "jpamb/utils/Tag"
+      },
+      "value": null
+    },
+    {
+      "access": [
         "private",
         "static",
         "final",
@@ -438,7 +461,7 @@
             "opr": "push",
             "value": {
               "type": "integer",
-              "value": 4
+              "value": 5
             }
           },
           {
@@ -576,6 +599,37 @@
           },
           {
             "offset": 28,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 29,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 4
+            }
+          },
+          {
+            "field": {
+              "class": "jpamb/utils/Tag$TagType",
+              "name": "ARRAY",
+              "type": {
+                "kind": "class",
+                "name": "jpamb/utils/Tag$TagType"
+              }
+            },
+            "offset": 30,
+            "opr": "get",
+            "static": true
+          },
+          {
+            "offset": 33,
+            "opr": "array_store",
+            "type": "ref"
+          },
+          {
+            "offset": 34,
             "opr": "return",
             "type": "ref"
           }
@@ -857,6 +911,66 @@
             "static": true
           },
           {
+            "class": "jpamb/utils/Tag$TagType",
+            "offset": 52,
+            "opr": "new"
+          },
+          {
+            "offset": 55,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 56,
+            "opr": "push",
+            "value": {
+              "type": "string",
+              "value": "ARRAY"
+            }
+          },
+          {
+            "offset": 58,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 4
+            }
+          },
+          {
+            "access": "special",
+            "method": {
+              "args": [
+                {
+                  "kind": "class",
+                  "name": "java/lang/String"
+                },
+                "int"
+              ],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/utils/Tag$TagType"
+              },
+              "returns": null
+            },
+            "offset": 59,
+            "opr": "invoke"
+          },
+          {
+            "field": {
+              "class": "jpamb/utils/Tag$TagType",
+              "name": "ARRAY",
+              "type": {
+                "kind": "class",
+                "name": "jpamb/utils/Tag$TagType"
+              }
+            },
+            "offset": 62,
+            "opr": "put",
+            "static": true
+          },
+          {
             "access": "static",
             "method": {
               "args": [],
@@ -874,7 +988,7 @@
                 }
               }
             },
-            "offset": 52,
+            "offset": 65,
             "opr": "invoke"
           },
           {
@@ -889,12 +1003,12 @@
                 }
               }
             },
-            "offset": 55,
+            "offset": 68,
             "opr": "put",
             "static": true
           },
           {
-            "offset": 58,
+            "offset": 71,
             "opr": "return",
             "type": null
           }

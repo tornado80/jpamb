@@ -64,13 +64,16 @@ public record CaseContent(
     DIVIDE_BY_ZERO,
     ASSERTION_ERROR,
     SUCCESS,
-    NON_TERMINATION;
+    NON_TERMINATION,
+    OUT_OF_BOUNDS;
 
     public static ResultType parse(String string) {
       if (string.equals("*")) {
         return NON_TERMINATION;
       } else if (string.equals("assertion error")) {
         return ASSERTION_ERROR;
+      } else if (string.equals("out of bounds")) {
+        return OUT_OF_BOUNDS;
       } else if (string.equals("divide by zero")) {
         return DIVIDE_BY_ZERO;
       } else if (string.equals("ok")) {
@@ -86,23 +89,12 @@ public record CaseContent(
           return "divide by zero";
         case ASSERTION_ERROR:
           return "assertion error";
+        case OUT_OF_BOUNDS:
+          return "out of bounds";
         case NON_TERMINATION:
           return "*";
         case SUCCESS:
           return "ok";
-        default:
-          throw new RuntimeException("Unexpected");
-      }
-    }
-
-    public boolean expectThrows(Class<? extends Throwable> clazz) {
-      switch (this) {
-        case DIVIDE_BY_ZERO:
-          return clazz.equals(ArithmeticException.class);
-        case ASSERTION_ERROR:
-          return clazz.equals(AssertionError.class);
-        case NON_TERMINATION:
-          return clazz.equals(TimeoutException.class);
         default:
           throw new RuntimeException("Unexpected");
       }
@@ -115,6 +107,8 @@ public record CaseContent(
         return ASSERTION_ERROR;
       } else if (cause instanceof TimeoutException) {
         return NON_TERMINATION;
+      } else if (cause instanceof ArrayIndexOutOfBoundsException) {
+        return OUT_OF_BOUNDS;
       } else {
         throw new RuntimeException("Unexpected");
       }

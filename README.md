@@ -16,12 +16,13 @@ jpamb.cases.Simple.divideByZero:()I
 
 And the query is one of: 
 
-| query              | description                            |
-| :-----             | :-----                                 |
-| `assertion error`  | an execution throws an assertion error |
-| `ok`               | an execution runs to completion        | 
-| `*`                | an execution runs forever              | 
-| `divide by zero`   | an execution divides by zero           | 
+| query              | description                               |
+| :-----             | :-----                                    |
+| `assertion error`  | an execution throws an assertion error    |
+| `ok`               | an execution runs to completion           | 
+| `*`                | an execution runs forever                 | 
+| `divide by zero`   | an execution divides by zero              | 
+| `out of bounds`    | an execution index an array out of bounds | 
 
 Your analysis should look like this:
 
