@@ -65,6 +65,7 @@ public record CaseContent(
     ASSERTION_ERROR,
     SUCCESS,
     NON_TERMINATION,
+    NULL_POINTER,
     OUT_OF_BOUNDS;
 
     public static ResultType parse(String string) {
@@ -74,6 +75,8 @@ public record CaseContent(
         return ASSERTION_ERROR;
       } else if (string.equals("out of bounds")) {
         return OUT_OF_BOUNDS;
+      } else if (string.equals("null pointer")) {
+        return NULL_POINTER;
       } else if (string.equals("divide by zero")) {
         return DIVIDE_BY_ZERO;
       } else if (string.equals("ok")) {
@@ -91,6 +94,8 @@ public record CaseContent(
           return "assertion error";
         case OUT_OF_BOUNDS:
           return "out of bounds";
+        case NULL_POINTER:
+          return "null_pointer";
         case NON_TERMINATION:
           return "*";
         case SUCCESS:
@@ -109,6 +114,8 @@ public record CaseContent(
         return NON_TERMINATION;
       } else if (cause instanceof ArrayIndexOutOfBoundsException) {
         return OUT_OF_BOUNDS;
+      } else if (cause instanceof NullPointerException) {
+        return NULL_POINTER;
       } else {
         throw new RuntimeException("Unexpected");
       }

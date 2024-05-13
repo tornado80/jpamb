@@ -19,6 +19,7 @@ QUERIES = [
     "*",
     "assertion error",
     "divide by zero",
+    "null pointer",
     "ok",
     "out of bounds",
 ]
@@ -255,7 +256,7 @@ class Suite:
         log.info("Updating the distribution")
 
         with open(stats / "distribution.csv", "w") as f:
-            w = csv.writer(f)
+            w = csv.writer(f, dialect="unix")
             w.writerow(["method"] + self.queries)
 
             sums = collections.Counter()

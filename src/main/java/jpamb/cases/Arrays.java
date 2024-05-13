@@ -26,6 +26,31 @@ public class Arrays {
     assert array.length == 2;
   }
 
+  @Case("() -> null pointer")
+  @Tag({ ARRAY })
+  public static void arrayIsNull() {
+    int array[] = null;
+    array[1] = 10;
+  }
+
+  @Case("() -> null pointer")
+  @Tag({ ARRAY })
+  public static void arrayIsNullLength() {
+    int array[] = null;
+    assert array.length == 0;
+  }
+
+  @Case("(11) -> null pointer")
+  @Case("(0) -> out of bounds")
+  @Tag({ ARRAY })
+  public static void arraySometimesNull(int i) {
+    int array[] = null;
+    if (i < 10) {
+      array = new int[] { i };
+    }
+    array[1] = 10;
+  }
+
   @Case("() -> assertion error")
   @Tag({ ARRAY })
   public static void arrayContent() {

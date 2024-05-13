@@ -634,6 +634,463 @@
           "values": {
             "value": {
               "type": "string",
+              "value": "() -> null pointer"
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "ARRAY",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": null
+          },
+          {
+            "index": 0,
+            "offset": 1,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "index": 0,
+            "offset": 2,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "offset": 3,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 4,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 10
+            }
+          },
+          {
+            "offset": 6,
+            "opr": "array_store",
+            "type": "int"
+          },
+          {
+            "offset": 7,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 3,
+        "stack_map": null
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "arrayIsNull",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
+          "values": {
+            "value": {
+              "type": "string",
+              "value": "() -> null pointer"
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "ARRAY",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": null
+          },
+          {
+            "index": 0,
+            "offset": 1,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "field": {
+              "class": "jpamb/cases/Arrays",
+              "name": "$assertionsDisabled",
+              "type": "boolean"
+            },
+            "offset": 2,
+            "opr": "get",
+            "static": true
+          },
+          {
+            "condition": "ne",
+            "offset": 5,
+            "opr": "ifz",
+            "target": 11
+          },
+          {
+            "index": 0,
+            "offset": 8,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "offset": 9,
+            "opr": "arraylength"
+          },
+          {
+            "condition": "eq",
+            "offset": 10,
+            "opr": "ifz",
+            "target": 11
+          },
+          {
+            "class": "java/lang/AssertionError",
+            "offset": 13,
+            "opr": "new"
+          },
+          {
+            "offset": 16,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "access": "special",
+            "method": {
+              "args": [],
+              "is_interface": false,
+              "name": "<init>",
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/AssertionError"
+              },
+              "returns": null
+            },
+            "offset": 17,
+            "opr": "invoke"
+          },
+          {
+            "offset": 20,
+            "opr": "throw"
+          },
+          {
+            "offset": 21,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 1,
+        "max_stack": 2,
+        "stack_map": [
+          {
+            "index": 11,
+            "info": [
+              {
+                "ref": {
+                  "kind": "array",
+                  "type": "int"
+                },
+                "type": "object"
+              }
+            ],
+            "type": "append_frame"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "arrayIsNullLength",
+      "params": [],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Cases",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "annotation",
+                  "value": {
+                    "type": "jpamb/utils/Case",
+                    "values": {
+                      "value": {
+                        "type": "string",
+                        "value": "(11) -> null pointer"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "annotation",
+                  "value": {
+                    "type": "jpamb/utils/Case",
+                    "values": {
+                      "value": {
+                        "type": "string",
+                        "value": "(0) -> out of bounds"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Tag",
+          "values": {
+            "value": {
+              "type": "array",
+              "value": [
+                {
+                  "type": "enum",
+                  "value": {
+                    "name": "ARRAY",
+                    "type": {
+                      "kind": "class",
+                      "name": "jpamb/utils/Tag$TagType"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "code": {
+        "bytecode": [
+          {
+            "offset": 0,
+            "opr": "push",
+            "value": null
+          },
+          {
+            "index": 1,
+            "offset": 1,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "index": 0,
+            "offset": 2,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 3,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 10
+            }
+          },
+          {
+            "condition": "ge",
+            "offset": 5,
+            "opr": "if",
+            "target": 12
+          },
+          {
+            "offset": 8,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "dim": 1,
+            "offset": 9,
+            "opr": "newarray",
+            "type": "int"
+          },
+          {
+            "offset": 11,
+            "opr": "dup",
+            "words": 1
+          },
+          {
+            "offset": 12,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 0
+            }
+          },
+          {
+            "index": 0,
+            "offset": 13,
+            "opr": "load",
+            "type": "int"
+          },
+          {
+            "offset": 14,
+            "opr": "array_store",
+            "type": "int"
+          },
+          {
+            "index": 1,
+            "offset": 15,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "index": 1,
+            "offset": 16,
+            "opr": "load",
+            "type": "ref"
+          },
+          {
+            "offset": 17,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 1
+            }
+          },
+          {
+            "offset": 18,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 10
+            }
+          },
+          {
+            "offset": 20,
+            "opr": "array_store",
+            "type": "int"
+          },
+          {
+            "offset": 21,
+            "opr": "return",
+            "type": null
+          }
+        ],
+        "exceptions": [],
+        "max_locals": 2,
+        "max_stack": 4,
+        "stack_map": [
+          {
+            "index": 12,
+            "info": [
+              {
+                "ref": {
+                  "kind": "array",
+                  "type": "int"
+                },
+                "type": "object"
+              }
+            ],
+            "type": "append_frame"
+          }
+        ]
+      },
+      "default": null,
+      "exceptions": [],
+      "name": "arraySometimesNull",
+      "params": [
+        {
+          "annotations": [],
+          "type": {
+            "annotations": [],
+            "base": "int"
+          },
+          "visible": true
+        }
+      ],
+      "returns": {
+        "annotations": [],
+        "type": null
+      },
+      "typeparams": []
+    },
+    {
+      "access": [
+        "public",
+        "static"
+      ],
+      "annotations": [
+        {
+          "is_runtime_visible": true,
+          "type": "jpamb/utils/Case",
+          "values": {
+            "value": {
+              "type": "string",
               "value": "() -> assertion error"
             }
           }

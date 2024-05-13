@@ -312,7 +312,7 @@
           {
             "field": {
               "class": "jpamb/utils/CaseContent$ResultType",
-              "name": "NON_TERMINATION",
+              "name": "NULL_POINTER",
               "type": {
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
@@ -376,7 +376,7 @@
           {
             "field": {
               "class": "jpamb/utils/CaseContent$ResultType",
-              "name": "SUCCESS",
+              "name": "NON_TERMINATION",
               "type": {
                 "kind": "class",
                 "name": "jpamb/utils/CaseContent$ResultType"
@@ -425,7 +425,71 @@
             "type": "ref"
           },
           {
+            "field": {
+              "class": "jpamb/utils/CaseContent$1",
+              "name": "$SwitchMap$jpamb$utils$CaseContent$ResultType",
+              "type": {
+                "kind": "array",
+                "type": "int"
+              }
+            },
             "offset": 84,
+            "opr": "get",
+            "static": true
+          },
+          {
+            "field": {
+              "class": "jpamb/utils/CaseContent$ResultType",
+              "name": "SUCCESS",
+              "type": {
+                "kind": "class",
+                "name": "jpamb/utils/CaseContent$ResultType"
+              }
+            },
+            "offset": 87,
+            "opr": "get",
+            "static": true
+          },
+          {
+            "access": "virtual",
+            "method": {
+              "args": [],
+              "name": "ordinal",
+              "ref": {
+                "kind": "class",
+                "name": "jpamb/utils/CaseContent$ResultType"
+              },
+              "returns": "int"
+            },
+            "offset": 90,
+            "opr": "invoke"
+          },
+          {
+            "offset": 93,
+            "opr": "push",
+            "value": {
+              "type": "integer",
+              "value": 6
+            }
+          },
+          {
+            "offset": 95,
+            "opr": "array_store",
+            "type": "int"
+          },
+          {
+            "offset": 96,
+            "opr": "goto",
+            "target": 46
+          },
+          {
+            "index": 0,
+            "offset": 99,
+            "opr": "store",
+            "type": "ref"
+          },
+          {
+            "offset": 100,
             "opr": "return",
             "type": null
           }
@@ -460,6 +524,12 @@
             "end": 37,
             "handler": 38,
             "start": 32
+          },
+          {
+            "catchType": "java/lang/NoSuchFieldError",
+            "end": 44,
+            "handler": 45,
+            "start": 39
           }
         ],
         "max_locals": 1,
@@ -538,6 +608,21 @@
           },
           {
             "index": 39,
+            "type": "same"
+          },
+          {
+            "index": 45,
+            "info": {
+              "ref": {
+                "kind": "class",
+                "name": "java/lang/NoSuchFieldError"
+              },
+              "type": "object"
+            },
+            "type": "same_locals_1_stack_item_frame"
+          },
+          {
+            "index": 46,
             "type": "same"
           }
         ]
