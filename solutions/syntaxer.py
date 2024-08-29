@@ -8,14 +8,7 @@ import sys, logging
 l = logging
 l.basicConfig(level=logging.DEBUG)
 
-name, target = sys.argv[1:]
-
-
-# only handle assertion errors:
-l.debug("Check if target is assertion error")
-if target != "assertion error":
-    print("50%")
-    sys.exit(0)
+(name,) = sys.argv[1:]
 
 import re
 from pathlib import Path
@@ -101,9 +94,9 @@ for node, t in assert_q.captures(node):
         break
 else:
     l.debug("Did not find any assertions")
-    print("5%")
+    print("assertion error\t20%")
     sys.exit(0)
 
 l.debug("Found assertion")
-print("80%")
+print("assertion error\t80%")
 sys.exit(0)

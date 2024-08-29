@@ -4,11 +4,6 @@ import click
 import os
 from pathlib import Path
 
-import logging
-
-logging.basicConfig(level=logging.INFO)
-log = logging.getLogger("build")
-
 from utils import *
 
 WORKFOLDER = Path(os.path.abspath(__file__)).parent.parent

@@ -5,7 +5,8 @@ micro-benchmarks to be solved by either dynamic or static analysis.
 
 ## Rules of the Game
 
-The goal is to build a program analysis that takes two arguments, a method ID and a query.
+The goal is to build a program analysis that takes a method ID as an argument, and 
+returns a list of lines, each line consisting of a query and a prediction separated by semicolon `;`.
 A method ID is the fully qualified name of the class, the method name, ":", and 
 then the [method descriptor](https://docs.oracle.com/javase/specs/jvms/se22/html/jvms-4.html#jvms-4.3.3), 
 for example:
@@ -24,20 +25,24 @@ And the query is one of:
 | `divide by zero`   | an execution divides by zero              | 
 | `out of bounds`    | an execution index an array out of bounds | 
 
+And the prediction is either a wager (`-3`, `inf`) (the number of points you 
+want to bet on you being right) or a probability (`30%`, `72%`)
+
 Your analysis should look like this:
 
 ```shell
-$> ./analysis "jpamb.cases.Simple.assertPositive:(I)V" "assertion error"
+$> ./analysis "jpamb.cases.Simple.assertPositive:(I)V" 
+divide by zero;5 
+ok;25%
 ```
 
-In which case it should either reply with a wager, e.i., the number of points
-waged [`-inf`, `inf`] on your prediction. A negative wager is against the query, and 
+A wager is the number of points waged [`-inf`, `inf`] on your prediction. A negative wager is against the query, and 
 a positive is for the query. A failed wager is subtracted from your points, however 
 a successful wager is converted into points like so:
 $$\mathtt{points} = 1 - \frac{1}{\mathtt{wager} + 1}$$
 
-If your analysis is queried with an "assertion error" and you are sure that the program does not contain one, 
-you can wager -200 points. If you are wrong, and the program can exhibit an assertion error, 
+If you are sure that the method being analyzed does not contain an "assertion error", 
+you can wager -200 points. If you are wrong, and the program does exhibit an assertion error, 
 you lose 200 point, but if you are correct, you gain $1 - 1 / 201 = 0.995$ points.
 
 Below are some example values. Note that small wagers equal smaller risk.
@@ -55,11 +60,9 @@ Below are some example values. Note that small wagers equal smaller risk.
 
 Examples of such scripts can be seen in `solutions/`.
 
-### Probabilities
-
-You can also respond with a probabilities [`0%`, `100%`], which is automatically converted into 
-the optimal wager. An example of this is in`solutions/apriori.py`, which uses the distribution 
-of errors from `stats/distribution.csv` to gain an advantage.
+You can also respond with a probability [`0%`: `100%`], which is automatically converted into 
+the optimal wager. An example of this is in `solutions/apriori.py`, which uses the distribution 
+of errors from `stats/distribution.csv` to gain an advantage (which is cheating :D).
 
 If you are curious, the optimal wager is found by solving the following quadratic function, where $p$ is the probability:
 $$(1 - p) \cdot \mathtt{wager} = p \cdot \mathtt{points} = p \cdot (1 - \frac{1}{\mathtt{wager} + 1})$$
@@ -79,32 +82,17 @@ $$\mathtt{wager} = \frac{1 - 2 p }{2 (p - 1)}$$
 ## Evaluating
 
 To get started evaluating your tool you can run the `bin/evaluate.py` script, it only requires 
-the `click` library and python 3.
+the `click` and `loguru` libraries and python 3:
 
-```
+```shell
 ./bin/evaluate.py --help
 ```
 
-To evaluate your analysis you should be able to simply run:
+First create a yaml file describing your experiment, see the `sample.yaml` file.
+And then to evaluate your analysis you should be able to run:
 ```shell
-$> ./evaluate.py evaluate <your-analysis>
+$> ./evaluate.py your-experiment.yaml
 ```
-
-There are more interesting options:
-
-```shell
-$> ./bin/evaluate.py --help
-Usage: evaluate.py [OPTIONS] [TOOLS]...
-
-  Given an command check if it can predict the results.
-
-Options:
-  --timeout FLOAT           timeout in seconds.  [default: 2.0]
-  -N, --iterations INTEGER  number of iterations.  [default: 1]
-  --help                    Show this message and exit.
-```
-
-You can also add more tools to test them at the same time if you like.
 
 If you have problems getting started, please file an [issue](https://github.com/kalhauge/jpamb/issues).
 

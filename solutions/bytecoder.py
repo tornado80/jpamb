@@ -7,14 +7,9 @@ import sys, logging
 l = logging
 l.basicConfig(level=logging.DEBUG)
 
-name, target = sys.argv[1:]
+(name,) = sys.argv[1:]
 
 l.debug("check assertion")
-
-# only handle assertion errors:
-if target != "assertion error":
-    print("50%")
-    sys.exit(0)
 
 import json, re
 from pathlib import Path
@@ -67,9 +62,9 @@ for inst in m["code"]["bytecode"]:
 else:
     # I'm pretty sure the answer is no
     l.debug("did not find it")
-    print("5%")
+    print("assertion error\t20%")
     sys.exit(0)
 
 l.debug("Found it")
 # I'm kind of sure the answer is yes.
-print("80%")
+print("assertion error\t80%")

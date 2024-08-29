@@ -2,16 +2,14 @@ import collections
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
-from typing import Iterator, TextIO, TypeVar
+from typing import TextIO, TypeVar
 import re
 import subprocess
 import sys
 import csv
 import json
-import logging
 
-log = logging.getLogger("jpamb")
-
+from loguru import logger
 
 W = TypeVar("W", bound=TextIO)
 
@@ -26,6 +24,17 @@ QUERIES = [
 
 
 prim = bool | int
+
+
+def setup_logger(verbose):
+    LEVELS = ["INFO", "DEBUG", "TRACE"]
+    logger.remove()
+    logger.add(
+        sys.stderr,
+        format="<green>{elapsed}</green> | <level>{level: <8}</level> | <red>{extra[process]:<8}</red> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
+        level=LEVELS[verbose],
+    )
+    return logger.bind(process="main")
 
 
 def print_prim(i: prim, file: W = sys.stdout) -> W:
@@ -87,6 +96,7 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
     import threading
     from time import monotonic
 
+    logger = logger.bind(process=summary64(cmd))
     cp = None
     try:
         start = monotonic()
@@ -96,7 +106,7 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
         else:
             end = None
 
-        logger.info("starting: %s", shlex.join(map(str, cmd)))
+        logger.debug(f"starting: {shlex.join(map(str, cmd))}")
 
         cp = subprocess.Popen(
             cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True, **kwargs
@@ -123,10 +133,13 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
 
         terr.join(end and end - monotonic())
         tout.join(end and end - monotonic())
-        cp.wait(end and end - monotonic())
+        exitcode = cp.wait(end and end - monotonic())
+
+        if exitcode != 0:
+            raise subprocess.CalledProcessError(cmd=cmd, returncode=exitcode)
 
         stop = monotonic()
-        logger.info("done")
+        logger.debug("done")
         return (stdout[0].strip(), stop - start)
     except subprocess.CalledProcessError:
         raise
@@ -200,7 +213,6 @@ class Prediction:
         if p == 1:
             x = float("inf")
         else:
-            log.debug(p)
             x = (1 - 2 * p) / (-1 + p) / 2
         return Prediction(-x if negate else x)
 
@@ -218,6 +230,9 @@ class Prediction:
                 return 1 - 1 / (wager + 1)
         else:
             return wager
+
+    def __str__(self):
+        return f"{self.to_probability():0.2%}"
 
 
 @dataclass(frozen=True)
@@ -242,18 +257,18 @@ class Suite:
         return stats_folder
 
     def build(self):
-        log.info("Building the benchmark suite")
+        logger.info("Building the benchmark suite")
         subprocess.call(["mvn", "compile"], cwd=self.workfolder)
-        log.info("Done")
+        logger.info("Done")
 
     def update_cases(self):
         stats = self.stats_folder()
-        log.info("Writing the cases to file")
+        logger.info("Writing the cases to file")
         with open(stats / "cases.txt", "w") as f:
             lines = runtime(cwd=self.workfolder).splitlines(keepends=True)
             f.write("".join(sorted(lines)))
 
-        log.info("Updating the distribution")
+        logger.info("Updating the distribution")
 
         with open(stats / "distribution.csv", "w") as f:
             w = csv.writer(f, dialect="unix")
@@ -276,7 +291,7 @@ class Suite:
 
             w.writerow(["-"] + [f"{sums[t] / total:0.4%}" for t in self.queries])
 
-        log.info("Done")
+        logger.info("Done")
 
     def cases(self):
         with open(self.stats_folder() / "cases.txt", "r") as f:
@@ -284,11 +299,11 @@ class Suite:
                 yield Case.from_spec(r[:-1])
 
     def check(self):
-        log.info("Checking cases")
+        logger.info("Checking cases")
         failed = []
 
         for case in self.cases():
-            log.debug(f"Testing {case!s:<74}")
+            logger.debug(f"Testing {case!s:<74}")
             cmd = ["java", "-cp", self.classfiles, "-ea"]
             cmd += ["jpamb.Runtime", case.methodid, str(case.input)]
             timeout = 0.5
@@ -296,49 +311,45 @@ class Suite:
                 result, time = run_cmd(
                     cmd,
                     timeout=timeout,
-                    logger=log.getChild(summary64(cmd)),
+                    logger=logger,
                 )
-                log.debug(f"Got {result!r} in {time}")
+                logger.debug(f"Got {result!r} in {time}")
             except subprocess.CalledProcessError:
                 result = None
-                log.debug(f"Process failed.")
+                logger.debug(f"Process failed.")
             except subprocess.TimeoutExpired:
                 result = "*"
-                log.debug(f"Timed out after {timeout}.")
+                logger.debug(f"Timed out after {timeout}.")
 
             outcome = "SUCCESS"
             if case.result != result:
                 outcome = "FAILED"
                 failed.append(case)
 
-            log.info(f"Testing {case!s:<74}: {outcome}")
+            logger.info(f"Testing {case!s:<74}: {outcome}")
 
         if failed:
-            log.error("Failed checks:")
+            logger.error("Failed checks:")
             for f in failed:
-                log.error(f)
+                logger.error(f)
             return False
         else:
-            log.info("Successfully verified all cases.")
+            logger.info("Successfully verified all cases.")
             return True
 
     def decompile(self):
-        log.info("Decompiling classfiles")
+        logger.info("Decompiling classfiles")
         decompiled = self.decompiled()
         for clazz in self.classfiles.glob("**/*.class"):
             jsonclazz = decompiled / clazz.relative_to(self.classfiles).with_suffix(
                 ".json"
             )
-            log.info(
-                "Converting %s to %s",
-                clazz.relative_to(self.workfolder),
-                jsonclazz.relative_to(self.workfolder),
+            logger.info(
+                f"Converting {clazz.relative_to(self.workfolder)} to {jsonclazz.relative_to(self.workfolder)}"
             )
             jsonclazz.parent.mkdir(parents=True, exist_ok=True)
             cmd = ["jvm2json", f"-s{clazz}"]
-            logger = log.getChild(summary64(cmd))
-            logger.setLevel(logging.WARN)
             encoding = json.loads(run_cmd(cmd, timeout=None, logger=logger)[0])
             with open(jsonclazz, "w") as f:
                 json.dump(encoding, f, indent=2, sort_keys=True)
-        log.info("Done")
+        logger.info("Done")

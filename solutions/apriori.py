@@ -11,4 +11,8 @@ with open("stats/distribution.csv") as f:
     distribution = list(csv.DictReader(f))[-1]
 
 print(f"Got {sys.argv[1:]}", file=sys.stderr)
-print(distribution[sys.argv[2]])
+
+for k, v in distribution.items():
+    if k == "method":
+        continue
+    print(f"{k}\t{v}")
