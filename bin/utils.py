@@ -217,6 +217,10 @@ class Prediction:
         return Prediction(-x if negate else x)
 
     def to_probability(self) -> float:
+        if self.wager == float("-inf"):
+            return 0
+        if self.wager == float("inf"):
+            return 0
         w = abs(self.wager) * 2
         r = (w + 1) / (w + 2)
         return r if self.wager > 0 else 1 - r

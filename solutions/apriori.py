@@ -15,4 +15,4 @@ print(f"Got {sys.argv[1:]}", file=sys.stderr)
 for k, v in distribution.items():
     if k == "method":
         continue
-    print(f"{k}\t{v}")
+    print(f"{k};{v}")

@@ -62,9 +62,9 @@ for inst in m["code"]["bytecode"]:
 else:
     # I'm pretty sure the answer is no
     l.debug("did not find it")
-    print("assertion error\t20%")
+    print("assertion error;20%")
     sys.exit(0)
 
 l.debug("Found it")
 # I'm kind of sure the answer is yes.
-print("assertion error\t80%")
+print("assertion error;80%")

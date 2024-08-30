@@ -142,42 +142,39 @@ def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_to
                 fpred, time = run_cmd(
                     [tool["executable"], m], timeout=timeout, logger=logger
                 )
-
-                predictions = {}
-                for line in fpred.splitlines():
-                    try:
-                        query, pred = line.split("\t")
-                    except ValueError:
-                        logger.warning("Tool produced bad output")
-                        logger.warning(line)
-                        continue
-
-                    predictions[query] = Prediction.parse(pred)
-
             except subprocess.CalledProcessError as e:
                 logger.warning(f"Tool {tool_name!r} failed with {e}")
-                predictions, time = {}, 0.0
+                fpred, time = "", 0.0
             except subprocess.TimeoutExpired:
                 logger.warning(f"Tool {tool_name!r} timedout")
-                predictions, time = {}, float("NaN")
+                fpred, time = "", float("NaN")
+
+            total = 0
+
+            predictions = {}
+            for line in fpred.splitlines():
+                try:
+                    query, pred = line.split(";")
+                    logger.debug(f"response: {line}")
+                except ValueError:
+                    logger.warning("Tool produced bad output")
+                    logger.warning(line)
+                    continue
+                if not query in QUERIES:
+                    logger.warning("{q!r} not a known query: {QUERIES}")
+                    continue
+                prediction = Prediction.parse(pred)
+                predictions[query] = prediction
+                sometimes = any(query == c.result for c in cases)
+                score = prediction.score(sometimes)
+                logger.debug(
+                    f"Check query {query!r} ({sometimes}): waged {prediction.wager:0.3f} and predicted {prediction.to_probability():0.3%}, got {score:0.3f}"
+                )
+                total += score
 
             pretty = ", ".join(
                 f"{k} ({str(p)})" for k, p in sorted(predictions.items())
             )
-
-            total = 0
-            for q in QUERIES:
-                sometimes = any(q == c.result for c in cases)
-                logger.debug(f"Check query {q!r}: {sometimes}")
-                if prediction := predictions.get(q, None):
-                    score = prediction.score(sometimes)
-                    logger.debug(
-                        f"Predicted {prediction.to_probability()}, got {score}"
-                    )
-                    total += score
-                else:
-                    logger.debug(f"No prediction")
-
             logger.info(f"Scored {total:0.2f} in {time:0.3}s with {pretty}")
 
             by_tool[tool_name].append(

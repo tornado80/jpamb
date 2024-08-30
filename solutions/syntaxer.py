@@ -66,7 +66,9 @@ method_name = i["method_name"]
 
 method_q = JAVA_LANGUAGE.query(
     f"""
-    (method_declaration name: ((identifier) @method-name (#eq? @method-name "{method_name}"))) @method
+    (method_declaration name: 
+      ((identifier) @method-name (#eq? @method-name "{method_name}"))
+    ) @method
 """
 )
 
@@ -94,9 +96,9 @@ for node, t in assert_q.captures(node):
         break
 else:
     l.debug("Did not find any assertions")
-    print("assertion error\t20%")
+    print("assertion error;20%")
     sys.exit(0)
 
 l.debug("Found assertion")
-print("assertion error\t80%")
+print("assertion error;80%")
 sys.exit(0)
