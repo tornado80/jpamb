@@ -26,8 +26,29 @@ QUERIES = [
 prim = bool | int
 
 
+def build_c(input_file):
+    """Build a C file (hopefully platform independent)"""
+    from os import environ
+    import platform
+    import shutil
+
+    compiler = shutil.which(environ.get("CC", "gcc"))
+
+    if not compiler:
+        logger.error("Could not find $CC or gcc compiler on PATH")
+        raise Exception("Could not find $CC or gcc compiler on PATH")
+
+    output_file = input_file.with_suffix("")
+
+    if platform.system() == "Windows":
+        output_file = output_file.with_suffix(".exe")
+    subprocess.check_call([compiler, "-o", output_file, input_file])
+
+    return output_file
+
+
 def setup_logger(verbose):
-    LEVELS = ["INFO", "DEBUG", "TRACE"]
+    LEVELS = ["SUCCESS", "INFO", "DEBUG", "TRACE"]
     logger.remove()
     logger.add(
         sys.stderr,
@@ -94,12 +115,13 @@ def summary64(cmd):
 def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
     import shlex
     import threading
-    from time import monotonic
+    from time import monotonic, perf_counter_ns
 
     logger = logger.bind(process=summary64(cmd))
     cp = None
     try:
         start = monotonic()
+        start_ns = perf_counter_ns()
 
         if timeout:
             end = start + timeout
@@ -134,13 +156,13 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
         terr.join(end and end - monotonic())
         tout.join(end and end - monotonic())
         exitcode = cp.wait(end and end - monotonic())
+        end_ns = perf_counter_ns()
 
         if exitcode != 0:
             raise subprocess.CalledProcessError(cmd=cmd, returncode=exitcode)
 
-        stop = monotonic()
         logger.debug("done")
-        return (stdout[0].strip(), stop - start)
+        return (stdout[0].strip(), end_ns - start_ns)
     except subprocess.CalledProcessError:
         raise
     except subprocess.TimeoutExpired:

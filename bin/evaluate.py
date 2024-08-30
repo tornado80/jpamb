@@ -6,8 +6,10 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 import click
+import math
 import os
 import subprocess
+from time import perf_counter_ns
 
 from utils import *
 
@@ -84,6 +86,21 @@ def re_parser(ctx_, parms_, expr):
         return re.compile(expr)
 
 
+def calibrate(sieve_exe, log_calibration):
+    calibrators = [100_000, 100_000]
+    calibration = 0
+    for count in calibrators:
+        start = perf_counter_ns()
+        subprocess.check_output([sieve_exe, str(count)])
+        end = perf_counter_ns()
+        diff = end - start
+        calibration += diff
+        log_calibration(count=count, time=diff)
+
+    calibration /= len(calibrators)
+    return calibration
+
+
 @click.command
 @click.option(
     "--timeout",
@@ -115,41 +132,51 @@ def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_to
     import random, itertools
 
     logger = setup_logger(verbose)
-
-    logger.debug(f"{experiment}")
-
     suite = Suite(WORKFOLDER, QUERIES)
-
-    if not (tools := experiment["tools"]):
-        raise click.UsageError("Expected a tool to evaluate")
-
+    tools = experiment["tools"]
     by_tool = defaultdict(list)
 
-    logger.debug(tools)
+    sieve = WORKFOLDER / "timer" / "sieve.c"
 
-    for (m, cases), n in itertools.product(
-        Case.by_methodid(suite.cases()), range(iterations)
-    ):
-        if filter_methods and not filter_methods.match(m):
+    logger.info(f"Building timer from {sieve}")
+    sieve_exe = build_c(sieve)
+
+    for i in range(iterations):
+        calibration = calibrate(sieve_exe, lambda **kwargs: ())
+        logger.info(f"Base calibrated {i}: {calibration/1_000_000:0.0f}ms")
+
+    for m, cases in Case.by_methodid(suite.cases()):
+        if filter_methods and not filter_methods.search(m):
+            logger.debug(f"{m} did not match {filter_methods}")
             continue
-        logger.info(f"Running {m}, iteration {n}")
-        for tool_name, tool in random.sample(sorted(tools.items()), k=len(tools)):
-            if filter_tools and not filter_tools.match(tool_name):
+
+        for n, (tool_name, tool) in itertools.product(
+            range(iterations), random.sample(sorted(tools.items()), k=len(tools))
+        ):
+            if filter_tools and not filter_tools.search(tool_name):
                 logger.debug(f"{tool_name} did not match {filter_tools}")
                 continue
-            logger.info(f"Testing {tool_name!r}")
+
+            logger.debug(f"Testing {tool_name!r}")
             try:
-                fpred, time = run_cmd(
+                fpred, time_ns = run_cmd(
                     [tool["executable"], m], timeout=timeout, logger=logger
                 )
             except subprocess.CalledProcessError as e:
                 logger.warning(f"Tool {tool_name!r} failed with {e}")
-                fpred, time = "", 0.0
+                fpred, time_ns = "", 0
             except subprocess.TimeoutExpired:
                 logger.warning(f"Tool {tool_name!r} timedout")
-                fpred, time = "", float("NaN")
+                fpred, time_ns = "", float("NaN")
 
             total = 0
+            time = time_ns / 1_000_000_000
+            calibrations = []
+            calibration = calibrate(
+                sieve_exe,
+                lambda **kwarg: calibrations.append(kwarg),
+            )
+            relative = time_ns / calibration
 
             predictions = {}
             for line in fpred.splitlines():
@@ -168,39 +195,48 @@ def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_to
                 sometimes = any(query == c.result for c in cases)
                 score = prediction.score(sometimes)
                 logger.debug(
-                    f"Check query {query!r} ({sometimes}): waged {prediction.wager:0.3f} and predicted {prediction.to_probability():0.3%}, got {score:0.3f}"
+                    f"Check query {query!r} ({sometimes}): waged {prediction.wager:0.3f}"
+                    f" and predicted {prediction.to_probability():0.3%}, got {score:0.3f}"
                 )
                 total += score
 
             pretty = ", ".join(
                 f"{k} ({str(p)})" for k, p in sorted(predictions.items())
             )
-            logger.info(f"Scored {total:0.2f} in {time:0.3}s with {pretty}")
+            logger.info(
+                f"{tool_name!r} scored {total:0.2f} in {time:0.3}s/{relative:0.3}x with {pretty}"
+            )
 
             by_tool[tool_name].append(
                 {
                     "method": m,
                     "iteration": n,
                     "wagers": {k: p.wager for k, p in predictions.items()},
-                    "time": time,
+                    "time": time_ns,
+                    "relative": relative,
                     "score": total,
+                    "calibration": calibration,
+                    "calibrations": calibrations,
                 }
             )
 
-    for k, t in by_tool.items():
-        score = sum(r["score"] for r in t) + 0.0
-        time = float("NaN")
-        if t:
-            time = sum(r["time"] for r in t) / len(t) + 0.0
+        logger.success(f"Ran {m}")
+
+    for k, t in sorted(by_tool.items()):
+        if not t:
+            logger.warning(f"No experiments for {k}")
+            continue
+        score = sum(r["score"] for r in t) / iterations
+        time = sum(r["time"] for r in t) / len(t)
+        relative = math.exp(sum(math.log(r["relative"]) for r in t) / len(t))
         tools[k]["results"] = t
         tools[k]["score"] = score
         tools[k]["time"] = time
+        tools[k]["relative"] = relative
 
-        logger.info(f"Tested {k}: score {score:0.2f} in avg {time:0.3f}s")
-
-    for k in list(tools):
-        if k not in tools:
-            del tools[k]
+        logger.success(
+            f"Tested {k}: score {score:0.2f} in avg {time/1_000_000:0.0f}ms/{relative:0.3f}x"
+        )
 
     experiment["timestamp"] = int(datetime.now().timestamp() * 1000)
 

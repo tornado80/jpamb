@@ -81,13 +81,19 @@ $$\mathtt{wager} = \frac{1 - 2 p }{2 (p - 1)}$$
 
 ## Evaluating
 
-To get started evaluating your tool you can run the `bin/evaluate.py` script, it only requires 
+To get started evaluating your tool you can run the `bin/evaluate.py` script, it requires 
 the `click` and `loguru` libraries and python 3. You can install these dependencies using pip
 in your favorite [environment](https://www.pythonguis.com/tutorials/python-virtual-environments/).
 
 ```shell
 $> pip install requirements.txt
 ```
+
+Furthermore to do good time reporting it uses a C compiler to compile the program `timer/sieve.c` and 
+execute it along side the analyses to calibrate the results.
+Essentially, this computes a relative time (in relation to calucalting the 100,000 primes), as well as 
+a absolute time. Make sure the environment variable `CC` is set to the name of your compiler, or 
+that `gcc` is on your `PATH`.
 
 First create a YAML file describing your experiment, see the `sample.yaml` file for an example.
 And then to evaluate your analysis you should be able to run:

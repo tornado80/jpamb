@@ -6,3 +6,5 @@ target
 .settings
 __pycache__
 
+timer/sieve
+timer/sieve.exe
