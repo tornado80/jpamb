@@ -82,16 +82,17 @@ $$\mathtt{wager} = \frac{1 - 2 p }{2 (p - 1)}$$
 ## Evaluating
 
 To get started evaluating your tool you can run the `bin/evaluate.py` script, it only requires 
-the `click` and `loguru` libraries and python 3:
+the `click` and `loguru` libraries and python 3. You can install these dependencies using pip
+in your favorite [environment](https://www.pythonguis.com/tutorials/python-virtual-environments/).
 
 ```shell
-./bin/evaluate.py --help
+$> pip install requirements.txt
 ```
 
-First create a yaml file describing your experiment, see the `sample.yaml` file.
+First create a YAML file describing your experiment, see the `sample.yaml` file for an example.
 And then to evaluate your analysis you should be able to run:
 ```shell
-$> ./evaluate.py your-experiment.yaml
+$> ./evaluate.py your-experiment.yaml > experiment.json
 ```
 
 If you have problems getting started, please file an [issue](https://github.com/kalhauge/jpamb/issues).
