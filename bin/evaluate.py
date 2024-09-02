@@ -57,11 +57,9 @@ def experiment_parser(ctx_, parms_, experiment):
                 context + f"'tools.{tn}.technologies' should be a list"
             )
 
-        if not ("executable" in t and Path(t["executable"]).is_file()):
-            raise click.UsageError(
-                context
-                + f"'tools.{tn}.executable' should be a path to an existing file"
-            )
+        if not ("executable" in t):
+            if Path(t["executable"]).is_file():
+                t["executable"] = [t["executable"]]
 
     if not "machine" in experiment:
         raise click.UsageError(context + "no 'machine'")
@@ -160,7 +158,9 @@ def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_to
             logger.debug(f"Testing {tool_name!r}")
             try:
                 fpred, time_ns = run_cmd(
-                    [tool["executable"], m], timeout=timeout, logger=logger
+                    tool["executable"] + [m],
+                    timeout=timeout,
+                    logger=logger,
                 )
             except subprocess.CalledProcessError as e:
                 logger.warning(f"Tool {tool_name!r} failed with {e}")

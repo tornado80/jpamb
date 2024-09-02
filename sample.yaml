@@ -14,13 +14,17 @@ tools:
       - statistical
       - python
 
-    executable: solutions/apriori.py
+    executable: 
+      - python3
+      - solutions/apriori.py
   
   conservative: 
     technologies:
       - python
     
-    executable: solutions/conservative.py
+    executable: 
+      - python3
+      - solutions/conservative.py
 
   bytecoder: 
     technologies:
@@ -29,7 +33,10 @@ tools:
       - static
       - python
 
-    executable: solutions/bytecoder.py
+    executable: 
+      - python3
+      - solutions/bytecoder.py
+
   
   syntaxer: 
     technologies:
@@ -38,7 +45,10 @@ tools:
       - static
       - python
 
-    executable: solutions/syntaxer.py
+    executable: 
+      - python3
+      - solutions/syntaxer.py
+
 
 # Some info about the machine who ran the experiments:
 machine:
