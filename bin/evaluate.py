@@ -57,9 +57,15 @@ def experiment_parser(ctx_, parms_, experiment):
                 context + f"'tools.{tn}.technologies' should be a list"
             )
 
-        if not ("executable" in t):
-            if Path(t["executable"]).is_file():
-                t["executable"] = [t["executable"]]
+        if not ("executable" in t) or not (
+            isinstance(t["executable"], list) or isinstance(t["executable"], str)
+        ):
+            raise click.UsageError(
+                context
+                + f"'tools.{tn}.executable should be an executable or a list of arguments"
+            )
+        elif isinstance(t["executable"], str):
+            t["executable"] = [t["executable"]]
 
     if not "machine" in experiment:
         raise click.UsageError(context + "no 'machine'")

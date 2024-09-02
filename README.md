@@ -86,13 +86,13 @@ the `click` and `loguru` libraries and python 3.10 or above. You can install the
 in your favorite [environment](https://www.pythonguis.com/tutorials/python-virtual-environments/).
 
 ```shell
-$> pip install requirements.txt
+$> pip install -r requirements.txt
 ```
 
-Furthermore to do good time reporting it uses a C compiler to compile the program `timer/sieve.c` and 
-execute it along side the analyses to calibrate the results.
-Essentially, this computes a relative time (in relation to calucalting the 100,000 primes), as well as 
-a absolute time. Make sure the environment variable `CC` is set to the name of your compiler, or 
+Furthermore, to do good time reporting it uses a C compiler to compile the program `timer/sieve.c` and 
+execute it alongside the analyses to calibrate the results.
+Essentially, this computes a relative time (in relation to calculating the first 100,000 primes), as well as 
+an absolute time. Make sure the environment variable `CC` is set to the name of your compiler, or 
 that `gcc` is on your `PATH`.
 
 First create a YAML file describing your experiment, see the `sample.yaml` file for an example.
@@ -103,6 +103,29 @@ $> ./evaluate.py your-experiment.yaml > experiment.json
 
 If you have problems getting started, please file an [issue](https://github.com/kalhauge/jpamb/issues).
 
+### Windows
+
+The instructions above should also work for windows, but it is less straight forward.
+The easy way out of this is to install Linux as a subsystem on your Windows machine. 
+This is supported directly in [Windows](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+If you prefer staying in Windows land, here are some tips and pointers:
+
+-   Python scripts might have to be prepended with `python`, so:
+
+    ```shell
+    $> python evaluate.py your-experiment.yaml > experiment.json
+    ```
+
+-   Sometimes paths needs to be inverted in the examples `/` to `\`.
+
+-   It is extra important to use [virtual environments](https://www.pythonguis.com/tutorials/python-virtual-environments/), 
+    when using windows, that way you can keep different versions of python separate.
+
+-   To support compiling with `gcc` and to make your life easier you 
+    should install [MSYS2](https://www.msys2.org/) with mingw-w64 GCC.
+    You can do this by following the guide in the link above (step 6 - 9.).
+
 ### Debug
 
 You can debug your code by running some of the methods or some of the tools, like this: 
@@ -111,7 +134,7 @@ You can debug your code by running some of the methods or some of the tools, lik
 $> ./evaluate your-experiment.yaml --filter-methods=Simple --filter-tools=syntaxer > experiment.json
 ```
 
-Also if you want more debug information you can add multiples `-vvv` to get more information.
+Also, if you want more debug information you can add multiples `-vvv` to get more information.
 
 ### Source code
 

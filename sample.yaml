@@ -14,8 +14,11 @@ tools:
       - statistical
       - python
 
+    # Here you can either use the path to an executable 
+    # Remember to make it executable (use `chmod`) 
+    # Or, you can provide a list of arguments, like here:
     executable: 
-      - python3
+      - python 
       - solutions/apriori.py
   
   conservative: 
@@ -23,7 +26,7 @@ tools:
       - python
     
     executable: 
-      - python3
+      - python
       - solutions/conservative.py
 
   bytecoder: 
@@ -34,7 +37,7 @@ tools:
       - python
 
     executable: 
-      - python3
+      - python
       - solutions/bytecoder.py
 
   
@@ -46,7 +49,7 @@ tools:
       - python
 
     executable: 
-      - python3
+      - python
       - solutions/syntaxer.py
 
 

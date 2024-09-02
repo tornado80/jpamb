@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 
-@click.command
+@click.command()
 @click.option("-v", "--verbose", count=True)
 # @click.option(
 #     "-o", "--stats", default="-", type=click.Path(writable=True, allow_dash=True)
@@ -21,7 +21,7 @@ def stats(files, report, verbose):
     a collection of experiments.
     """
 
-    import json, csv
+    import json
 
     logger = utils.setup_logger(verbose)
 
