@@ -164,7 +164,7 @@ def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_to
                 )
             except subprocess.CalledProcessError as e:
                 logger.warning(f"Tool {tool_name!r} failed with {e}")
-                fpred, time_ns = "", 0
+                fpred, time_ns = "", float("NaN")
             except subprocess.TimeoutExpired:
                 logger.warning(f"Tool {tool_name!r} timedout")
                 fpred, time_ns = "", float("NaN")
