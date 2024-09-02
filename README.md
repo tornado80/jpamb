@@ -82,7 +82,7 @@ $$\mathtt{wager} = \frac{1 - 2 p }{2 (p - 1)}$$
 ## Evaluating
 
 To get started evaluating your tool you can run the `bin/evaluate.py` script, it requires 
-the `click` and `loguru` libraries and python 3. You can install these dependencies using pip
+the `click` and `loguru` libraries and python 3.10 or above. You can install these dependencies using pip
 in your favorite [environment](https://www.pythonguis.com/tutorials/python-virtual-environments/).
 
 ```shell
