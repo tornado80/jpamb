@@ -25,12 +25,15 @@ TYPE_LOOKUP = {
 }
 
 import tree_sitter
+import tree_sitter_java as tsjava
 
-JAVA_LANGUAGE = tree_sitter.Language(os.environ["TREE_SITTER_JAVA"], "java")
+#JAVA_LANGUAGE = tree_sitter_languages.get_language("java")
+
+JAVA_LANGUAGE = tree_sitter.Language(tsjava.language())
 
 
-parser = tree_sitter.Parser()
-parser.set_language(JAVA_LANGUAGE)
+parser = tree_sitter.Parser(JAVA_LANGUAGE)
+#parser.set_language(JAVA_LANGUAGE)
 
 
 srcfile = (Path("src/main/java") / i["class_name"].replace(".", "/")).with_suffix(
