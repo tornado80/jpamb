@@ -101,7 +101,7 @@ def calibrate(sieve_exe, log_calibration):
     return calibration
 
 
-@click.command
+@click.command()
 @click.option(
     "--timeout",
     show_default=True,
