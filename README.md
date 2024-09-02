@@ -103,6 +103,16 @@ $> ./evaluate.py your-experiment.yaml > experiment.json
 
 If you have problems getting started, please file an [issue](https://github.com/kalhauge/jpamb/issues).
 
+### Debug
+
+You can debug your code by running some of the methods or some of the tools, like this: 
+
+```shell
+$> ./evaluate your-experiment.yaml --filter-methods=Simple --filter-tools=syntaxer > experiment.json
+```
+
+Also if you want more debug information you can add multiples `-vvv` to get more information.
+
 ### Source code
 
 The source code is located under the `src/main/java`. 
