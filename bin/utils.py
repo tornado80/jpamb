@@ -42,7 +42,7 @@ def build_c(input_file):
 
     if platform.system() == "Windows":
         output_file = output_file.with_suffix(".exe")
-    subprocess.check_call([compiler, "-o", output_file, input_file])
+    subprocess.check_call([compiler, "-o", output_file, input_file, "-lm"])
 
     return output_file
 
