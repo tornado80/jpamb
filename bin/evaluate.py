@@ -151,14 +151,14 @@ def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_to
 
     for m, cases in Case.by_methodid(suite.cases()):
         if filter_methods and not filter_methods.search(m):
-            logger.debug(f"{m} did not match {filter_methods}")
+            logger.trace(f"{m} did not match {filter_methods}")
             continue
 
         for n, (tool_name, tool) in itertools.product(
             range(iterations), random.sample(sorted(tools.items()), k=len(tools))
         ):
             if filter_tools and not filter_tools.search(tool_name):
-                logger.debug(f"{tool_name} did not match {filter_tools}")
+                logger.trace(f"{tool_name} did not match {filter_tools}")
                 continue
 
             logger.debug(f"Testing {tool_name!r}")

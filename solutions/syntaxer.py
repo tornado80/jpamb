@@ -24,18 +24,16 @@ TYPE_LOOKUP = {
     "I": "int",
 }
 
-import tree_sitter
-
-JAVA_LANGUAGE = tree_sitter.Language(os.environ["TREE_SITTER_JAVA"], "java")
-
-
-parser = tree_sitter.Parser()
-parser.set_language(JAVA_LANGUAGE)
-
 
 srcfile = (Path("src/main/java") / i["class_name"].replace(".", "/")).with_suffix(
     ".java"
 )
+
+import tree_sitter
+import tree_sitter_java
+
+JAVA_LANGUAGE = tree_sitter.Language(tree_sitter_java.language())
+parser = tree_sitter.Parser(JAVA_LANGUAGE)
 
 with open(srcfile, "rb") as f:
     l.debug("parse sourcefile %s", srcfile)
@@ -53,14 +51,13 @@ class_q = JAVA_LANGUAGE.query(
 """
 )
 
-for node, t in class_q.captures(tree.root_node):
-    if t == "class":
-        break
+for node in class_q.captures(tree.root_node)["class"]:
+    break
 else:
     l.error(f"could not find a class of name {simple_classname} in {srcfile}")
     sys.exit(-1)
 
-l.debug("Found class %s", node)
+l.debug("Found class %s", node.range)
 
 method_name = i["method_name"]
 
@@ -72,14 +69,17 @@ method_q = JAVA_LANGUAGE.query(
 """
 )
 
-for node, t in method_q.captures(node):
-    if not (t == "method" and (p := node.child_by_field_name("parameters"))):
+for node in method_q.captures(node)["method"]:
+    if not (p := node.child_by_field_name("parameters")):
+        l.debug(f"Could not find parameteres of {method_name}")
         continue
 
     params = [c for c in p.children if c.type == "formal_parameter"]
 
     if len(params) == len(i["params"]) and all(
-        (tp := t.child_by_field_name("type")) and TYPE_LOOKUP[tn] == tp.text.decode()
+        (tp := t.child_by_field_name("type")) is not None
+        and tp.text is not None
+        and TYPE_LOOKUP[tn] == tp.text.decode()
         for tn, t in zip(i["params"], params)
     ):
         break
@@ -87,11 +87,16 @@ else:
     l.warning(f"could not find a method of name {method_name} in {simple_classname}")
     sys.exit(-1)
 
-l.debug("Found method %s", node)
+l.debug("Found method %s %s", method_name, node.range)
+
+body = node.child_by_field_name("body")
+assert body and body.text
+for t in body.text.splitlines():
+    l.debug("line: %s", t.decode())
 
 assert_q = JAVA_LANGUAGE.query(f"""(assert_statement) @assert""")
 
-for node, t in assert_q.captures(node):
+for node, t in assert_q.captures(body).items():
     if t == "assert":
         break
 else:

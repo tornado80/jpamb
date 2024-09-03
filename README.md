@@ -86,7 +86,13 @@ the `click` and `loguru` libraries and python 3.10 or above. You can install the
 in your favorite [environment](https://www.pythonguis.com/tutorials/python-virtual-environments/).
 
 ```shell
-$> pip install -r requirements.txt
+$> python -m venv .venv
+# on unix systems
+$> source .venv/bin/activate
+# or on windows
+PS> .venv\Scripts\activate
+# now install stuff
+$> python -m pip install -r requirements.txt -r requirements-treesitter.txt
 ```
 
 Furthermore, to do good time reporting it uses a C compiler to compile the program `timer/sieve.c` and 
@@ -98,7 +104,7 @@ that `gcc` is on your `PATH`.
 First create a YAML file describing your experiment, see the `sample.yaml` file for an example.
 And then to evaluate your analysis you should be able to run:
 ```shell
-$> ./evaluate.py your-experiment.yaml > experiment.json
+$> python bin/evaluate.py experiment.yaml > experiment.json
 ```
 
 If you have problems getting started, please file an [issue](https://github.com/kalhauge/jpamb/issues).
@@ -107,15 +113,10 @@ If you have problems getting started, please file an [issue](https://github.com/
 
 The instructions above should also work for windows, but it is less straight forward.
 The easy way out of this is to install Linux as a subsystem on your Windows machine. 
-This is supported directly in [Windows](https://learn.microsoft.com/en-us/windows/wsl/install).
+This is supported directly on [Windows](https://learn.microsoft.com/en-us/windows/wsl/install).
+This will require you to do all of your development in this environment though.
 
 If you prefer staying in Windows land, here are some tips and pointers:
-
--   Python scripts might have to be prepended with `python`, so:
-
-    ```shell
-    $> python evaluate.py your-experiment.yaml > experiment.json
-    ```
 
 -   Sometimes paths needs to be inverted in the examples `/` to `\`.
 
