@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from json import JSONDecodeError, encoder
 import click
 from datetime import datetime
 from collections import defaultdict
@@ -34,9 +35,14 @@ def stats(files, report, verbose):
     results = []
 
     for file in files:
-        logger.info(f"Analysing {file}")
-        with open(file) as fp:
-            experiment = json.load(fp)
+        logger.info(f"Analysing {file!r}")
+
+        try:
+            with open(file, encoding="utf-8-sig") as fp:
+                experiment = json.load(fp)
+        except UnicodeDecodeError:
+            with open(file, encoding="utf-16") as fp:
+                experiment = json.load(fp)
 
         for tool, ctx in experiment["tools"].items():
             per_method = defaultdict(dict)

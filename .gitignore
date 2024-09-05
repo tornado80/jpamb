@@ -9,4 +9,6 @@ __pycache__
 timer/sieve
 timer/sieve.exe
 
+result.json
+progress.html
 .venv

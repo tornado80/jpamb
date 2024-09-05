@@ -130,8 +130,11 @@ def calibrate(sieve_exe, log_calibration):
     help="number of iterations.",
 )
 @click.option("-v", "--verbose", count=True)
+@click.option("-o", "--output", show_default=True, default=WORKFOLDER / "result.json")
 @click.argument("EXPERIMENT", callback=experiment_parser)
-def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_tools):
+def evaluate(
+    experiment, timeout, iterations, verbose, filter_methods, filter_tools, output
+):
     """Given an command check if it can predict the results."""
     import random, itertools
 
@@ -246,7 +249,10 @@ def evaluate(experiment, timeout, iterations, verbose, filter_methods, filter_to
 
     experiment["timestamp"] = int(datetime.now().timestamp() * 1000)
 
-    print(json.dumps(experiment))
+    with open(output, "w", encoding="utf-8") as fp:
+        json.dump(experiment, fp)
+
+    logger.success(f"Written results to {output!r}")
 
 
 if __name__ == "__main__":
