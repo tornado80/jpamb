@@ -9,7 +9,7 @@ from utils import *
 WORKFOLDER = Path(os.path.abspath(__file__)).parent.parent
 
 
-@click.command
+@click.command()
 @click.option("--check/--no-check", default=True)
 @click.option("--decompile/--no-decompile", default=True)
 def build(check, decompile):
