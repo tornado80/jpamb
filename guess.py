@@ -100,23 +100,49 @@ b_expr_query = JAVA_LANGUAGE.query(f"""(binary_expression
   operator: "/"
 ) @expr""")
 
-capture_result = b_expr_query.captures(body)
+division_by_zero = -1
 
-for node in capture_result["expr"]:
-    right = node.child_by_field_name("right")
+assertion_error = 0
 
-    # literal zero
-    if right.type == "decimal_integer_literal" and right.text == b"0":
-        l.debug("Found division by zero")
-        print("divide by zero;100%")
-        sys.exit(0)
+b_expr_capture = b_expr_query.captures(body)
 
-    # variable that is set to zero before hand
-    if right.type == "identifier":
-        l.debug("right: %s", right.text)
-        l.debug("children: %s", p.children)
-        for child in p.children:
-            if child.type == "formal_parameter" and child.child_by_field_name("name").text == right.text:
-                l.debug("Found division by zero")
-                print("divide by zero;55%")
-                sys.exit(0)
+if "expr" in b_expr_capture:
+    for node in b_expr_capture["expr"]:
+        right = node.child_by_field_name("right")
+
+        # literal zero
+        if right.type == "decimal_integer_literal" and right.text == b"0":
+            l.debug("Found division by zero")
+            division_by_zero = 100
+
+        # variable that is set to zero before hand
+        if right.type == "identifier":
+            l.debug("right: %s", right.text)
+            l.debug("children: %s", p.children)
+            for child in p.children:
+                if child.type == "formal_parameter" and child.child_by_field_name("name").text == right.text:
+                    l.debug("Found division by zero")
+                    division_by_zero = max(55, division_by_zero)
+
+assert_q = JAVA_LANGUAGE.query(f"""(assert_statement) @assert""")
+
+assert_capture = assert_q.captures(body)
+
+if "assert" in assert_capture:
+    for node in assert_q.captures(body)["assert"]:
+        if node.children[1].type == "false":
+            l.debug("Found assertion")
+            assertion_error = max(100, assertion_error)
+        
+        if node.children[1].type == "identifier" or node.children[1].type == "binary_expression":
+            l.debug("Found assertion")
+            assertion_error = max(55, assertion_error)
+        
+else:
+    l.debug("Did not find any assertions")
+    assertion_error = 0
+
+print(f"assertion error;{assertion_error}%")
+
+if division_by_zero > -1:
+    print(f"divide by zero;{division_by_zero}%")
