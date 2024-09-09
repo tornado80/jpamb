@@ -96,20 +96,27 @@ assert body and body.text
 for t in body.text.splitlines():
     l.debug("line: %s", t.decode())
 
-assert_q = JAVA_LANGUAGE.query(f"""(assert_statement) @assert""")
+b_expr_query = JAVA_LANGUAGE.query(f"""(binary_expression
+  operator: "/"
+) @expr""")
 
-capture_result = assert_q.captures(body)
+capture_result = b_expr_query.captures(body)
 
-l.debug(capture_result)
+for node in capture_result["expr"]:
+    right = node.child_by_field_name("right")
 
-for t, nodes in capture_result.items():
-    if t == "assert":
-        break
-else:
-    l.debug("Did not find any assertions")
-    print("assertion error;20%")
-    sys.exit(0)
+    # literal zero
+    if right.type == "decimal_integer_literal" and right.text == b"0":
+        l.debug("Found division by zero")
+        print("divide by zero;100%")
+        sys.exit(0)
 
-l.debug("Found assertion")
-print("assertion error;80%")
-sys.exit(0)
+    # variable that is set to zero before hand
+    if right.type == "identifier":
+        l.debug("right: %s", right.text)
+        l.debug("children: %s", p.children)
+        for child in p.children:
+            if child.type == "formal_parameter" and child.child_by_field_name("name").text == right.text:
+                l.debug("Found division by zero")
+                print("divide by zero;55%")
+                sys.exit(0)
