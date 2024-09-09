@@ -175,7 +175,7 @@ def evaluate(
                 logger.warning(f"Tool {tool_name!r} failed with {e}")
                 fpred, time_ns = "", float("NaN")
             except subprocess.TimeoutExpired:
-                logger.warning(f"Tool {tool_name!r} timedout")
+                logger.warning(f"Tool {tool_name!r} timed out")
                 fpred, time_ns = "", float("NaN")
 
             total = 0
@@ -193,11 +193,11 @@ def evaluate(
                     query, pred = line.split(";")
                     logger.debug(f"response: {line}")
                 except ValueError:
-                    logger.warning("Tool produced bad output")
+                    logger.warning(f"Tool {tool_name!r} produced bad output")
                     logger.warning(line)
                     continue
                 if not query in QUERIES:
-                    logger.warning("{q!r} not a known query: {QUERIES}")
+                    logger.warning(f"{query!r} not a known query")
                     continue
                 prediction = Prediction.parse(pred)
                 predictions[query] = prediction

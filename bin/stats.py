@@ -72,6 +72,7 @@ def stats(files, report, verbose):
             is_syntactic = "syntactic" in ctx["technologies"]
             is_static = "static" in ctx["technologies"]
             is_dynamic = "dynamic" in ctx["technologies"]
+            is_cheater = "cheater" in ctx["technologies"]
 
             kind = None
 
@@ -86,6 +87,9 @@ def stats(files, report, verbose):
 
             if is_static and is_dynamic:
                 kind = "hybrid"
+
+            if is_cheater:
+                kind = "cheater"
 
             if kind is None:
                 kind = "adhoc"

@@ -1117,7 +1117,7 @@
             "opr": "push",
             "value": {
               "type": "string",
-              "value": "null_pointer"
+              "value": "null pointer"
             }
           },
           {

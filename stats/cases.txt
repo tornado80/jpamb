@@ -1,11 +1,11 @@
 jpamb.cases.Arrays.arrayContent:()V                          () -> assertion error
 jpamb.cases.Arrays.arrayInBounds:()V                         () -> ok
-jpamb.cases.Arrays.arrayIsNull:()V                           () -> null_pointer
-jpamb.cases.Arrays.arrayIsNullLength:()V                     () -> null_pointer
+jpamb.cases.Arrays.arrayIsNull:()V                           () -> null pointer
+jpamb.cases.Arrays.arrayIsNullLength:()V                     () -> null pointer
 jpamb.cases.Arrays.arrayLength:()V                           () -> ok
 jpamb.cases.Arrays.arrayOutOfBounds:()V                      () -> out of bounds
 jpamb.cases.Arrays.arraySometimesNull:(I)V                   (0) -> out of bounds
-jpamb.cases.Arrays.arraySometimesNull:(I)V                   (11) -> null_pointer
+jpamb.cases.Arrays.arraySometimesNull:(I)V                   (11) -> null pointer
 jpamb.cases.Arrays.binarySearch:(I)V                         (3) -> ok
 jpamb.cases.Arrays.binarySearch:(I)V                         (6) -> assertion error
 jpamb.cases.Calls.allPrimesArePositive:(I)V                  (100) -> ok
