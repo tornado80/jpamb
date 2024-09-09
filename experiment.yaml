@@ -11,7 +11,7 @@ tools:
     technologies:
       - python
 
-    executable: ./solutions/syntaxer.py
+    executable: ./guess.py
 
 # Describe your machine here (for research purposes) 
 machine:
