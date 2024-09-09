@@ -1,6 +1,6 @@
 # Choose a group name, remember it will be made public so choose 
 # a random string if you want to be anonymous
-group_name: <INSERT_COOL_GROUPNAME_HERE> 
+group_name: fh348r2ir
 
 # Answer true if the data you provide can be used anonomized for science!
 for_science: true
@@ -17,4 +17,4 @@ tools:
 machine:
   os: macosx
   processor: "Apple M3"
-  memory: "16 GB 3733 MHz LPDDR4X"
+  memory: "16 GB 6400 MT/s LPDDR5 SDRAM"
