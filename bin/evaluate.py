@@ -83,13 +83,6 @@ def experiment_parser(ctx_, parms_, experiment):
     return experiment
 
 
-def re_parser(ctx_, parms_, expr):
-    import re
-
-    if expr:
-        return re.compile(expr)
-
-
 def calibrate(sieve_exe, log_calibration):
     calibrators = [100_000, 100_000]
     calibration = 0
@@ -139,14 +132,14 @@ def evaluate(
     import random, itertools
 
     logger = setup_logger(verbose)
-    suite = Suite(WORKFOLDER, QUERIES)
+    suite = Suite(WORKFOLDER, QUERIES, logger)
     tools = experiment["tools"]
     by_tool = defaultdict(list)
 
     sieve = WORKFOLDER / "timer" / "sieve.c"
 
     logger.info(f"Building timer from {sieve}")
-    sieve_exe = build_c(sieve)
+    sieve_exe = build_c(sieve, logger)
 
     for i in range(iterations):
         calibration = calibrate(sieve_exe, lambda **kwargs: ())
