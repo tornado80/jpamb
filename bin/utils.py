@@ -58,12 +58,23 @@ def setup_logger(verbose):
     LEVELS = ["SUCCESS", "INFO", "DEBUG", "TRACE"]
     from loguru import logger
 
-    logger.remove()
-    logger.add(
-        sys.stderr,
-        format="<green>{elapsed}</green> | <level>{level: <8}</level> | <red>{extra[process]:<8}</red> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
-        level=LEVELS[verbose],
-    )
+    lvl = LEVELS[verbose]
+
+    if lvl == "TRACE":
+        logger.remove()
+        logger.add(
+            sys.stderr,
+            format="<green>{elapsed}</green> | <level>{level: <8}</level> | <red>{extra[process]:<8}</red> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
+            level=LEVELS[verbose],
+        )
+    else:
+        logger.remove()
+        logger.add(
+            sys.stderr,
+            format="<red>{extra[process]:<8}</red>: <level>{message}</level>",
+            level=LEVELS[verbose],
+        )
+
     return logger.bind(process="main")
 
 
@@ -78,7 +89,7 @@ def print_prim(i: prim, file: W = sys.stdout) -> W:
     return file
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Input:
     val: tuple[prim, ...]
 
@@ -128,6 +139,8 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
 
     logger = logger.bind(process=summary64(cmd))
     cp = None
+    stdout = []
+    tout = None
     try:
         start = monotonic()
         start_ns = perf_counter_ns()
@@ -143,8 +156,6 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
             cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True, **kwargs
         )
         assert cp and cp.stdout and cp.stderr
-
-        stdout = []
 
         def log_lines(cp):
             assert cp.stderr
@@ -172,8 +183,11 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
 
         logger.debug("done")
         return (stdout[0].strip(), end_ns - start_ns)
-    except subprocess.CalledProcessError:
-        raise
+    except subprocess.CalledProcessError as e:
+        if tout:
+            tout.join()
+        e.stdout = stdout[0].strip()
+        raise e
     except subprocess.TimeoutExpired:
         logger.debug("process timed out, terminating")
         if cp:
@@ -197,7 +211,7 @@ def runtime(*args, enable_assertions=False, **kwargs):
     return subprocess.check_output(pargs, text=True, **kwargs)
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Case:
     methodid: str
     input: Input

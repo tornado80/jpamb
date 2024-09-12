@@ -8,7 +8,7 @@ import sys, logging
 from typing import Literal, TypeAlias, Optional
 
 l = logging
-l.basicConfig(level=logging.DEBUG)
+l.basicConfig(level=logging.DEBUG, format="%(message)s")
 
 JvmType: TypeAlias = Literal["boolean"] | Literal["int"]
 
@@ -87,10 +87,10 @@ class SimpleInterpreter:
     def interpet(self, limit=10):
         for i in range(limit):
             next = self.bytecode[self.pc]
-            print(f"STEP {i}:")
-            print(f"  PC: {self.pc} {next}")
-            print(f"  LOCALS: {self.locals}")
-            print(f"  STACK: {self.stack}")
+            l.debug(f"STEP {i}:")
+            l.debug(f"  PC: {self.pc} {next}")
+            l.debug(f"  LOCALS: {self.locals}")
+            l.debug(f"  STACK: {self.stack}")
 
             if fn := getattr(self, "step_" + next["opr"], None):
                 fn(next)
@@ -102,9 +102,9 @@ class SimpleInterpreter:
         else:
             self.done = "out of time"
 
-        print(f"DONE {self.done}")
-        print(f"  LOCALS: {self.locals}")
-        print(f"  STACK: {self.stack}")
+        l.debug(f"DONE {self.done}")
+        l.debug(f"  LOCALS: {self.locals}")
+        l.debug(f"  STACK: {self.stack}")
 
         return self.done
 

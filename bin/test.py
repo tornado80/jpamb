@@ -22,8 +22,7 @@ WORKFOLDER = Path(os.path.abspath(__file__)).parent.parent
 @click.option(
     "-o",
     "--report",
-    default="test_output",
-    type=click.Path(path_type=Path),
+    type=click.Path(allow_dash=True),
 )
 @click.option(
     "--filter-methods",
@@ -36,29 +35,36 @@ def test(
     verbose,
     cmd,
     timeout,
-    report: Path,
+    report,
 ):
     logger = setup_logger(verbose)
     suite = Suite(WORKFOLDER, QUERIES, logger)
 
-    for case in suite.cases():
+    if report:
+        fp: TextIO = click.open_file(report, "w")  # type: ignore
+        logger.add(
+            fp,
+            filter=(lambda record: record["extra"]["process"] != "main"),
+            format="{extra[process][0]}{extra[process][1]}> {message}",
+            level="DEBUG",
+        )
+
+    for case in sorted(suite.cases()):
         if filter_methods and not filter_methods.search(case.methodid):
             logger.trace(f"{case} did not match {filter_methods}")
             continue
         logger.info(f"Running {case}")
 
-        (result, _) = run_cmd(
-            cmd + (case.methodid, str(case.input)),
-            logger=logger,
-            timeout=timeout,
-        )
+        try:
+            (result, _) = run_cmd(
+                cmd + (case.methodid, str(case.input)),
+                logger=logger,
+                timeout=timeout,
+            )
+        except subprocess.CalledProcessError as e:
+            logger.error(e)
+            result = e.stdout
 
-        method = report / case.methodid
-        method.mkdir(parents=True, exist_ok=True)
-        (method / str(case.input)).write_text(result)
-
-        for line in result.splitlines():
-            logger.debug(f"RESULT: {line}")
         test = result.splitlines()[-1]
         logger.info(f"Returned {test!r}")
         if test == case.result:
