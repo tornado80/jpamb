@@ -6,7 +6,10 @@ target
 .settings
 __pycache__
 
+test_output
+
 timer/sieve
 timer/sieve.exe
-env
+result.json
+progress.html
 .venv

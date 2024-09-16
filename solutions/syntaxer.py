@@ -96,7 +96,7 @@ for t in body.text.splitlines():
 assert_q = JAVA_LANGUAGE.query(f"""(assert_statement) @assert""")
 
 for node, t in assert_q.captures(body).items():
-    if t == "assert":
+    if node == "assert":
         break
 else:
     l.debug("Did not find any assertions")

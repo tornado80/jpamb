@@ -24,6 +24,7 @@ And the query is one of:
 | `*`                | an execution runs forever                 | 
 | `divide by zero`   | an execution divides by zero              | 
 | `out of bounds`    | an execution index an array out of bounds | 
+| `null pointer`     | an execution throws an null pointer exeception | 
 
 And the prediction is either a wager (`-3`, `inf`) (the number of points you 
 want to bet on you being right) or a probability (`30%`, `72%`)
@@ -104,7 +105,7 @@ that `gcc` is on your `PATH`.
 First create a YAML file describing your experiment, see the `sample.yaml` file for an example.
 And then to evaluate your analysis you should be able to run:
 ```shell
-$> python bin/evaluate.py experiment.yaml > experiment.json
+$> python bin/evaluate.py experiment.yaml -o experiment.json
 ```
 
 If you have problems getting started, please file an [issue](https://github.com/kalhauge/jpamb/issues).
@@ -132,7 +133,7 @@ If you prefer staying in Windows land, here are some tips and pointers:
 You can debug your code by running some of the methods or some of the tools, like this: 
 
 ```shell
-$> ./evaluate your-experiment.yaml --filter-methods=Simple --filter-tools=syntaxer > experiment.json
+$> ./evaluate your-experiment.yaml --filter-methods=Simple --filter-tools=syntaxer -o experiment.json
 ```
 
 Also, if you want more debug information you can add multiples `-vvv` to get more information.
