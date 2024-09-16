@@ -100,9 +100,9 @@ b_expr_query = JAVA_LANGUAGE.query(f"""(binary_expression
   operator: "/"
 ) @expr""")
 
-division_by_zero = -1
+division_by_zero = 50
 
-assertion_error = 0
+assertion_error = 50
 
 b_expr_capture = b_expr_query.captures(body)
 
@@ -113,7 +113,7 @@ if "expr" in b_expr_capture:
         # literal zero
         if right.type == "decimal_integer_literal" and right.text == b"0":
             l.debug("Found division by zero")
-            division_by_zero = 100
+            division_by_zero = 90
 
         # variable that is set to zero before hand
         if right.type == "identifier":
@@ -132,17 +132,12 @@ if "assert" in assert_capture:
     for node in assert_q.captures(body)["assert"]:
         if node.children[1].type == "false":
             l.debug("Found assertion")
-            assertion_error = max(100, assertion_error)
-        
+            assertion_error = max(90, assertion_error)
         if node.children[1].type == "identifier" or node.children[1].type == "binary_expression":
             l.debug("Found assertion")
             assertion_error = max(55, assertion_error)
-        
 else:
     l.debug("Did not find any assertions")
-    assertion_error = 0
 
 print(f"assertion error;{assertion_error}%")
-
-if division_by_zero > -1:
-    print(f"divide by zero;{division_by_zero}%")
+print(f"divide by zero;{division_by_zero}%")
