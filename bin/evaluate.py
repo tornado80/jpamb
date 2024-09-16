@@ -136,6 +136,13 @@ def evaluate(
     tools = experiment["tools"]
     by_tool = defaultdict(list)
 
+    with open(WORKFOLDER / "CITATION.cff") as f:
+        import yaml
+
+        version = yaml.safe_load(f)["version"]
+
+    logger.info(f"Version {version}")
+
     sieve = WORKFOLDER / "timer" / "sieve.c"
 
     logger.info(f"Building timer from {sieve}")
@@ -241,6 +248,7 @@ def evaluate(
         )
 
     experiment["timestamp"] = int(datetime.now().timestamp() * 1000)
+    experiment["version"] = version
 
     with open(output, "w", encoding="utf-8") as fp:
         json.dump(experiment, fp)
