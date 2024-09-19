@@ -55,6 +55,7 @@ def test(
             continue
         logger.info(f"Running {case}")
 
+        result: str
         try:
             (result, _) = run_cmd(
                 cmd + (case.methodid, str(case.input)),
@@ -65,7 +66,7 @@ def test(
             logger.error(e)
             result = e.stdout
 
-        test = result.splitlines()[-1]
+        test = r[-1] if (r := result.splitlines()) else ""
         logger.info(f"Returned {test!r}")
         if test == case.result:
             logger.success(f"Mathed {case.result!r}")
