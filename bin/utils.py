@@ -2,7 +2,7 @@ import collections
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
-from typing import TextIO, TypeVar
+from typing import NoReturn, TextIO, TypeVar
 import re
 import subprocess
 import sys
@@ -22,8 +22,28 @@ QUERIES = [
     "out of bounds",
 ]
 
+char = str
 
-prim = bool | int
+
+@dataclass(frozen=True)
+class IntList:
+    content: tuple[int]
+
+    def __str__(self) -> str:
+        val = ", ".join(str(a) for a in self.content)
+        return f"[I:{val}]"
+
+
+@dataclass(frozen=True)
+class CharList:
+    content: tuple[char]
+
+    def __str__(self) -> str:
+        val = ", ".join(f"'{c}'" for c in self.content)
+        return f"[C:{val}]"
+
+
+prim = bool | int | char | CharList | IntList
 
 
 def re_parser(ctx_, parms_, expr):
@@ -89,25 +109,143 @@ def print_prim(i: prim, file: W = sys.stdout) -> W:
     return file
 
 
+@dataclass
+class InputParser:
+    Token = collections.namedtuple("Token", "kind value")
+
+    tokens: list["InputParser.Token"]
+    input: str
+
+    def __init__(self, input) -> None:
+        self.input = input
+        self.tokens = list(InputParser.tokenize(input))
+
+    @staticmethod
+    def tokenize(string):
+        token_specification = [
+            ("OPEN_ARRAY", r"\[[IC]:"),
+            ("CLOSE_ARRAY", r"\]"),
+            ("OPEN_INPUTS", r"\("),
+            ("CLOSE_INPUTS", r"\)"),
+            ("INT", r"-?\d+"),
+            ("BOOL", r"true|false"),
+            ("CHAR", r"'[^']'"),
+            ("COMMA", r","),
+            ("SKIP", r"[ \t]+"),
+        ]
+        tok_regex = "|".join(f"(?P<{n}>{m})" for n, m in token_specification)
+
+        for m in re.finditer(tok_regex, string):
+            kind, value = m.lastgroup, m.group()
+            if kind == "SKIP":
+                continue
+            yield InputParser.Token(kind, value)
+
+    @property
+    def head(self):
+        if self.tokens:
+            return self.tokens[0]
+
+    def next(self):
+        self.tokens = self.tokens[1:]
+
+    def expected(self, expected) -> NoReturn:
+        raise ValueError(
+            f"Expected {expected} but got {self.tokens[:3]} in {self.input}"
+        )
+
+    def expect(self, expect) -> Token:
+        head = self.head
+        if head is None:
+            self.expected(repr(expect))
+        elif expect != head.kind:
+            self.expected(repr(expect))
+        self.next()
+        return head
+
+    def parse_input(self):
+        next = self.head or self.expected("token")
+        if next.kind == "INT":
+            return self.parse_int()
+        if next.kind == "OPEN_ARRAY":
+            return self.parse_array()
+        if next.kind == "BOOL":
+            return self.parse_bool()
+        self.expected("input")
+
+    def parse_int(self):
+        tok = self.expect("INT")
+        return int(tok.value)
+
+    def parse_bool(self):
+        tok = self.expect("BOOL")
+        return tok.value == "true"
+
+    def parse_char(self):
+        tok = self.expect("CHAR")
+        return tok.value[1]
+
+    def parse_array(self):
+        key = self.expect("OPEN_ARRAY")
+        if key.value == "[I:":  # ]
+            listtype = IntList
+            parser = self.parse_int
+            tp = int
+        elif key.value == "[C:":  # ]
+            listtype = CharList
+            parser = self.parse_char
+            tp = char
+        else:
+            self.expected("int or char array")
+
+        inputs = []
+
+        if self.head is None:
+            self.expected("input or ]")
+
+        if self.head.kind == "CLOSE_ARRAY":
+            self.next()
+            return listtype(tuple())
+
+        inputs.append(parser())
+
+        while self.head and self.head.kind == "COMMA":
+            self.next()
+            inputs.append(parser())
+
+        self.expect("CLOSE_ARRAY")
+
+        assert all(isinstance(i, tp) for i in inputs)
+        return listtype(tuple(inputs))
+
+    def parse_inputs(self):
+        self.expect("OPEN_INPUTS")
+        inputs = []
+
+        if self.head is None:
+            self.expected("input or )")
+
+        if self.head.kind == "CLOSE_INPUTS":
+            return inputs
+
+        inputs.append(self.parse_input())
+
+        while self.head and self.head.kind == "COMMA":
+            self.next()
+            inputs.append(self.parse_input())
+
+        self.expect("CLOSE_INPUTS")
+
+        return inputs
+
+
 @dataclass(frozen=True, order=True)
 class Input:
     val: tuple[prim, ...]
 
     @staticmethod
     def parse(string: str) -> "Input":
-        if not (m := re.match(r"\(([^)]*)\)", string)):
-            raise ValueError(f"Invalid inputs: {string!r}")
-        parsed_args = []
-        for i in m.group(1).split(","):
-            i = i.strip()
-            if not i:
-                continue
-            if i == "true":
-                parsed_args.append(True)
-            elif i == "false":
-                parsed_args.append(False)
-            else:
-                parsed_args.append(int(i))
+        parsed_args = InputParser(string).parse_inputs()
         return Input(tuple(parsed_args))
 
     def __str__(self) -> str:
@@ -402,7 +540,7 @@ class Suite:
             res, _ = run_cmd(cmd, timeout=None, logger=self.logger)
             if not res:
                 self.logger.warning(f"jvm2json: {res}")
-            self.logger.info(res)
+            self.logger.trace(res)
             encoding = json.loads(res)
             with open(jsonclazz, "w") as f:
                 json.dump(encoding, f, indent=2, sort_keys=True)
