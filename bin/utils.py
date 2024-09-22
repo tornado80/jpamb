@@ -2,12 +2,14 @@ import collections
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
-from typing import NoReturn, TextIO, TypeVar
+from typing import TextIO, TypeVar
 import re
 import subprocess
 import sys
 import csv
 import json
+
+from jpamb_utils import InputParser, JvmType, JvmValue, MethodId
 
 import loguru
 
@@ -21,29 +23,6 @@ QUERIES = [
     "ok",
     "out of bounds",
 ]
-
-char = str
-
-
-@dataclass(frozen=True)
-class IntList:
-    content: tuple[int]
-
-    def __str__(self) -> str:
-        val = ", ".join(str(a) for a in self.content)
-        return f"[I:{val}]"
-
-
-@dataclass(frozen=True)
-class CharList:
-    content: tuple[char]
-
-    def __str__(self) -> str:
-        val = ", ".join(f"'{c}'" for c in self.content)
-        return f"[C:{val}]"
-
-
-prim = bool | int | char | CharList | IntList
 
 
 def re_parser(ctx_, parms_, expr):
@@ -98,155 +77,16 @@ def setup_logger(verbose):
     return logger.bind(process="main")
 
 
-def print_prim(i: prim, file: W = sys.stdout) -> W:
-    if isinstance(i, bool):
-        if i:
-            file.write("true")
-        else:
-            file.write("false")
-    else:
-        print(i, file=file, end="")
-    return file
-
-
-@dataclass
-class InputParser:
-    Token = collections.namedtuple("Token", "kind value")
-
-    tokens: list["InputParser.Token"]
-    input: str
-
-    def __init__(self, input) -> None:
-        self.input = input
-        self.tokens = list(InputParser.tokenize(input))
-
-    @staticmethod
-    def tokenize(string):
-        token_specification = [
-            ("OPEN_ARRAY", r"\[[IC]:"),
-            ("CLOSE_ARRAY", r"\]"),
-            ("OPEN_INPUTS", r"\("),
-            ("CLOSE_INPUTS", r"\)"),
-            ("INT", r"-?\d+"),
-            ("BOOL", r"true|false"),
-            ("CHAR", r"'[^']'"),
-            ("COMMA", r","),
-            ("SKIP", r"[ \t]+"),
-        ]
-        tok_regex = "|".join(f"(?P<{n}>{m})" for n, m in token_specification)
-
-        for m in re.finditer(tok_regex, string):
-            kind, value = m.lastgroup, m.group()
-            if kind == "SKIP":
-                continue
-            yield InputParser.Token(kind, value)
-
-    @property
-    def head(self):
-        if self.tokens:
-            return self.tokens[0]
-
-    def next(self):
-        self.tokens = self.tokens[1:]
-
-    def expected(self, expected) -> NoReturn:
-        raise ValueError(
-            f"Expected {expected} but got {self.tokens[:3]} in {self.input}"
-        )
-
-    def expect(self, expect) -> Token:
-        head = self.head
-        if head is None:
-            self.expected(repr(expect))
-        elif expect != head.kind:
-            self.expected(repr(expect))
-        self.next()
-        return head
-
-    def parse_input(self):
-        next = self.head or self.expected("token")
-        if next.kind == "INT":
-            return self.parse_int()
-        if next.kind == "OPEN_ARRAY":
-            return self.parse_array()
-        if next.kind == "BOOL":
-            return self.parse_bool()
-        self.expected("input")
-
-    def parse_int(self):
-        tok = self.expect("INT")
-        return int(tok.value)
-
-    def parse_bool(self):
-        tok = self.expect("BOOL")
-        return tok.value == "true"
-
-    def parse_char(self):
-        tok = self.expect("CHAR")
-        return tok.value[1]
-
-    def parse_array(self):
-        key = self.expect("OPEN_ARRAY")
-        if key.value == "[I:":  # ]
-            listtype = IntList
-            parser = self.parse_int
-            tp = int
-        elif key.value == "[C:":  # ]
-            listtype = CharList
-            parser = self.parse_char
-            tp = char
-        else:
-            self.expected("int or char array")
-
-        inputs = []
-
-        if self.head is None:
-            self.expected("input or ]")
-
-        if self.head.kind == "CLOSE_ARRAY":
-            self.next()
-            return listtype(tuple())
-
-        inputs.append(parser())
-
-        while self.head and self.head.kind == "COMMA":
-            self.next()
-            inputs.append(parser())
-
-        self.expect("CLOSE_ARRAY")
-
-        assert all(isinstance(i, tp) for i in inputs)
-        return listtype(tuple(inputs))
-
-    def parse_inputs(self):
-        self.expect("OPEN_INPUTS")
-        inputs = []
-
-        if self.head is None:
-            self.expected("input or )")
-
-        if self.head.kind == "CLOSE_INPUTS":
-            return inputs
-
-        inputs.append(self.parse_input())
-
-        while self.head and self.head.kind == "COMMA":
-            self.next()
-            inputs.append(self.parse_input())
-
-        self.expect("CLOSE_INPUTS")
-
-        return inputs
-
-
 @dataclass(frozen=True, order=True)
 class Input:
-    val: tuple[prim, ...]
+    val: tuple[JvmType, ...]
 
     @staticmethod
     def parse(string: str) -> "Input":
         parsed_args = InputParser(string).parse_inputs()
-        return Input(tuple(parsed_args))
+        input = Input(tuple(parsed_args))
+        assert string == str(input), f"{input} should formatted as {string}"
+        return input
 
     def __str__(self) -> str:
         return self.print(StringIO()).getvalue()
@@ -254,11 +94,7 @@ class Input:
     def print(self, file: W = sys.stdout) -> W:
         open, close = "()"
         file.write(open)
-        if self.val:
-            print_prim(self.val[0], file=file)
-            for i in self.val[1:]:
-                file.write(", ")
-                print_prim(i, file=file)
+        file.write(", ".join(map(str, self.val)))
         file.write(close)
         return file
 
@@ -351,7 +187,7 @@ def runtime(*args, enable_assertions=False, **kwargs):
 
 @dataclass(frozen=True, order=True)
 class Case:
-    methodid: str
+    methodid: MethodId
     input: Input
     result: str
 
@@ -359,11 +195,10 @@ class Case:
     def from_spec(line):
         if not (m := re.match(r"([^ ]*) +(\([^)]*\)) -> (.*)", line)):
             raise ValueError(f"Unexpected line: {line!r}")
-        return Case(m.group(1), Input.parse(m.group(2)), m.group(3))
+        return Case(MethodId.parse(m.group(1)), Input.parse(m.group(2)), m.group(3))
 
     def __str__(self) -> str:
-        name = self.methodid.split(":")[0]
-        return f"{name}:{self.input} -> {self.result}"
+        return f"{self.methodid.class_name}.{self.methodid.method_name}:{self.input} -> {self.result}"
 
     @staticmethod
     def by_methodid(iterable) -> list[tuple[str, list["Case"]]]:
@@ -493,7 +328,7 @@ class Suite:
         for case in self.cases():
             self.logger.debug(f"Testing {case!s:<74}")
             cmd = ["java", "-cp", self.classfiles, "-ea"]
-            cmd += ["jpamb.Runtime", case.methodid, str(case.input)]
+            cmd += ["jpamb.Runtime", str(case.methodid), str(case.input)]
             timeout = 0.5
             try:
                 result, time = run_cmd(
