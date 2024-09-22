@@ -114,6 +114,7 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
     logger = logger.bind(process=summary64(cmd))
     cp = None
     stdout = []
+    stderr = []
     tout = None
     try:
         start = monotonic()
@@ -135,6 +136,7 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
             assert cp.stderr
             with cp.stderr:
                 for line in iter(cp.stderr.readline, ""):
+                    stderr.append(line)
                     logger.debug(line[:-1])
 
         def save_result(cp):
@@ -153,7 +155,12 @@ def run_cmd(cmd: list[str], /, timeout, logger, **kwargs):
         end_ns = perf_counter_ns()
 
         if exitcode != 0:
-            raise subprocess.CalledProcessError(cmd=cmd, returncode=exitcode)
+            raise subprocess.CalledProcessError(
+                cmd=cmd,
+                returncode=exitcode,
+                stderr="\n".join(stderr),
+                output=stdout[0].strip(),
+            )
 
         logger.debug("done")
         return (stdout[0].strip(), end_ns - start_ns)
@@ -201,7 +208,7 @@ class Case:
         return f"{self.methodid.class_name}.{self.methodid.method_name}:{self.input} -> {self.result}"
 
     @staticmethod
-    def by_methodid(iterable) -> list[tuple[str, list["Case"]]]:
+    def by_methodid(iterable) -> list[tuple[MethodId, list["Case"]]]:
         cases_by_id = collections.defaultdict(list)
 
         for c in iterable:
@@ -336,7 +343,7 @@ class Suite:
                     timeout=timeout,
                     logger=self.logger,
                 )
-                self.logger.debug(f"Got {result!r} in {time}")
+                self.logger.debug(f"Got {result!r} in {time/10**9}s")
             except subprocess.CalledProcessError:
                 result = None
                 self.logger.debug(f"Process failed.")

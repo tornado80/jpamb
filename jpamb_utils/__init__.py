@@ -90,6 +90,9 @@ class BoolValue:
     def __str__(self):
         return "true" if self.value else "false"
 
+    def tolocal(self):
+        return IntValue(1) if self.value else IntValue(0)
+
 
 @dataclass(frozen=True)
 @string_compare
@@ -99,6 +102,9 @@ class IntValue:
     def __str__(self):
         return str(self.value)
 
+    def tolocal(self):
+        return self.value
+
 
 @dataclass(frozen=True)
 @string_compare
@@ -107,6 +113,9 @@ class CharValue:
 
     def __str__(self):
         return f"'{self.value}'"
+
+    def tolocal(self):
+        return IntValue(ord(self.value[0]))
 
 
 @dataclass(frozen=True)
@@ -118,6 +127,9 @@ class IntListValue:
         val = ", ".join(str(a) for a in self.value)
         return f"[I:{val}]"
 
+    def tolocal(self):
+        return self.value
+
 
 @dataclass(frozen=True)
 @string_compare
@@ -127,6 +139,9 @@ class CharListValue:
     def __str__(self) -> str:
         val = ", ".join(str(a) for a in self.value)
         return f"[C:{val}]"
+
+    def tolocal(self):
+        return self.value
 
 
 JvmValue: TypeAlias = BoolValue | IntValue | CharValue | IntListValue | CharListValue

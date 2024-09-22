@@ -13,6 +13,8 @@ for example:
 ```
 jpamb.cases.Simple.assertPositive:(I)V
 jpamb.cases.Simple.divideByZero:()I 
+jpamb.cases.Simple.divideZeroByZero:(II)I
+jpamb.cases.Arrays.arraySpellsHello:([C)V
 ```
 
 And the query is one of: 
@@ -172,6 +174,10 @@ lower the bar to entrance, the byte code of the benchmarks have already been dec
 The codec for the output is described [here](https://github.com/kalhauge/jvm2json/blob/main/CODEC.txt).
 
 Some sample code for how to get started can be seen in `solutions/bytecoder.py`.
+
+## Interpreting
+
+You can run an interpreter for each of the cases using the `bin/test.py` command.
 
 
 ## Developing

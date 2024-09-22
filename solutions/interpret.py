@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import sys, logging
 from typing import Optional
 
-from jpamb_utils import InputParser, MethodId
+from jpamb_utils import InputParser, IntValue, MethodId
 
 l = logging
 l.basicConfig(level=logging.DEBUG, format="%(message)s")
@@ -45,7 +45,13 @@ class SimpleInterpreter:
         return self.done
 
     def step_push(self, bc):
-        self.stack.insert(0, bc["value"]["value"])
+        val = bc["value"]
+        if val is not None:
+            if bc["type"] == "integer":
+                return IntValue(bc["value"])
+            raise ValueError(f"Currently unknown value {bc}")
+
+        self.stack.insert(0, val)
         self.pc += 1
 
     def step_return(self, bc):
@@ -58,5 +64,5 @@ if __name__ == "__main__":
     methodid = MethodId.parse(sys.argv[1])
     inputs = InputParser.parse(sys.argv[2])
     m = methodid.load()
-    i = SimpleInterpreter(m["code"]["bytecode"], [i for i in inputs], [])
+    i = SimpleInterpreter(m["code"]["bytecode"], [i.tolocal() for i in inputs], [])
     print(i.interpet())

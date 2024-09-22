@@ -153,7 +153,7 @@ def evaluate(
         logger.info(f"Base calibrated {i}: {calibration/1_000_000:0.0f}ms")
 
     for m, cases in Case.by_methodid(suite.cases()):
-        if filter_methods and not filter_methods.search(m):
+        if filter_methods and not filter_methods.search(str(m)):
             logger.trace(f"{m} did not match {filter_methods}")
             continue
 
