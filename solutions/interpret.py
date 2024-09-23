@@ -158,6 +158,15 @@ class SimpleInterpreter:
             self.stack.pop()
         self.done = "ok"
 
+    def step_dup(self, bc):
+        # Duplicate the last element in the stack
+        self.stack.append(self.stack[-1])
+        self.pc += 1
+
+    def step_invoke(self, bc):
+        # todo
+        self.pc += 1
+
 
 if __name__ == "__main__":
     methodid = MethodId.parse(sys.argv[1])
