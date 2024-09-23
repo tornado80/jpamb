@@ -47,9 +47,10 @@ class SimpleInterpreter:
     def step_push(self, bc):
         val = bc["value"]
         if val is not None:
-            if bc["type"] == "integer":
-                return IntValue(bc["value"])
-            raise ValueError(f"Currently unknown value {bc}")
+            if val["type"] == "integer":
+                val = IntValue(val["value"])
+            else:
+                raise ValueError(f"Currently unknown value {bc}")
 
         self.stack.insert(0, val)
         self.pc += 1
