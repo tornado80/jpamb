@@ -75,12 +75,30 @@ class MethodId:
             pc=0,
         )
 
+@dataclass
+class StackFrame:
+    locals: list
+    operand_stack: list
+    pc: int
+
+    def __str__(self):
+        return f"locals: {self.locals}, operand_stack: {self.stack} pc: {self.pc}"
+
+
+@dataclass
+class ProgramState:
+    heap: dict
+    method_stack: list[StackFrame]
+
+    def __str__(self):
+        return f"heap: {self.locals}, method_stack: {self.stack}"
 
 @dataclass
 class SimpleInterpreter:
     bytecode: list
     locals: list
     stack: list
+    #state: ProgramState
     pc: int
     done: Optional[str] = None
 
@@ -108,13 +126,36 @@ class SimpleInterpreter:
 
         return self.done
 
+    def step_get(self, bc):
+        if bc['field']['name'] == '$assertionsDisabled':
+            self.stack.append(False)
+            self.pc += 1
+
+    def step_ifz(self, bc):
+        top = self.stack.pop()
+
+        # python compares equal false with zero
+        # we might need type conversion or type check here for the top to be boolean or integer to compare with zero
+        cond = bc["condition"]
+
+        if cond == "ne":
+            if top != 0:
+                self.pc = bc["target"]
+                return
+
+        self.pc += 1
+
+    def step_new(self, bc):
+        self.stack.append(0)
+        self.pc += 1
+
     def step_push(self, bc):
-        self.stack.insert(0, bc["value"]["value"])
+        self.stack.append(bc["value"]["value"])
         self.pc += 1
 
     def step_return(self, bc):
         if bc["type"] is not None:
-            self.stack.pop(0)
+            self.stack.pop()
         self.done = "ok"
 
 

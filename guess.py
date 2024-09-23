@@ -113,7 +113,7 @@ if "expr" in b_expr_capture:
         # literal zero
         if right.type == "decimal_integer_literal" and right.text == b"0":
             l.debug("Found division by zero")
-            division_by_zero = 90
+            division_by_zero = 70
 
         # variable that is set to zero before hand
         if right.type == "identifier":
@@ -132,7 +132,7 @@ if "assert" in assert_capture:
     for node in assert_q.captures(body)["assert"]:
         if node.children[1].type == "false":
             l.debug("Found assertion")
-            assertion_error = max(90, assertion_error)
+            assertion_error = max(70, assertion_error)
         if node.children[1].type == "identifier" or node.children[1].type == "binary_expression":
             l.debug("Found assertion")
             assertion_error = max(55, assertion_error)
