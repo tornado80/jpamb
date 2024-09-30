@@ -1,3 +1,12 @@
+attrs==24.2.0
 click==8.1.7
+hypothesis==6.112.2
+iniconfig==2.0.0
 loguru==0.7.2
+packaging==24.1
+pluggy==1.5.0
+pytest==8.3.3
 PyYAML==6.0.2
+sortedcontainers==2.4.0
+tree-sitter==0.23.0
+tree-sitter-java==0.23.1
