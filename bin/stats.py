@@ -11,6 +11,35 @@ import pandas as pd
 from pathlib import Path
 
 
+def get_kind(technologies):
+    is_syntactic = "syntactic" in technologies
+    is_static = "static" in technologies
+    is_dynamic = "dynamic" in technologies
+    is_cheater = "cheater" in technologies
+
+    kind = None
+
+    if is_static:
+        kind = "static"
+
+    if is_dynamic:
+        kind = "dynamic"
+
+    if is_syntactic:
+        kind = "syntactic"
+
+    if is_static and is_dynamic:
+        kind = "hybrid"
+
+    if is_cheater:
+        kind = "cheater"
+
+    if kind is None:
+        kind = "adhoc"
+
+    return kind
+
+
 def analyse(experiment, logger):
     for tool, ctx in experiment["tools"].items():
         per_method = defaultdict(dict)
@@ -37,45 +66,17 @@ def analyse(experiment, logger):
                 }
             )
 
-        is_syntactic = "syntactic" in ctx["technologies"]
-        is_static = "static" in ctx["technologies"]
-        is_dynamic = "dynamic" in ctx["technologies"]
-        is_cheater = "cheater" in ctx["technologies"]
-
-        kind = None
-
-        if is_static:
-            kind = "static"
-
-        if is_dynamic:
-            kind = "dynamic"
-
-        if is_syntactic:
-            kind = "syntactic"
-
-        if is_static and is_dynamic:
-            kind = "hybrid"
-
-        if is_cheater:
-            kind = "cheater"
-
-        if kind is None:
-            kind = "adhoc"
-
         df = pd.DataFrame(rows)
-        result = {
+        yield {
             "group": experiment["group_name"],
             "version": datetime.fromtimestamp(experiment["timestamp"] / 1000),
             "tool": tool,
-            "kind": kind,
+            "kind": get_kind(ctx["technologies"]),
             "technologies": ctx["technologies"],
             "score": df["score"].sum(),
             "absolute": df["absolute/mean"].sum(),
             "relative": math.pow(10, df["relative/mean"].mean()),
         }
-
-        return result
-        # swriter.writerow(result)
 
 
 @click.command()
@@ -100,7 +101,7 @@ def stats(files, report, verbose):
 
     def handle_result(result):
         try:
-            results.append(analyse(result, logger))
+            results.extend(analyse(result, logger))
         except KeyError as e:
             logger.debug(sorted(result))
             logger.warning(e)
